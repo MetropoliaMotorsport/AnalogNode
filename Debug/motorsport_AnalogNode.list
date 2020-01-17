@@ -35,15 +35,15 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   CONTENTS, READONLY, DEBUGGING
  15 .debug_ranges 000004f0  00000000  00000000  00026838  2**3
                   CONTENTS, READONLY, DEBUGGING
- 16 .debug_macro  0001b71c  00000000  00000000  00026d28  2**0
+ 16 .debug_macro  0001b6fd  00000000  00000000  00026d28  2**0
                   CONTENTS, READONLY, DEBUGGING
- 17 .debug_line   000049b9  00000000  00000000  00042444  2**0
+ 17 .debug_line   000049ab  00000000  00000000  00042425  2**0
                   CONTENTS, READONLY, DEBUGGING
- 18 .debug_str    000ad1d7  00000000  00000000  00046dfd  2**0
+ 18 .debug_str    000ad1d7  00000000  00000000  00046dd0  2**0
                   CONTENTS, READONLY, DEBUGGING
- 19 .comment      0000007b  00000000  00000000  000f3fd4  2**0
+ 19 .comment      0000007b  00000000  00000000  000f3fa7  2**0
                   CONTENTS, READONLY
- 20 .debug_frame  00001450  00000000  00000000  000f4050  2**2
+ 20 .debug_frame  00001450  00000000  00000000  000f4024  2**2
                   CONTENTS, READONLY, DEBUGGING
 
 Disassembly of section .text:
@@ -3363,20 +3363,15 @@ __STATIC_INLINE void LL_PWR_DisableDeadBatteryPD(void)
  8001504:	40007000 	.word	0x40007000
 
 08001508 <HAL_MspInit>:
-/* USER CODE END 0 */
-/**
-  * Initializes the Global MSP.
-  */
+#include "main.h"
+
+
 void HAL_MspInit(void)
 {
  8001508:	b580      	push	{r7, lr}
  800150a:	b082      	sub	sp, #8
  800150c:	af00      	add	r7, sp, #0
-  /* USER CODE BEGIN MspInit 0 */
-
-  /* USER CODE END MspInit 0 */
-
-  __HAL_RCC_SYSCFG_CLK_ENABLE();
+	__HAL_RCC_SYSCFG_CLK_ENABLE();
  800150e:	4b0f      	ldr	r3, [pc, #60]	; (800154c <HAL_MspInit+0x44>)
  8001510:	6e1b      	ldr	r3, [r3, #96]	; 0x60
  8001512:	4a0e      	ldr	r2, [pc, #56]	; (800154c <HAL_MspInit+0x44>)
@@ -3387,7 +3382,7 @@ void HAL_MspInit(void)
  800151e:	f003 0301 	and.w	r3, r3, #1
  8001522:	607b      	str	r3, [r7, #4]
  8001524:	687b      	ldr	r3, [r7, #4]
-  __HAL_RCC_PWR_CLK_ENABLE();
+	__HAL_RCC_PWR_CLK_ENABLE();
  8001526:	4b09      	ldr	r3, [pc, #36]	; (800154c <HAL_MspInit+0x44>)
  8001528:	6d9b      	ldr	r3, [r3, #88]	; 0x58
  800152a:	4a08      	ldr	r2, [pc, #32]	; (800154c <HAL_MspInit+0x44>)
@@ -3399,16 +3394,8 @@ void HAL_MspInit(void)
  800153a:	603b      	str	r3, [r7, #0]
  800153c:	683b      	ldr	r3, [r7, #0]
 
-  /* System interrupt init*/
-
-  /** Disable the internal Pull-Up in Dead Battery pins of UCPD peripheral 
-  */
-  LL_PWR_DisableDeadBatteryPD();
+	LL_PWR_DisableDeadBatteryPD();
  800153e:	f7ff ffd3 	bl	80014e8 <LL_PWR_DisableDeadBatteryPD>
-
-  /* USER CODE BEGIN MspInit 1 */
-
-  /* USER CODE END MspInit 1 */
 }
  8001542:	bf00      	nop
  8001544:	3708      	adds	r7, #8
@@ -3418,19 +3405,15 @@ void HAL_MspInit(void)
  800154c:	40021000 	.word	0x40021000
 
 08001550 <NMI_Handler>:
-/******************************************************************************/
-/**
-  * @brief This function handles Non maskable interrupt.
-  */
+#include "main.h"
+#include "stm32g4xx_it.h"
+
+
 void NMI_Handler(void)
 {
  8001550:	b480      	push	{r7}
  8001552:	af00      	add	r7, sp, #0
 
-  /* USER CODE END NonMaskableInt_IRQn 0 */
-  /* USER CODE BEGIN NonMaskableInt_IRQn 1 */
-
-  /* USER CODE END NonMaskableInt_IRQn 1 */
 }
  8001554:	bf00      	nop
  8001556:	46bd      	mov	sp, r7
@@ -3439,78 +3422,59 @@ void NMI_Handler(void)
 
 0800155e <HardFault_Handler>:
 
-/**
-  * @brief This function handles Hard fault interrupt.
-  */
 void HardFault_Handler(void)
 {
  800155e:	b480      	push	{r7}
  8001560:	af00      	add	r7, sp, #0
-  /* USER CODE BEGIN HardFault_IRQn 0 */
-
-  /* USER CODE END HardFault_IRQn 0 */
-  while (1)
+	while (1)
  8001562:	e7fe      	b.n	8001562 <HardFault_Handler+0x4>
 
 08001564 <MemManage_Handler>:
 
-/**
-  * @brief This function handles Memory management fault.
-  */
+	}
+}
+
 void MemManage_Handler(void)
 {
  8001564:	b480      	push	{r7}
  8001566:	af00      	add	r7, sp, #0
-  /* USER CODE BEGIN MemoryManagement_IRQn 0 */
-
-  /* USER CODE END MemoryManagement_IRQn 0 */
-  while (1)
+	while (1)
  8001568:	e7fe      	b.n	8001568 <MemManage_Handler+0x4>
 
 0800156a <BusFault_Handler>:
 
-/**
-  * @brief This function handles Prefetch fault, memory access fault.
-  */
+	}
+}
+
 void BusFault_Handler(void)
 {
  800156a:	b480      	push	{r7}
  800156c:	af00      	add	r7, sp, #0
-  /* USER CODE BEGIN BusFault_IRQn 0 */
-
-  /* USER CODE END BusFault_IRQn 0 */
-  while (1)
+	while (1)
  800156e:	e7fe      	b.n	800156e <BusFault_Handler+0x4>
 
 08001570 <UsageFault_Handler>:
 
-/**
-  * @brief This function handles Undefined instruction or illegal state.
-  */
+	}
+}
+
 void UsageFault_Handler(void)
 {
  8001570:	b480      	push	{r7}
  8001572:	af00      	add	r7, sp, #0
-  /* USER CODE BEGIN UsageFault_IRQn 0 */
-
-  /* USER CODE END UsageFault_IRQn 0 */
   while (1)
  8001574:	e7fe      	b.n	8001574 <UsageFault_Handler+0x4>
 
 08001576 <SVC_Handler>:
 
-/**
-  * @brief This function handles System service call via SWI instruction.
-  */
+  }
+}
+
 void SVC_Handler(void)
 {
  8001576:	b480      	push	{r7}
  8001578:	af00      	add	r7, sp, #0
 
-  /* USER CODE END SVCall_IRQn 0 */
-  /* USER CODE BEGIN SVCall_IRQn 1 */
-
-  /* USER CODE END SVCall_IRQn 1 */
 }
  800157a:	bf00      	nop
  800157c:	46bd      	mov	sp, r7
@@ -3519,18 +3483,11 @@ void SVC_Handler(void)
 
 08001584 <DebugMon_Handler>:
 
-/**
-  * @brief This function handles Debug monitor.
-  */
 void DebugMon_Handler(void)
 {
  8001584:	b480      	push	{r7}
  8001586:	af00      	add	r7, sp, #0
 
-  /* USER CODE END DebugMonitor_IRQn 0 */
-  /* USER CODE BEGIN DebugMonitor_IRQn 1 */
-
-  /* USER CODE END DebugMonitor_IRQn 1 */
 }
  8001588:	bf00      	nop
  800158a:	46bd      	mov	sp, r7
@@ -3539,18 +3496,11 @@ void DebugMon_Handler(void)
 
 08001592 <PendSV_Handler>:
 
-/**
-  * @brief This function handles Pendable request for system service.
-  */
 void PendSV_Handler(void)
 {
  8001592:	b480      	push	{r7}
  8001594:	af00      	add	r7, sp, #0
 
-  /* USER CODE END PendSV_IRQn 0 */
-  /* USER CODE BEGIN PendSV_IRQn 1 */
-
-  /* USER CODE END PendSV_IRQn 1 */
 }
  8001596:	bf00      	nop
  8001598:	46bd      	mov	sp, r7
@@ -3559,21 +3509,12 @@ void PendSV_Handler(void)
 
 080015a0 <SysTick_Handler>:
 
-/**
-  * @brief This function handles System tick timer.
-  */
 void SysTick_Handler(void)
 {
  80015a0:	b580      	push	{r7, lr}
  80015a2:	af00      	add	r7, sp, #0
-  /* USER CODE BEGIN SysTick_IRQn 0 */
-
-  /* USER CODE END SysTick_IRQn 0 */
-  HAL_IncTick();
+	HAL_IncTick();
  80015a4:	f7fe fe8a 	bl	80002bc <HAL_IncTick>
-  /* USER CODE BEGIN SysTick_IRQn 1 */
-
-  /* USER CODE END SysTick_IRQn 1 */
 }
  80015a8:	bf00      	nop
  80015aa:	bd80      	pop	{r7, pc}
