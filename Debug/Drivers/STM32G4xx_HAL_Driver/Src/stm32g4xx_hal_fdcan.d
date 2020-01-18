@@ -1,5 +1,5 @@
-Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_rcc.o: \
- ../Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_rcc.c \
+Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_fdcan.o: \
+ ../Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_fdcan.c \
  ../Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal.h \
  ../Inc/stm32g4xx_hal_conf.h \
  ../Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal_rcc.h \

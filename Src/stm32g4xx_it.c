@@ -2,6 +2,15 @@
 #include "stm32g4xx_it.h"
 
 
+//external type handlers
+extern FDCAN_HandleTypeDef hfdcan;
+
+void FDCAN1_IT0_IRQHandler(void)
+{
+	HAL_FDCAN_IRQHandler(&hfdcan);
+}
+
+
 void NMI_Handler(void)
 {
 
