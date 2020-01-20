@@ -39,5 +39,45 @@ void HAL_FDCAN_MspDeInit(FDCAN_HandleTypeDef* hfdcan)
 
     HAL_NVIC_DisableIRQ(FDCAN1_IT0_IRQn);
   }
+}
 
+void HAL_TIM_Base_MspInit(TIM_HandleTypeDef* htim_base)
+{
+	/*if(htim_base->Instance==TIM6)
+	{
+		__HAL_RCC_TIM6_CLK_ENABLE();
+		HAL_NVIC_SetPriority(TIM6_DAC_IRQn, 0, 0);
+		HAL_NVIC_EnableIRQ(TIM6_DAC_IRQn);
+	}
+	else*/ if(htim_base->Instance==TIM7)
+	{
+		__HAL_RCC_TIM7_CLK_ENABLE();
+		HAL_NVIC_SetPriority(TIM7_IRQn, 0, 0);
+		HAL_NVIC_EnableIRQ(TIM7_IRQn);
+	}
+	/*else if(htim_base->Instance==TIM16)
+	{
+		__HAL_RCC_TIM16_CLK_ENABLE();
+		HAL_NVIC_SetPriority(TIM1_UP_TIM16_IRQn, 0, 0);
+		HAL_NVIC_EnableIRQ(TIM1_UP_TIM16_IRQn);
+	}*/
+}
+
+void HAL_TIM_Base_MspDeInit(TIM_HandleTypeDef* htim_base)
+{
+	/*if(htim_base->Instance==TIM6)
+	{
+		__HAL_RCC_TIM6_CLK_DISABLE();
+		HAL_NVIC_DisableIRQ(TIM6_DAC_IRQn);
+	}
+	else*/ if(htim_base->Instance==TIM7)
+	{
+		__HAL_RCC_TIM7_CLK_DISABLE();
+		HAL_NVIC_DisableIRQ(TIM7_IRQn);
+	}
+	/*else if(htim_base->Instance==TIM16)
+	{
+		__HAL_RCC_TIM16_CLK_DISABLE();
+		HAL_NVIC_DisableIRQ(TIM1_UP_TIM16_IRQn);
+	}*/
 }

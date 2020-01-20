@@ -5,11 +5,25 @@
 void SystemClock_Config(void);
 static void MX_GPIO_Init(void);
 static void MX_DMA_Init(void);
+static void MX_ADC1_Init(void);
+static void MX_ADC2_Init(void);
 static void MX_FDCAN_Init(void);
+static void MX_TIM7_Init(void);
 
 //handlers
+ADC_HandleTypeDef hadc1;
+ADC_HandleTypeDef hadc2;
 FDCAN_HandleTypeDef hfdcan;
 uint8_t CANTxData[8];
+TIM_HandleTypeDef htim7;
+
+//config variables
+//none right now
+
+//global variables
+uint8_t canErrorToTransmit; //8 32 bit values, each 32 bit value can store 32 errors or warnings
+uint32_t canErrors[8];
+uint8_t canSendErrorFlag;
 
 
 int main(void)
@@ -20,13 +34,23 @@ int main(void)
 
 	MX_GPIO_Init();
 	MX_DMA_Init();
+	MX_ADC1_Init();
+	MX_ADC2_Init();
 	MX_FDCAN_Init();
+	MX_TIM7_Init();
 
 	while (1)
 	{
-		HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_15);
-		Can_Send();
-		HAL_Delay(200);
+		if(canErrorToTransmit && canSendErrorFlag)
+		{
+			Send_Error();
+			if(!canErrorToTransmit)
+			{
+				canSendErrorFlag=0; //TODO based on timer
+			}
+		}
+
+		//whatever else is done in main
 	}
 }
 
@@ -34,7 +58,7 @@ void Can_Send()
 {
 	if(HAL_FDCAN_GetTxFifoFreeLevel(&hfdcan) < 1)
 	{
-		//Set_Error(ERR_CAN_FIFO_FULL); //TODO
+		Set_Error(ERR_CAN_FIFO_FULL);
 		return;
 	}
 
@@ -69,10 +93,82 @@ void Can_Send()
 
 	if(HAL_FDCAN_AddMessageToTxFifoQ(&hfdcan, &TxHeader, CANTxData) != HAL_OK)
 	{
-		//Set_Error(ERR_SEND_FAILED); //TODO
+		Set_Error(ERR_SEND_FAILED);
 		return;
 	}
 }
+
+void Set_Error(uint32_t error)
+{
+	canErrors[(error/32)]  |= (1<<(error%32));
+	canErrorToTransmit |= (1<<(error/32));
+}
+
+void Send_Error(void)
+{
+	for(uint32_t i=0; i<8; i++)
+	{
+		if (canErrorToTransmit&(1<<i))
+		{
+			if(HAL_FDCAN_GetTxFifoFreeLevel(&hfdcan) > 0)
+			{
+				FDCAN_TxHeaderTypeDef TxHeader;
+
+				TxHeader.Identifier = CANID_ERROR;
+				TxHeader.DataLength = FDCAN_DLC_BYTES_6;
+
+				CANTxData[0]=ID;
+				CANTxData[1]=i;
+				CANTxData[2]=(canErrors[i]>>24)&0xFF;
+				CANTxData[3]=(canErrors[i]>>16)&0xFF;
+				CANTxData[4]=(canErrors[i]>>8)&0xFF;
+				CANTxData[5]=(canErrors[i]>>0)&0xFF;
+
+				TxHeader.IdType = FDCAN_STANDARD_ID;
+				TxHeader.TxFrameType = FDCAN_DATA_FRAME;
+				TxHeader.ErrorStateIndicator = FDCAN_ESI_ACTIVE;
+				TxHeader.BitRateSwitch = FDCAN_BRS_OFF;
+				TxHeader.FDFormat = FDCAN_CLASSIC_CAN;
+				TxHeader.TxEventFifoControl = FDCAN_NO_TX_EVENTS;
+				TxHeader.MessageMarker = 0;
+
+				if(HAL_FDCAN_AddMessageToTxFifoQ(&hfdcan, &TxHeader, CANTxData) != HAL_OK)
+				{
+					Set_Error(ERR_SEND_FAILED);
+					return;
+				}
+				else
+				{
+					//if we sent the error message clear the error so that if it only occurs once the error is not sent continuously
+					canErrors[i]=0;
+					canErrorToTransmit &= ~(1<<i);
+				}
+			}
+		}
+	}
+}
+
+void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
+{
+	/*else if (htim->Instance == TIM16)
+	{
+		HAL_TIM_Base_Stop_IT(&htim16);
+		Can_Sync();
+	}
+	else*/ if (htim->Instance == TIM7)
+	{
+		canSendErrorFlag=1;
+	}
+	/*else if (htim->Instance == TIM6)
+	{
+		CanTimerFlag=1;
+	}*/
+	else
+	{
+		Error_Handler();
+	}
+}
+
 
 void SystemClock_Config(void)
 {
@@ -140,6 +236,125 @@ static void MX_DMA_Init(void)
 	HAL_NVIC_EnableIRQ(DMA1_Channel1_IRQn);
 	HAL_NVIC_SetPriority(DMA1_Channel2_IRQn, 0, 0);
 	HAL_NVIC_EnableIRQ(DMA1_Channel2_IRQn);
+}
+
+static void MX_ADC1_Init(void)
+{
+	ADC_MultiModeTypeDef multimode = {0};
+	ADC_ChannelConfTypeDef sConfig = {0};
+
+	hadc1.Instance = ADC1;
+	hadc1.Init.ClockPrescaler = ADC_CLOCK_ASYNC_DIV1;
+	hadc1.Init.Resolution = ADC_RESOLUTION_10B;
+	hadc1.Init.DataAlign = ADC_DATAALIGN_RIGHT;
+	hadc1.Init.GainCompensation = 0;
+	hadc1.Init.ScanConvMode = ADC_SCAN_ENABLE;
+	hadc1.Init.EOCSelection = ADC_EOC_SINGLE_CONV;
+	hadc1.Init.LowPowerAutoWait = DISABLE;
+	hadc1.Init.ContinuousConvMode = ENABLE;
+	hadc1.Init.NbrOfConversion = 3;
+	hadc1.Init.DiscontinuousConvMode = DISABLE;
+	hadc1.Init.ExternalTrigConv = ADC_SOFTWARE_START;
+	hadc1.Init.ExternalTrigConvEdge = ADC_EXTERNALTRIGCONVEDGE_NONE;
+	hadc1.Init.DMAContinuousRequests = ENABLE;
+	hadc1.Init.Overrun = ADC_OVR_DATA_OVERWRITTEN;
+	hadc1.Init.OversamplingMode = DISABLE;
+	if (HAL_ADC_Init(&hadc1) != HAL_OK)
+	{
+		Error_Handler();
+	}
+
+	multimode.Mode = ADC_MODE_INDEPENDENT;
+	multimode.DMAAccessMode = ADC_DMAACCESSMODE_12_10_BITS;
+	multimode.TwoSamplingDelay = ADC_TWOSAMPLINGDELAY_12CYCLES;
+	if (HAL_ADCEx_MultiModeConfigChannel(&hadc1, &multimode) != HAL_OK)
+	{
+		Error_Handler();
+	}
+
+//TODO: from here
+	sConfig.Channel = ADC_CHANNEL_1;
+	sConfig.Rank = ADC_REGULAR_RANK_3;
+	sConfig.SamplingTime = ADC_SAMPLETIME_640CYCLES_5;
+	sConfig.SingleDiff = ADC_SINGLE_ENDED;
+	sConfig.OffsetNumber = ADC_OFFSET_NONE;
+	sConfig.Offset = 0;
+	if (HAL_ADC_ConfigChannel(&hadc1, &sConfig) != HAL_OK)
+	{
+		Error_Handler();
+	}
+
+	sConfig.Channel = ADC_CHANNEL_2;
+	sConfig.Rank = ADC_REGULAR_RANK_2;
+	if (HAL_ADC_ConfigChannel(&hadc1, &sConfig) != HAL_OK)
+	{
+		Error_Handler();
+	}
+
+	sConfig.Channel = ADC_CHANNEL_3;
+	sConfig.Rank = ADC_REGULAR_RANK_1;
+	if (HAL_ADC_ConfigChannel(&hadc1, &sConfig) != HAL_OK)
+	{
+		Error_Handler();
+	}
+
+	if (HAL_ADCEx_Calibration_Start(&hadc1, ADC_SINGLE_ENDED) != HAL_OK)
+	{
+		Error_Handler();
+	}
+}
+
+static void MX_ADC2_Init(void)
+{
+	ADC_ChannelConfTypeDef sConfig = {0};
+
+	hadc2.Instance = ADC2;
+	hadc2.Init.ClockPrescaler = ADC_CLOCK_ASYNC_DIV1;
+	hadc2.Init.Resolution = ADC_RESOLUTION_10B;
+	hadc2.Init.DataAlign = ADC_DATAALIGN_RIGHT;
+	hadc2.Init.GainCompensation = 0;
+	hadc2.Init.ScanConvMode = ADC_SCAN_ENABLE;
+	hadc2.Init.EOCSelection = ADC_EOC_SINGLE_CONV;
+	hadc2.Init.LowPowerAutoWait = DISABLE;
+	hadc2.Init.ContinuousConvMode = DISABLE;
+	hadc2.Init.NbrOfConversion = 3;
+	hadc2.Init.DiscontinuousConvMode = ENABLE;
+	hadc2.Init.DMAContinuousRequests = ENABLE;
+	hadc2.Init.Overrun = ADC_OVR_DATA_OVERWRITTEN;
+	hadc2.Init.OversamplingMode = DISABLE;
+	if (HAL_ADC_Init(&hadc2) != HAL_OK)
+	{
+		Error_Handler();
+	}
+
+
+	sConfig.Channel = ADC_CHANNEL_10;
+	sConfig.Rank = ADC_REGULAR_RANK_1;
+	sConfig.SamplingTime = ADC_SAMPLETIME_640CYCLES_5;
+	sConfig.SingleDiff = ADC_SINGLE_ENDED;
+	sConfig.OffsetNumber = ADC_OFFSET_NONE;
+	sConfig.Offset = 0;
+	if (HAL_ADC_ConfigChannel(&hadc2, &sConfig) != HAL_OK)
+	{
+		Error_Handler();
+	}
+
+	sConfig.Rank = ADC_REGULAR_RANK_2;
+	if (HAL_ADC_ConfigChannel(&hadc2, &sConfig) != HAL_OK)
+	{
+		Error_Handler();
+	}
+
+	sConfig.Rank = ADC_REGULAR_RANK_3;
+	if (HAL_ADC_ConfigChannel(&hadc2, &sConfig) != HAL_OK)
+	{
+		Error_Handler();
+	}
+
+	if (HAL_ADCEx_Calibration_Start(&hadc2, ADC_SINGLE_ENDED) != HAL_OK)
+	{
+		Error_Handler();
+	}
 }
 
 static void MX_FDCAN_Init(void)
@@ -215,6 +430,22 @@ static void MX_FDCAN_Init(void)
 		Error_Handler();
 	}
 }
+
+static void MX_TIM7_Init(void)
+{
+	htim7.Instance = TIM7;
+	htim7.Init.Prescaler = 16999;
+	htim7.Init.CounterMode = TIM_COUNTERMODE_UP;
+	htim7.Init.Period = 10000;
+	htim7.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_DISABLE;
+	if (HAL_TIM_Base_Init(&htim7) != HAL_OK)
+	{
+		Error_Handler();
+	}
+
+	HAL_TIM_Base_Start_IT(&htim7);
+}
+
 
 void Error_Handler(void)
 {

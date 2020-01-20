@@ -4,10 +4,16 @@
 
 //external type handlers
 extern FDCAN_HandleTypeDef hfdcan;
+extern TIM_HandleTypeDef htim7;
 
 void FDCAN1_IT0_IRQHandler(void)
 {
 	HAL_FDCAN_IRQHandler(&hfdcan);
+}
+
+void TIM7_IRQHandler(void)
+{
+	HAL_TIM_IRQHandler(&htim7);
 }
 
 
