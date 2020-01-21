@@ -11,14 +11,36 @@ static void MX_FDCAN_Init(void);
 static void MX_TIM7_Init(void);
 
 //handlers
+DMA_HandleTypeDef hdma_adc1;
 ADC_HandleTypeDef hadc1;
+DMA_HandleTypeDef hdma_adc2;
 ADC_HandleTypeDef hadc2;
 FDCAN_HandleTypeDef hfdcan;
-uint8_t CANTxData[8];
 TIM_HandleTypeDef htim7;
 
+//buffers
+uint8_t CANTxData[8];
+uint32_t ADC1Data[3];
+uint32_t ADC2Data[3];
+uint32_t ADCRawData[6][ROLLING_AVERAGE_MAX]; //[AI2, AI3, Temp, AI5, AI6, driver current]
+uint32_t AI2Pos;
+uint32_t AI3Pos;
+uint32_t TPos;
+uint32_t AI5Pos;
+uint32_t AI6Pos;
+uint32_t IPos;
+uint32_t AI2Written;
+uint32_t AI3Written;
+uint32_t TWritten;
+uint32_t AI5Written;
+uint32_t AI6Written;
+uint32_t IWritten;
+
 //config variables
-//none right now
+uint8_t MeasureDriverCurrent;
+uint8_t MeasureTemperature;
+uint32_t SensorRollingAverages[4]; //[AI2, AI3, AI5, AI6]
+uint8_t TransferFunctions[4];
 
 //global variables
 uint8_t canErrorToTransmit; //8 32 bit values, each 32 bit value can store 32 errors or warnings
@@ -32,12 +54,19 @@ int main(void)
 
 	SystemClock_Config();
 
+	Config_Setup();
+
 	MX_GPIO_Init();
 	MX_DMA_Init();
 	MX_ADC1_Init();
 	MX_ADC2_Init();
 	MX_FDCAN_Init();
 	MX_TIM7_Init();
+
+    if (HAL_ADC_Start_DMA(&hadc1, ADC1Data, hadc1.Init.NbrOfConversion) != HAL_OK) { Error_Handler(); }
+    if (HAL_ADC_Start_DMA(&hadc2, ADC2Data, hadc2.Init.NbrOfConversion) != HAL_OK) { Error_Handler(); }
+
+    volatile uint32_t a, b, c, d;
 
 	while (1)
 	{
@@ -50,9 +79,95 @@ int main(void)
 			}
 		}
 
+		a=TF_Voltage(2, VOLTAGE_3V3_UNCAL, 0);
+		b=TF_Voltage(2, VOLTAGE_3V3_UNCAL, 0);
+		c=TF_Voltage(2, VOLTAGE_3V3_UNCAL, 0);
+		d=TF_Voltage(2, VOLTAGE_3V3_UNCAL, 0);
+
 		//whatever else is done in main
 	}
 }
+
+uint32_t a=0;
+
+void HAL_ADC_ConvCpltCallback(ADC_HandleTypeDef* hadc)
+{
+	if (hadc->Instance == ADC1)
+	{
+		ADCRawData[0][AI2Pos] = ADC1Data[0];
+		AI2Pos++;
+		if (AI2Pos>SensorRollingAverages[0])
+		{
+			AI2Pos = 0;
+		}
+		else if (AI2Written<AI2Pos)
+		{
+			AI2Written = AI2Pos;
+		}
+
+		ADCRawData[1][AI3Pos] = ADC1Data[1];
+		AI3Pos++;
+		if (AI3Pos>SensorRollingAverages[1])
+		{
+			AI3Pos = 0;
+		}
+		else if (AI3Written<AI3Pos)
+		{
+			AI3Written = AI3Pos;
+		}
+
+		ADCRawData[2][TPos] = ADC1Data[2];
+		TPos++;
+		if (TPos>T_ROLLING_AVERAGE)
+		{
+			TPos = 0;
+		}
+		else if (TWritten<TPos)
+		{
+			TWritten = TPos;
+		}
+	}
+	else if (hadc->Instance == ADC2)
+	{
+		ADCRawData[3][AI5Pos] = ADC2Data[0];
+		AI5Pos++;
+		if (AI5Pos>SensorRollingAverages[2])
+		{
+			AI5Pos = 0;
+		}
+		else if (AI5Written<AI5Pos)
+		{
+			AI5Written = AI5Pos;
+		}
+
+		ADCRawData[4][AI6Pos] = ADC2Data[1];
+		AI6Pos++;
+		if (AI6Pos>SensorRollingAverages[3])
+		{
+			AI6Pos = 0;
+		}
+		else if (AI6Written<AI6Pos)
+		{
+			AI6Written = AI6Pos;
+		}
+
+		ADCRawData[5][IPos] = ADC1Data[2];
+		IPos++;
+		if (IPos>I_ROLLING_AVERAGE)
+		{
+			IPos = 0;
+		}
+		else if (IWritten<IPos)
+		{
+			IWritten = IPos;
+		}
+	}
+	else
+	{
+		Error_Handler();
+	}
+}
+
 
 void Can_Send()
 {
@@ -252,7 +367,8 @@ static void MX_ADC1_Init(void)
 	hadc1.Init.EOCSelection = ADC_EOC_SINGLE_CONV;
 	hadc1.Init.LowPowerAutoWait = DISABLE;
 	hadc1.Init.ContinuousConvMode = ENABLE;
-	hadc1.Init.NbrOfConversion = 3;
+	if (MeasureTemperature) { hadc1.Init.NbrOfConversion = 3; }
+	else { hadc1.Init.NbrOfConversion = 2; }
 	hadc1.Init.DiscontinuousConvMode = DISABLE;
 	hadc1.Init.ExternalTrigConv = ADC_SOFTWARE_START;
 	hadc1.Init.ExternalTrigConvEdge = ADC_EXTERNALTRIGCONVEDGE_NONE;
@@ -291,11 +407,14 @@ static void MX_ADC1_Init(void)
 		Error_Handler();
 	}
 
-	sConfig.Channel = ADC_CHANNEL_TEMPSENSOR_ADC1; //internal temperature
-	sConfig.Rank = ADC_REGULAR_RANK_3;
-	if (HAL_ADC_ConfigChannel(&hadc1, &sConfig) != HAL_OK)
+	if (MeasureTemperature)
 	{
-		Error_Handler();
+		sConfig.Channel = ADC_CHANNEL_TEMPSENSOR_ADC1; //internal temperature
+		sConfig.Rank = ADC_REGULAR_RANK_3;
+		if (HAL_ADC_ConfigChannel(&hadc1, &sConfig) != HAL_OK)
+		{
+			Error_Handler();
+		}
 	}
 
 	if (HAL_ADCEx_Calibration_Start(&hadc1, ADC_SINGLE_ENDED) != HAL_OK)
@@ -317,10 +436,11 @@ static void MX_ADC2_Init(void)
 	hadc2.Init.EOCSelection = ADC_EOC_SINGLE_CONV;
 	hadc2.Init.LowPowerAutoWait = DISABLE;
 	hadc2.Init.ContinuousConvMode = ENABLE;
-	hadc2.Init.NbrOfConversion = 3;
+	if (MeasureDriverCurrent) { hadc2.Init.NbrOfConversion = 3; }
+	else { hadc2.Init.NbrOfConversion = 2; }
 	hadc2.Init.DiscontinuousConvMode = DISABLE;
-	hadc1.Init.ExternalTrigConv = ADC_SOFTWARE_START;
-	hadc1.Init.ExternalTrigConvEdge = ADC_EXTERNALTRIGCONVEDGE_NONE;
+	hadc2.Init.ExternalTrigConv = ADC_SOFTWARE_START;
+	hadc2.Init.ExternalTrigConvEdge = ADC_EXTERNALTRIGCONVEDGE_NONE;
 	hadc2.Init.DMAContinuousRequests = ENABLE;
 	hadc2.Init.Overrun = ADC_OVR_DATA_OVERWRITTEN;
 	hadc2.Init.OversamplingMode = DISABLE;
@@ -329,8 +449,7 @@ static void MX_ADC2_Init(void)
 		Error_Handler();
 	}
 
-//TODO: from here
-	sConfig.Channel = ADC_CHANNEL_10;
+	sConfig.Channel = ADC_CHANNEL_13; //AI5, PA5
 	sConfig.Rank = ADC_REGULAR_RANK_1;
 	sConfig.SamplingTime = ADC_SAMPLETIME_640CYCLES_5;
 	sConfig.SingleDiff = ADC_SINGLE_ENDED;
@@ -341,16 +460,21 @@ static void MX_ADC2_Init(void)
 		Error_Handler();
 	}
 
+	sConfig.Channel = ADC_CHANNEL_3; //AI6, PA6
 	sConfig.Rank = ADC_REGULAR_RANK_2;
 	if (HAL_ADC_ConfigChannel(&hadc2, &sConfig) != HAL_OK)
 	{
 		Error_Handler();
 	}
 
-	sConfig.Rank = ADC_REGULAR_RANK_3;
-	if (HAL_ADC_ConfigChannel(&hadc2, &sConfig) != HAL_OK)
+	if (MeasureDriverCurrent)
 	{
-		Error_Handler();
+		sConfig.Channel = ADC_CHANNEL_4; //current feedback from driver
+		sConfig.Rank = ADC_REGULAR_RANK_3;
+		if (HAL_ADC_ConfigChannel(&hadc2, &sConfig) != HAL_OK)
+		{
+			Error_Handler();
+		}
 	}
 
 	if (HAL_ADCEx_Calibration_Start(&hadc2, ADC_SINGLE_ENDED) != HAL_OK)

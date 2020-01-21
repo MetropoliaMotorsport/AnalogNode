@@ -1,6 +1,10 @@
 #include "main.h"
 
 
+//externs
+extern DMA_HandleTypeDef hdma_adc1;
+extern DMA_HandleTypeDef hdma_adc2;
+
 void HAL_MspInit(void)
 {
 	__HAL_RCC_SYSCFG_CLK_ENABLE();
@@ -8,6 +12,103 @@ void HAL_MspInit(void)
 
 	LL_PWR_DisableDeadBatteryPD();
 }
+
+//counter to keep track of how many peripherals require ADC12 clock, so that deinitializing ADC1 allows ADC2 to run
+static uint32_t HAL_RCC_ADC12_CLK_ENABLED=0;
+
+void HAL_ADC_MspInit(ADC_HandleTypeDef* hadc)
+{
+	GPIO_InitTypeDef GPIO_InitStruct = {0};
+	if(hadc->Instance==ADC1)
+	{
+		HAL_RCC_ADC12_CLK_ENABLED++;
+		if(HAL_RCC_ADC12_CLK_ENABLED==1)
+		{
+			__HAL_RCC_ADC12_CLK_ENABLE();
+		}
+		__HAL_RCC_GPIOA_CLK_ENABLE();
+
+		GPIO_InitStruct.Pin = GPIO_PIN_2|GPIO_PIN_3;
+		GPIO_InitStruct.Mode = GPIO_MODE_ANALOG;
+		GPIO_InitStruct.Pull = GPIO_NOPULL;
+		HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
+
+		hdma_adc1.Instance = DMA1_Channel1;
+		hdma_adc1.Init.Request = DMA_REQUEST_ADC1;
+		hdma_adc1.Init.Direction = DMA_PERIPH_TO_MEMORY;
+		hdma_adc1.Init.PeriphInc = DMA_PINC_DISABLE;
+		hdma_adc1.Init.MemInc = DMA_MINC_ENABLE;
+		hdma_adc1.Init.PeriphDataAlignment = DMA_PDATAALIGN_WORD;
+		hdma_adc1.Init.MemDataAlignment = DMA_MDATAALIGN_WORD;
+		hdma_adc1.Init.Mode = DMA_CIRCULAR;
+		hdma_adc1.Init.Priority = DMA_PRIORITY_HIGH;
+		if (HAL_DMA_Init(&hdma_adc1) != HAL_OK)
+		{
+			Error_Handler();
+		}
+
+		__HAL_LINKDMA(hadc,DMA_Handle,hdma_adc1);
+	}
+	else if(hadc->Instance==ADC2)
+	{
+		HAL_RCC_ADC12_CLK_ENABLED++;
+		if(HAL_RCC_ADC12_CLK_ENABLED==1)
+		{
+		  __HAL_RCC_ADC12_CLK_ENABLE();
+		}
+		__HAL_RCC_GPIOF_CLK_ENABLE();
+
+		GPIO_InitStruct.Pin = GPIO_PIN_5|GPIO_PIN_6|GPIO_PIN_7;
+		GPIO_InitStruct.Mode = GPIO_MODE_ANALOG;
+		GPIO_InitStruct.Pull = GPIO_NOPULL;
+		HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
+
+		hdma_adc2.Instance = DMA1_Channel2;
+		hdma_adc2.Init.Request = DMA_REQUEST_ADC2;
+		hdma_adc2.Init.Direction = DMA_PERIPH_TO_MEMORY;
+		hdma_adc2.Init.PeriphInc = DMA_PINC_DISABLE;
+		hdma_adc2.Init.MemInc = DMA_MINC_ENABLE;
+		hdma_adc2.Init.PeriphDataAlignment = DMA_PDATAALIGN_WORD;
+		hdma_adc2.Init.MemDataAlignment = DMA_MDATAALIGN_WORD;
+		hdma_adc2.Init.Mode = DMA_CIRCULAR;
+		hdma_adc2.Init.Priority = DMA_PRIORITY_HIGH;
+		if (HAL_DMA_Init(&hdma_adc2) != HAL_OK)
+		{
+		  Error_Handler();
+		}
+
+		__HAL_LINKDMA(hadc,DMA_Handle,hdma_adc2);
+	}
+}
+
+void HAL_ADC_MspDeInit(ADC_HandleTypeDef* hadc)
+{
+	if(hadc->Instance==ADC1)
+	{
+		HAL_RCC_ADC12_CLK_ENABLED--;
+		if(HAL_RCC_ADC12_CLK_ENABLED==0)
+		{
+		  __HAL_RCC_ADC12_CLK_DISABLE();
+		}
+
+		HAL_GPIO_DeInit(GPIOA, GPIO_PIN_2|GPIO_PIN_3);
+
+		HAL_DMA_DeInit(hadc->DMA_Handle);
+	}
+	else if(hadc->Instance==ADC2)
+	{
+		HAL_RCC_ADC12_CLK_ENABLED--;
+		if(HAL_RCC_ADC12_CLK_ENABLED==0)
+		{
+			__HAL_RCC_ADC12_CLK_DISABLE();
+		}
+
+		HAL_GPIO_DeInit(GPIOA, GPIO_PIN_5|GPIO_PIN_6|GPIO_PIN_7);
+
+		HAL_DMA_DeInit(hadc->DMA_Handle);
+	}
+}
+
 
 void HAL_FDCAN_MspInit(FDCAN_HandleTypeDef* hfdcan)
 {
