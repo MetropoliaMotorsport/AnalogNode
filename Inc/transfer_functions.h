@@ -12,6 +12,8 @@
 #define VOLTAGE_30V_UNCAL		7
 
 //prototypes
+uint32_t TF_Select(uint8_t, uint8_t, uint16_t);
+
 uint32_t TF_Voltage(uint8_t, uint8_t, uint16_t);
 
 

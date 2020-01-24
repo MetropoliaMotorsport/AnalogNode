@@ -39,14 +39,25 @@ uint32_t IWritten;
 //config variables
 uint8_t MeasureDriverCurrent;
 uint8_t MeasureTemperature;
-uint32_t SensorRollingAverages[4]; //[AI2, AI3, AI5, AI6]
+uint16_t SensorRollingAverages[4]; //[AI2, AI3, AI5, AI6]
 uint8_t TransferFunctions[4];
+
+uint16_t CanId_Analog;
+uint8_t AnalogSensorBytes[4]; //[AI2, AI3, AI5, AI6] //if AI2>2, AI3 not sent, if AI5>2 AI6 not sent //those situations reserved for higher resolution adcs than will be tested now
+uint16_t CanId_Diagnostics;
 
 //global variables
 uint8_t canErrorToTransmit; //8 32 bit values, each 32 bit value can store 32 errors or warnings
 uint32_t canErrors[8];
 uint8_t canSendErrorFlag;
 
+
+
+volatile uint32_t a=0;
+		volatile uint32_t b=0;
+volatile uint32_t c=0;
+volatile uint32_t d=0;
+uint8_t x = 0;
 
 int main(void)
 {
@@ -66,7 +77,6 @@ int main(void)
     if (HAL_ADC_Start_DMA(&hadc1, ADC1Data, hadc1.Init.NbrOfConversion) != HAL_OK) { Error_Handler(); }
     if (HAL_ADC_Start_DMA(&hadc2, ADC2Data, hadc2.Init.NbrOfConversion) != HAL_OK) { Error_Handler(); }
 
-    volatile uint32_t a, b, c, d;
 
 	while (1)
 	{
@@ -75,20 +85,17 @@ int main(void)
 			Send_Error();
 			if(!canErrorToTransmit)
 			{
-				canSendErrorFlag=0; //TODO based on timer
+				canSendErrorFlag=0;
 			}
 		}
 
-		a=TF_Voltage(2, VOLTAGE_3V3_UNCAL, 0);
-		b=TF_Voltage(2, VOLTAGE_3V3_UNCAL, 0);
-		c=TF_Voltage(2, VOLTAGE_3V3_UNCAL, 0);
-		d=TF_Voltage(2, VOLTAGE_3V3_UNCAL, 0);
+		Can_Send_Analog();
+		HAL_Delay(100);
 
 		//whatever else is done in main
 	}
 }
 
-uint32_t a=0;
 
 void HAL_ADC_ConvCpltCallback(ADC_HandleTypeDef* hadc)
 {
@@ -96,7 +103,7 @@ void HAL_ADC_ConvCpltCallback(ADC_HandleTypeDef* hadc)
 	{
 		ADCRawData[0][AI2Pos] = ADC1Data[0];
 		AI2Pos++;
-		if (AI2Pos>SensorRollingAverages[0])
+		if (AI2Pos>(SensorRollingAverages[0]-1))
 		{
 			AI2Pos = 0;
 		}
@@ -107,7 +114,7 @@ void HAL_ADC_ConvCpltCallback(ADC_HandleTypeDef* hadc)
 
 		ADCRawData[1][AI3Pos] = ADC1Data[1];
 		AI3Pos++;
-		if (AI3Pos>SensorRollingAverages[1])
+		if (AI3Pos>(SensorRollingAverages[1]-1))
 		{
 			AI3Pos = 0;
 		}
@@ -118,7 +125,7 @@ void HAL_ADC_ConvCpltCallback(ADC_HandleTypeDef* hadc)
 
 		ADCRawData[2][TPos] = ADC1Data[2];
 		TPos++;
-		if (TPos>T_ROLLING_AVERAGE)
+		if (TPos>(T_ROLLING_AVERAGE-1))
 		{
 			TPos = 0;
 		}
@@ -131,7 +138,7 @@ void HAL_ADC_ConvCpltCallback(ADC_HandleTypeDef* hadc)
 	{
 		ADCRawData[3][AI5Pos] = ADC2Data[0];
 		AI5Pos++;
-		if (AI5Pos>SensorRollingAverages[2])
+		if (AI5Pos>(SensorRollingAverages[2]-1))
 		{
 			AI5Pos = 0;
 		}
@@ -142,7 +149,7 @@ void HAL_ADC_ConvCpltCallback(ADC_HandleTypeDef* hadc)
 
 		ADCRawData[4][AI6Pos] = ADC2Data[1];
 		AI6Pos++;
-		if (AI6Pos>SensorRollingAverages[3])
+		if (AI6Pos>(SensorRollingAverages[3]-1))
 		{
 			AI6Pos = 0;
 		}
@@ -153,7 +160,7 @@ void HAL_ADC_ConvCpltCallback(ADC_HandleTypeDef* hadc)
 
 		ADCRawData[5][IPos] = ADC1Data[2];
 		IPos++;
-		if (IPos>I_ROLLING_AVERAGE)
+		if (IPos>(I_ROLLING_AVERAGE-1))
 		{
 			IPos = 0;
 		}
@@ -169,9 +176,85 @@ void HAL_ADC_ConvCpltCallback(ADC_HandleTypeDef* hadc)
 }
 
 
-void Can_Send()
+void Can_Send_Analog()
 {
-	if(HAL_FDCAN_GetTxFifoFreeLevel(&hfdcan) < 1)
+	if(!(HAL_FDCAN_GetTxFifoFreeLevel(&hfdcan) > 0))
+	{
+		Set_Error(ERR_CAN_FIFO_FULL);
+		return;
+	}
+
+	FDCAN_TxHeaderTypeDef TxHeader;
+
+	TxHeader.Identifier = 0x90;
+	TxHeader.DataLength = (8<<16); //<<16 makes storing the number of bytes not require a switch statement for classic can
+
+	//clear can tx data so that data from incorrectly configured message is 0
+	for(uint32_t i=0; i<8; i++)
+	{
+		CANTxData[i]=0;
+	}
+
+	uint32_t raws[4] = {0};
+
+	for(uint32_t i=0; i<ROLLING_AVERAGE_MAX; i++)
+	{
+		if (i<=AI2Written)
+		{
+			raws[0]+=ADCRawData[0][i];
+		}
+		if (i<=AI3Written)
+		{
+			raws[1]+=ADCRawData[1][i];
+		}
+		if (i<=AI5Written)
+		{
+			raws[2]+=ADCRawData[3][i];
+		}
+		if (i<=AI6Written)
+		{
+			raws[3]+=ADCRawData[4][i];
+		}
+	}
+	raws[0]/=(AI2Written+1); raws[1]/=(AI3Written+1); raws[2]/=(AI5Written+1); raws[3]/=(AI6Written+1);
+
+	uint32_t bytePos=0;
+	for(uint32_t i=0; i<4; i++)
+	{
+		if (AnalogSensorBytes[i])
+		{
+			uint32_t transmit=TF_Select(AnalogSensorBytes[i], TransferFunctions[i], raws[i]);
+			for(uint32_t j=0; j<AnalogSensorBytes[i]; j++)
+			{
+				CANTxData[bytePos] = transmit >> ((AnalogSensorBytes[i]-(j+1))*8);
+				bytePos++;
+			}
+		}
+
+		if (bytePos>7)
+		{
+			break;
+		}
+	}
+
+	TxHeader.IdType = FDCAN_STANDARD_ID;
+	TxHeader.TxFrameType = FDCAN_DATA_FRAME;
+	TxHeader.ErrorStateIndicator = FDCAN_ESI_ACTIVE;
+	TxHeader.BitRateSwitch = FDCAN_BRS_OFF;
+	TxHeader.FDFormat = FDCAN_CLASSIC_CAN;
+	TxHeader.TxEventFifoControl = FDCAN_NO_TX_EVENTS;
+	TxHeader.MessageMarker = 0;
+
+	if(HAL_FDCAN_AddMessageToTxFifoQ(&hfdcan, &TxHeader, CANTxData) != HAL_OK)
+	{
+		Set_Error(ERR_SEND_FAILED);
+		return;
+	}
+}
+
+void Can_Send_Diagnostics()
+{
+	if(!(HAL_FDCAN_GetTxFifoFreeLevel(&hfdcan) > 0))
 	{
 		Set_Error(ERR_CAN_FIFO_FULL);
 		return;
@@ -359,7 +442,7 @@ static void MX_ADC1_Init(void)
 	ADC_ChannelConfTypeDef sConfig = {0};
 
 	hadc1.Instance = ADC1;
-	hadc1.Init.ClockPrescaler = ADC_CLOCK_ASYNC_DIV1;
+	hadc1.Init.ClockPrescaler = ADC_CLOCK_ASYNC_DIV4;
 	hadc1.Init.Resolution = ADC_RESOLUTION_12B;
 	hadc1.Init.DataAlign = ADC_DATAALIGN_RIGHT;
 	hadc1.Init.GainCompensation = 0;
@@ -428,7 +511,7 @@ static void MX_ADC2_Init(void)
 	ADC_ChannelConfTypeDef sConfig = {0};
 
 	hadc2.Instance = ADC2;
-	hadc2.Init.ClockPrescaler = ADC_CLOCK_ASYNC_DIV1;
+	hadc2.Init.ClockPrescaler = ADC_CLOCK_ASYNC_DIV4;
 	hadc2.Init.Resolution = ADC_RESOLUTION_12B;
 	hadc2.Init.DataAlign = ADC_DATAALIGN_RIGHT;
 	hadc2.Init.GainCompensation = 0;

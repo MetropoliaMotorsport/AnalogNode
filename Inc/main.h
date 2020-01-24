@@ -19,7 +19,8 @@ extern "C" {
 
 //function prototypes
 void Error_Handler(void);
-void Can_Send();
+void Can_Send_Analog();
+void Can_Send_Diagnostics();
 void Set_Error(uint32_t);
 void Send_Error(void);
 
@@ -28,15 +29,19 @@ void Send_Error(void);
 #define ERR_CAN_FIFO_FULL			1
 #define ERR_SEND_FAILED				2
 
-#define ERR_WRONG_BYTES				1
-#define ERR_INCORRECT_TF_VOLTAGE	2
+#define ERR_WRONG_BYTES				33
+#define ERR_INCORRECT_TF_VOLTAGE	34
 
 
 //config externs
 extern uint8_t MeasureDriverCurrent;
 extern uint8_t MeasureTemperature;
-extern uint32_t SensorRollingAverages[4];
+extern uint16_t SensorRollingAverages[4];
 extern uint8_t TransferFunctions[4];
+
+extern uint16_t CanId_Analog;
+extern uint8_t AnalogSensorBytes[4];
+extern uint16_t CanId_Diagnostics;
 
 
 #ifdef __cplusplus
