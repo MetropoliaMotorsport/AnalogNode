@@ -1,2 +1,4 @@
-transfer_functions.c:5:10:TF_Select	24	static
-transfer_functions.c:42:10:TF_Voltage	24	static
+transfer_functions.c:11:10:TF_Select	24	static
+transfer_functions.c:54:10:TF_Voltage	24	static
+transfer_functions.c:187:10:TF_NTC	24	static
+transfer_functions.c:208:10:LUT	40	static

@@ -30,7 +30,9 @@ void Send_Error(void);
 #define ERR_SEND_FAILED				2
 
 #define ERR_WRONG_BYTES				33
-#define ERR_INCORRECT_TF_VOLTAGE	34
+#define ERR_INCORRECT_TF			34
+#define ERR_INCORRECT_TF_VOLTAGE	35
+#define ERR_INCORRECT_TF_NTC		36
 
 
 //config externs

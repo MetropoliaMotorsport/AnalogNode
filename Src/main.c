@@ -52,13 +52,6 @@ uint32_t canErrors[8];
 uint8_t canSendErrorFlag;
 
 
-
-volatile uint32_t a=0;
-		volatile uint32_t b=0;
-volatile uint32_t c=0;
-volatile uint32_t d=0;
-uint8_t x = 0;
-
 int main(void)
 {
 	HAL_Init();
@@ -89,7 +82,7 @@ int main(void)
 			}
 		}
 
-		Can_Send_Analog();
+		Can_Send_Analog(); //TODO: sync, maybe sync delay, regular sending
 		HAL_Delay(100);
 
 		//whatever else is done in main
