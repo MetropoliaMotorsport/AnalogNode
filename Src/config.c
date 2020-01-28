@@ -45,6 +45,9 @@ void Config_0(void)
 	AnalogSensorBytes[2] = 0;
 	AnalogSensorBytes[3] = 2;
 	CanId_Diagnostics = 0x89;
+
+	SendAnalogPeriod = 0;
+	CanSyncDelay = 0; //in 10uS resolution
 }
 
 void Config_1(void)

@@ -47,6 +47,9 @@ extern uint16_t CanId_Analog;
 extern uint8_t AnalogSensorBytes[4];
 extern uint16_t CanId_Diagnostics;
 
+extern uint16_t SendAnalogPeriod;
+extern uint16_t CanSyncDelay;
+
 
 #ifdef __cplusplus
 }

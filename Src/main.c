@@ -9,6 +9,7 @@ static void MX_ADC1_Init(void);
 static void MX_ADC2_Init(void);
 static void MX_FDCAN_Init(void);
 static void MX_TIM7_Init(void);
+static void MX_TIM16_Init(void);
 
 //handlers
 DMA_HandleTypeDef hdma_adc1;
@@ -17,6 +18,7 @@ DMA_HandleTypeDef hdma_adc2;
 ADC_HandleTypeDef hadc2;
 FDCAN_HandleTypeDef hfdcan;
 TIM_HandleTypeDef htim7;
+TIM_HandleTypeDef htim16;
 
 //buffers
 uint8_t CANTxData[8];
@@ -69,6 +71,7 @@ int main(void)
 	MX_ADC2_Init();
 	MX_FDCAN_Init();
 	MX_TIM7_Init();
+	MX_TIM16_Init();
 
     if (HAL_ADC_Start_DMA(&hadc1, ADC1Data, hadc1.Init.NbrOfConversion) != HAL_OK) { Error_Handler(); }
     if (HAL_ADC_Start_DMA(&hadc2, ADC2Data, hadc2.Init.NbrOfConversion) != HAL_OK) { Error_Handler(); }
@@ -114,7 +117,7 @@ void HAL_FDCAN_RxFifo0Callback(FDCAN_HandleTypeDef *hfdcan, uint32_t RxFifo0ITs)
 			{
 				if(CanSyncDelay)
 				{
-					//HAL_TIM_Base_Start_IT(&htim16);
+					HAL_TIM_Base_Start_IT(&htim16);
 				}
 				else
 				{
@@ -127,6 +130,27 @@ void HAL_FDCAN_RxFifo0Callback(FDCAN_HandleTypeDef *hfdcan, uint32_t RxFifo0ITs)
 		{
 			Set_Error(ERR_RECIEVED_INVALID_ID);
 		}
+	}
+}
+
+void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
+{
+	if (htim->Instance == TIM16)
+	{
+		HAL_TIM_Base_Stop_IT(&htim16);
+		Can_Send_Analog();
+	}
+	else if (htim->Instance == TIM7)
+	{
+		canSendErrorFlag=1;
+	}
+	/*else if (htim->Instance == TIM6)
+	{
+		CanTimerFlag=1;
+	}*/
+	else
+	{
+		Error_Handler();
 	}
 }
 
@@ -376,27 +400,6 @@ void Send_Error(void)
 				}
 			}
 		}
-	}
-}
-
-void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
-{
-	/*else if (htim->Instance == TIM16)
-	{
-		HAL_TIM_Base_Stop_IT(&htim16);
-		Can_Sync();
-	}
-	else*/ if (htim->Instance == TIM7)
-	{
-		canSendErrorFlag=1;
-	}
-	/*else if (htim->Instance == TIM6)
-	{
-		CanTimerFlag=1;
-	}*/
-	else
-	{
-		Error_Handler();
 	}
 }
 
@@ -686,6 +689,20 @@ static void MX_TIM7_Init(void)
 	}
 
 	HAL_TIM_Base_Start_IT(&htim7);
+}
+
+static void MX_TIM16_Init(void)
+{
+	htim16.Instance = TIM16;
+	htim16.Init.Prescaler = 1699; //10us resolution
+	htim16.Init.CounterMode = TIM_COUNTERMODE_UP;
+	htim16.Init.Period = CanSyncDelay;
+	htim16.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
+	htim16.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_DISABLE;
+	if (HAL_TIM_Base_Init(&htim16) != HAL_OK)
+	{
+		Error_Handler();
+	}
 }
 
 
