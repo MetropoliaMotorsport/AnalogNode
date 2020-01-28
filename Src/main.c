@@ -46,6 +46,9 @@ uint16_t CanId_Analog;
 uint8_t AnalogSensorBytes[4]; //[AI2, AI3, AI5, AI6] //if AI2>2, AI3 not sent, if AI5>2 AI6 not sent //those situations reserved for higher resolution adcs than will be tested now
 uint16_t CanId_Diagnostics;
 
+uint16_t SendAnalogPeriod; //0 = use sync
+uint16_t CanSyncDelay;
+
 //global variables
 uint8_t canErrorToTransmit; //8 32 bit values, each 32 bit value can store 32 errors or warnings
 uint32_t canErrors[8];
@@ -82,27 +85,50 @@ int main(void)
 			}
 		}
 
-		//Can_Send_Analog(); //TODO: sync, maybe sync delay, regular sending
-		//HAL_Delay(100);
-		extern uint32_t NTC_NTC1_680_LUT[2*16];
-		volatile uint32_t a, b, c, d, e, f, g, l;
-		for(volatile uint32_t i=1000; i>0; i--)
-		{
-			a = LUT(300+i, NTC_NTC1_680_LUT, 4);
-			b = LUT(419, NTC_NTC1_680_LUT, 4);
-			c = LUT(520, NTC_NTC1_680_LUT, 4);
-			d = LUT(3785, NTC_NTC1_680_LUT, 4);
-			e = LUT(9999, NTC_NTC1_680_LUT, 4);
-			f = LUT(2030, NTC_NTC1_680_LUT, 4);
-			g = LUT(3040, NTC_NTC1_680_LUT, 4);
-			l = LUT(3750, NTC_NTC1_680_LUT, 4);
-		}
-
-		HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_15);
 		//whatever else is done in main
 	}
 }
 
+
+void HAL_FDCAN_RxFifo0Callback(FDCAN_HandleTypeDef *hfdcan, uint32_t RxFifo0ITs)
+{
+	FDCAN_RxHeaderTypeDef RxHeader;
+	uint8_t CANRxData[8];
+
+	if((RxFifo0ITs & FDCAN_IT_RX_FIFO0_NEW_MESSAGE) != 0)
+	{
+		if (HAL_FDCAN_GetRxMessage(hfdcan, FDCAN_RX_FIFO0, &RxHeader, CANRxData) != HAL_OK)
+		{
+			Set_Error(ERR_RECIEVE_FAILED);
+		}
+
+		//set any bytes not actaully read to 0 to prevent unknown values being in them
+		for(uint32_t i=(RxHeader.DataLength>>16); i<8; i++)
+		{
+			CANRxData[i]=0;
+		}
+
+		if (RxHeader.Identifier == CANID_SYNC)
+		{
+			if(!SendAnalogPeriod)
+			{
+				if(CanSyncDelay)
+				{
+					//HAL_TIM_Base_Start_IT(&htim16);
+				}
+				else
+				{
+					Can_Send_Analog();
+				}
+			}
+		}
+		//TODO: config
+		else
+		{
+			Set_Error(ERR_RECIEVED_INVALID_ID);
+		}
+	}
+}
 
 void HAL_ADC_ConvCpltCallback(ADC_HandleTypeDef* hadc)
 {
