@@ -2,11 +2,11 @@
 #include "transfer_functions.h"
 
 
-//lookup tables
-uint16_t NTC_NTC1_680_LUT[2][16] = {	{ 419, 629, 757, 985, 1223, 1582, 1953, 2310, 2641, 2918, 3153, 3343, 3496, 3616, 3711, 3785 },
-										{ 10, 20, 25, 30, 40, 50, 60, 70, 80, 90, 100, 110, 120, 130, 140, 150 } };
-uint16_t NTC_NTC1_360_LUT[2][16] = {	{ 233, 359, 439, 588, 753, 1023, 1333, 1665, 2008, 2324, 2617, 2874, 3093, 3275, 3425, 3546 },
-										{ 10, 20, 25, 30, 40, 50, 60, 70, 80, 90, 100, 110, 120, 130, 140, 150 } };
+//lookup tables, first 2^x values is raw, second 2^x values is calculated
+uint32_t NTC_NTC1_680_LUT[2*16] =	{	419, 629, 757, 985, 1223, 1582, 1953, 2310, 2641, 2918, 3153, 3343, 3496, 3616, 3711, 3785,
+										100, 200, 250, 300, 400, 500, 600, 700, 800, 900, 1000, 1100, 1200, 1300, 1400, 1500 }; //in .1 °C
+uint32_t NTC_NTC1_360_LUT[2*16] =	{	233, 359, 439, 588, 753, 1023, 1333, 1665, 2008, 2324, 2617, 2874, 3093, 3275, 3425, 3546,
+										100, 200, 250, 300, 400, 500, 600, 700, 800, 900, 1000, 1100, 1200, 1300, 1400, 1500	};
 
 uint32_t TF_Select(uint8_t bytes, uint8_t sensor, uint16_t raw)
 {
@@ -191,10 +191,10 @@ uint32_t TF_NTC(uint8_t bytes, uint8_t resistor, uint16_t raw)
 	switch(resistor)
 	{
 	case NTC_NTC1_680:
-
+		temperature = LUT(raw, NTC_NTC1_680_LUT, 4);
 		break;
 	case NTC_NTC1_360:
-
+		temperature = LUT(raw, NTC_NTC1_360_LUT, 4);
 		break;
 	default:
 		Set_Error(ERR_INCORRECT_TF_NTC);
@@ -205,19 +205,51 @@ uint32_t TF_NTC(uint8_t bytes, uint8_t resistor, uint16_t raw)
 }
 
 
-uint32_t LUT(uint16_t input, uint16_t* LUT, uint8_t LUT_length_LN2)
+uint32_t LUT(uint16_t input, uint32_t* LUT, uint8_t LUT_length_LN2)
 {
+	uint32_t result = 0;
+
+	uint8_t length = 2;
+	for(uint32_t i=0; i<(LUT_length_LN2-1); i++) { length*=2; }
+
 	uint8_t bound_low = 0;
+	uint8_t bound_high = length-1;
+	uint8_t mid = 0;
 
-	uint8_t bound_high = 1;
-	for(uint32_t i=0; i<LUT_length_LN2; i++) { bound_high*=2; }
-	bound_high-=1;
-
-	volatile uint32_t a=0;
-	for(uint32_t i=0; i<LUT_length_LN2; i++)
+	if (LUT[bound_low]>input)
 	{
-		a++;
+		return LUT[bound_low+length];
+	}
+	else if (LUT[bound_high]<input)
+	{
+		return LUT[bound_high+length];
 	}
 
-	return 0;
+	for(uint32_t i=0; i<LUT_length_LN2; i++)
+	{
+		mid = ((bound_high-bound_low)/2)+bound_low;
+
+		switch( (LUT[mid]>input) | ((LUT[mid+1]<input)<<1))
+		{
+		case 0: //result between mid and mid+1
+			i=LUT_length_LN2; //mid is correct, so exit the loop
+			break;
+		case 1: //input < mid value
+			bound_high = mid;
+			break;
+		case 2: //input > mid+1 value
+			bound_low = mid+1;
+			break;
+		case 3: //impossible case
+			Error_Handler();
+			break;
+		default:
+			Error_Handler();
+			break;
+		}
+	}
+
+	result = (int)((((float)(input-LUT[mid]))/((float)(LUT[mid+1]-LUT[mid])))*(LUT[mid+1+length]-LUT[mid+length]))+LUT[mid+length];
+
+	return result;
 }

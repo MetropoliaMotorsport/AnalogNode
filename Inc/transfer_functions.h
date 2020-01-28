@@ -19,7 +19,7 @@ uint32_t TF_Select(uint8_t, uint8_t, uint16_t);
 uint32_t TF_Voltage(uint8_t, uint8_t, uint16_t);
 uint32_t TF_NTC(uint8_t, uint8_t, uint16_t);
 
-uint32_t LUT(uint16_t, uint16_t*, uint8_t);
+uint32_t LUT(uint16_t, uint32_t*, uint8_t);
 
 
 #endif

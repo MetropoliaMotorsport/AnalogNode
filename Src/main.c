@@ -82,9 +82,23 @@ int main(void)
 			}
 		}
 
-		Can_Send_Analog(); //TODO: sync, maybe sync delay, regular sending
-		HAL_Delay(100);
+		//Can_Send_Analog(); //TODO: sync, maybe sync delay, regular sending
+		//HAL_Delay(100);
+		extern uint32_t NTC_NTC1_680_LUT[2*16];
+		volatile uint32_t a, b, c, d, e, f, g, l;
+		for(volatile uint32_t i=1000; i>0; i--)
+		{
+			a = LUT(300+i, NTC_NTC1_680_LUT, 4);
+			b = LUT(419, NTC_NTC1_680_LUT, 4);
+			c = LUT(520, NTC_NTC1_680_LUT, 4);
+			d = LUT(3785, NTC_NTC1_680_LUT, 4);
+			e = LUT(9999, NTC_NTC1_680_LUT, 4);
+			f = LUT(2030, NTC_NTC1_680_LUT, 4);
+			g = LUT(3040, NTC_NTC1_680_LUT, 4);
+			l = LUT(3750, NTC_NTC1_680_LUT, 4);
+		}
 
+		HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_15);
 		//whatever else is done in main
 	}
 }
