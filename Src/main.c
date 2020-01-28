@@ -8,6 +8,7 @@ static void MX_DMA_Init(void);
 static void MX_ADC1_Init(void);
 static void MX_ADC2_Init(void);
 static void MX_FDCAN_Init(void);
+static void MX_TIM6_Init(void);
 static void MX_TIM7_Init(void);
 static void MX_TIM16_Init(void);
 
@@ -17,6 +18,7 @@ ADC_HandleTypeDef hadc1;
 DMA_HandleTypeDef hdma_adc2;
 ADC_HandleTypeDef hadc2;
 FDCAN_HandleTypeDef hfdcan;
+TIM_HandleTypeDef htim6;
 TIM_HandleTypeDef htim7;
 TIM_HandleTypeDef htim16;
 
@@ -55,6 +57,7 @@ uint16_t CanSyncDelay;
 uint8_t canErrorToTransmit; //8 32 bit values, each 32 bit value can store 32 errors or warnings
 uint32_t canErrors[8];
 uint8_t canSendErrorFlag;
+uint8_t canTimerFlag;
 
 
 int main(void)
@@ -70,6 +73,7 @@ int main(void)
 	MX_ADC1_Init();
 	MX_ADC2_Init();
 	MX_FDCAN_Init();
+	MX_TIM6_Init();
 	MX_TIM7_Init();
 	MX_TIM16_Init();
 
@@ -79,13 +83,19 @@ int main(void)
 
 	while (1)
 	{
-		if(canErrorToTransmit && canSendErrorFlag)
+		if (canErrorToTransmit && canSendErrorFlag)
 		{
 			Send_Error();
 			if(!canErrorToTransmit)
 			{
 				canSendErrorFlag=0;
 			}
+		}
+
+		if (canTimerFlag)
+		{
+			Can_Send_Analog();
+			canTimerFlag=0;
 		}
 
 		//whatever else is done in main
@@ -144,10 +154,10 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 	{
 		canSendErrorFlag=1;
 	}
-	/*else if (htim->Instance == TIM6)
+	else if (htim->Instance == TIM6)
 	{
-		CanTimerFlag=1;
-	}*/
+		canTimerFlag=1;
+	}
 	else
 	{
 		Error_Handler();
@@ -621,7 +631,7 @@ static void MX_FDCAN_Init(void)
 	hfdcan.Init.DataSyncJumpWidth = 1;
 	hfdcan.Init.DataTimeSeg1 = 1;
 	hfdcan.Init.DataTimeSeg2 = 1;
-	hfdcan.Init.StdFiltersNbr = 2;
+	hfdcan.Init.StdFiltersNbr = 28;
 	hfdcan.Init.ExtFiltersNbr = 0;
 	hfdcan.Init.TxFifoQueueMode = FDCAN_TX_FIFO_OPERATION;
 	if (HAL_FDCAN_Init(&hfdcan) != HAL_OK)
@@ -676,12 +686,27 @@ static void MX_FDCAN_Init(void)
 	}
 }
 
+static void MX_TIM6_Init(void)
+{
+	htim6.Instance = TIM6;
+	htim6.Init.Prescaler = 16999; //100us resolution
+	htim6.Init.CounterMode = TIM_COUNTERMODE_UP;
+	htim6.Init.Period = SendAnalogPeriod;
+	htim6.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_DISABLE;
+	if (HAL_TIM_Base_Init(&htim6) != HAL_OK)
+	{
+		Error_Handler();
+	}
+
+	if (SendAnalogPeriod) { HAL_TIM_Base_Start_IT(&htim6); }
+}
+
 static void MX_TIM7_Init(void)
 {
 	htim7.Instance = TIM7;
-	htim7.Init.Prescaler = 16999;
+	htim7.Init.Prescaler = 16999; //100us resolution
 	htim7.Init.CounterMode = TIM_COUNTERMODE_UP;
-	htim7.Init.Period = 10000;
+	htim7.Init.Period = 10000; //1 second
 	htim7.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_DISABLE;
 	if (HAL_TIM_Base_Init(&htim7) != HAL_OK)
 	{
