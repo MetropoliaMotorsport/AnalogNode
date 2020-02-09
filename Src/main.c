@@ -57,7 +57,7 @@ uint16_t CanSyncDelay;
 uint8_t canErrorToTransmit; //8 32 bit values, each 32 bit value can store 32 errors or warnings
 uint32_t canErrors[8];
 uint8_t canSendErrorFlag;
-uint8_t canTimerFlag;
+uint8_t canSendFlag;
 
 
 int main(void)
@@ -83,6 +83,12 @@ int main(void)
 
 	while (1)
 	{
+		if (canSendFlag)
+		{
+			Can_Send_Analog();
+			canSendFlag=0;
+		}
+
 		if (canErrorToTransmit && canSendErrorFlag)
 		{
 			Send_Error();
@@ -91,22 +97,14 @@ int main(void)
 				canSendErrorFlag=0;
 			}
 		}
-
-		if (canTimerFlag)
-		{
-			Can_Send_Analog();
-			canTimerFlag=0;
-		}
-
-		//whatever else is done in main
 	}
 }
 
 
 void HAL_FDCAN_RxFifo0Callback(FDCAN_HandleTypeDef *hfdcan, uint32_t RxFifo0ITs)
 {
-	FDCAN_RxHeaderTypeDef RxHeader;
-	uint8_t CANRxData[8];
+	FDCAN_RxHeaderTypeDef RxHeader = {0};
+	uint8_t CANRxData[8] = {0};
 
 	if((RxFifo0ITs & FDCAN_IT_RX_FIFO0_NEW_MESSAGE) != 0)
 	{
@@ -131,7 +129,7 @@ void HAL_FDCAN_RxFifo0Callback(FDCAN_HandleTypeDef *hfdcan, uint32_t RxFifo0ITs)
 				}
 				else
 				{
-					Can_Send_Analog();
+					CanSendFlag = 1;
 				}
 			}
 		}
@@ -148,7 +146,7 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 	if (htim->Instance == TIM16)
 	{
 		HAL_TIM_Base_Stop_IT(&htim16);
-		Can_Send_Analog();
+		CanSendFlag = 1;
 	}
 	else if (htim->Instance == TIM7)
 	{
