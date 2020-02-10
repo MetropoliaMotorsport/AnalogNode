@@ -14,7 +14,7 @@ extern "C" {
 
 //definitions
 #define CANID_SYNC		0x80
-#define CANID_CONFIG	0x700
+#define CANID_CONFIG	0x601
 #define CANID_ERROR		0x600
 
 //function prototypes
