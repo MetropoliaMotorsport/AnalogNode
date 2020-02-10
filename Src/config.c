@@ -30,17 +30,17 @@ void Config_0(void)
 {
 	MeasureDriverCurrent = 1;
 	MeasureTemperature = 1;
-	SensorRollingAverages[0] = 1; //AI2
-	SensorRollingAverages[1] = 1; //AI3
-	SensorRollingAverages[2] = 1; //AI5
-	SensorRollingAverages[3] = 1; //AI6
+	SensorRollingAverages[0] = 32; //AI2
+	SensorRollingAverages[1] = 32; //AI3
+	SensorRollingAverages[2] = 32; //AI5
+	SensorRollingAverages[3] = 32; //AI6
 	TransferFunctions[0] = VOLTAGE_5V_UNCAL; //AI2
 	TransferFunctions[1] = VOLTAGE_24V_UNCAL; //AI3
 	TransferFunctions[2] = VOLTAGE_4V5_UNCAL; //AI5
 	TransferFunctions[3] = VOLTAGE_3V3_UNCAL; //AI6
 
 	CanId_Analog = 0x88;
-	AnalogSensorBytes[0] = 1;
+	AnalogSensorBytes[0] = 0;
 	AnalogSensorBytes[1] = 2;
 	AnalogSensorBytes[2] = 0;
 	AnalogSensorBytes[3] = 2;

@@ -129,7 +129,7 @@ void HAL_FDCAN_RxFifo0Callback(FDCAN_HandleTypeDef *hfdcan, uint32_t RxFifo0ITs)
 				}
 				else
 				{
-					CanSendFlag = 1;
+					canSendFlag = 1;
 				}
 			}
 		}
@@ -146,7 +146,7 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 	if (htim->Instance == TIM16)
 	{
 		HAL_TIM_Base_Stop_IT(&htim16);
-		CanSendFlag = 1;
+		canSendFlag = 1;
 	}
 	else if (htim->Instance == TIM7)
 	{
@@ -154,7 +154,7 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 	}
 	else if (htim->Instance == TIM6)
 	{
-		canTimerFlag=1;
+		canSendFlag=1;
 	}
 	else
 	{
