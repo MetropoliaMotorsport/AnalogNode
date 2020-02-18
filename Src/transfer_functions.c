@@ -41,6 +41,12 @@ uint32_t TF_Select(uint8_t bytes, uint8_t sensor, uint16_t raw)
 	case NTC_NTC1_360:
 		transmit = TF_NTC(bytes, sensor, raw);
 		break;
+	case DHABS106_20A:
+		transmit = TF_I_Transducer(bytes, sensor, raw);
+		break;
+	case DHABS106_500A:
+		transmit = TF_I_Transducer(bytes, sensor, raw);
+		break;
 	default:
 		Set_Error(ERR_INCORRECT_TF);
 		break;
@@ -204,6 +210,54 @@ uint32_t TF_NTC(uint8_t bytes, uint8_t resistor, uint16_t raw)
 	return temperature;
 }
 
+//this is for 5V voltage divider
+uint32_t TF_I_Transducer(uint8_t bytes, uint8_t channel, uint16_t raw)
+{
+	int32_t current = 0;
+
+	switch(channel)
+	{
+	case DHABS106_20A: //calculate current in 100's of uA
+		current = ((raw*253611)/2048)-250000; // C = 3.3*10*((1.74+3.24)/3.24)*10000/2^12; 2.5*10*10000*((1.74+3.24)/3.24)
+		switch(bytes)
+		{
+		case 1:
+			current+=500;
+			current/=1000; //current in 100's of mA
+			break;
+		case 2:
+			current+=5;
+			current/=10; //current in mA
+			break;
+		default:
+			Set_Error(ERR_WRONG_BYTES);
+			break;
+		}
+		break;
+	case DHABS106_500A: //calculate current in mA
+		current = ((raw*158507)/512)-625000; // C = 3.3*250*((1.74+3.24)/3.24)*1000/2^12; 2.5*250*1000 //TODO
+		switch(bytes)
+		{
+		case 1:
+			current+=5000;
+			current/=10000; //voltage in 10's of A
+			break;
+		case 2:
+			current+=5;
+			current/=10; //voltage in 10's of mA
+			break;
+		default:
+			Set_Error(ERR_WRONG_BYTES);
+			break;
+		}
+		break;
+	default:
+		Set_Error(ERR_INCORRECT_TF_I_TRANS);
+		break;
+	}
+
+	return current;
+}
 
 uint32_t LUT(uint16_t input, uint32_t* LUT, uint8_t LUT_length_LN2)
 {

@@ -40,13 +40,13 @@ void Config_0(void)
 	TransferFunctions[3] = VOLTAGE_3V3_UNCAL; //AI6
 
 	CanId_Analog = 0x88;
-	AnalogSensorBytes[0] = 0;
-	AnalogSensorBytes[1] = 2;
+	AnalogSensorBytes[0] = 2;
+	AnalogSensorBytes[1] = 0;
 	AnalogSensorBytes[2] = 0;
-	AnalogSensorBytes[3] = 2;
+	AnalogSensorBytes[3] = 0;
 	CanId_Diagnostics = 0x89;
 
-	SendAnalogPeriod = 10; //in 100us resolution
+	SendAnalogPeriod = 100; //in 100us resolution
 	CanSyncDelay = 0; //in 10us resolution
 }
 

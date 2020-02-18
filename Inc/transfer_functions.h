@@ -12,12 +12,15 @@
 #define VOLTAGE_30V_UNCAL		7
 #define NTC_NTC1_680			8
 #define NTC_NTC1_360			9
+#define DHABS106_20A			10
+#define DHABS106_500A			11
 
 //prototypes
 uint32_t TF_Select(uint8_t, uint8_t, uint16_t);
 
 uint32_t TF_Voltage(uint8_t, uint8_t, uint16_t);
 uint32_t TF_NTC(uint8_t, uint8_t, uint16_t);
+uint32_t TF_I_Transducer(uint8_t, uint8_t, uint16_t);
 
 uint32_t LUT(uint16_t, uint32_t*, uint8_t);
 

@@ -35,6 +35,7 @@ void Send_Error(void);
 #define ERR_INCORRECT_TF			34
 #define ERR_INCORRECT_TF_VOLTAGE	35
 #define ERR_INCORRECT_TF_NTC		36
+#define ERR_INCORRECT_TF_I_TRANS	37
 
 
 //config externs
