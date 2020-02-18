@@ -222,8 +222,8 @@ uint32_t TF_I_Transducer(uint8_t bytes, uint8_t channel, uint16_t raw)
 		switch(bytes)
 		{
 		case 1:
-			current+=500;
-			current/=1000; //current in 100's of mA
+			current+=5000;
+			current/=10000; //current in A
 			break;
 		case 2:
 			current+=5;
