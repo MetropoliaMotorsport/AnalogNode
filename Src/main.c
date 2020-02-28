@@ -53,6 +53,9 @@ uint16_t CanId_Diagnostics;
 uint16_t SendAnalogPeriod; //0 = use sync
 uint16_t CanSyncDelay;
 
+uint8_t DriverDefaultState;
+uint32_t OverCurrentWarning; //in mA
+
 //global variables
 uint8_t canErrorToTransmit; //8 32 bit values, each 32 bit value can store 32 errors or warnings
 uint32_t canErrors[8];
@@ -80,6 +83,7 @@ int main(void)
     if (HAL_ADC_Start_DMA(&hadc1, ADC1Data, hadc1.Init.NbrOfConversion) != HAL_OK) { Error_Handler(); }
     if (HAL_ADC_Start_DMA(&hadc2, ADC2Data, hadc2.Init.NbrOfConversion) != HAL_OK) { Error_Handler(); }
 
+	HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_8); //should be pin 9, but that seems to be having some problems so test with this pin maybe???
 
 	while (1)
 	{
@@ -336,8 +340,25 @@ void Can_Send_Diagnostics()
 		CANTxData[i]=0;
 	}
 
-	CANTxData[0] = 255;
-	CANTxData[1] = 127;
+	uint32_t rawT = 0; uint32_t rawI = 0;
+
+	for(uint32_t i=0; i<ROLLING_AVERAGE_MAX; i++)
+	{
+		if (i<=TWritten)
+		{
+			rawT+=ADCRawData[2][i];
+		}
+		if (i<=IWritten)
+		{
+			rawI+=ADCRawData[5][i];
+		}
+	}
+	rawT/=(TWritten+1); rawI/=(IWritten+1);
+
+	int16_t T = ((rawT*T_m+T_b)+5000)/10000;
+
+	CANTxData[0] = ((T>>8)&0xFF);
+	CANTxData[1] = (T&&0xFF); //TODO: check that this is reasonable
 	CANTxData[2] = 63;
 	CANTxData[3] = 31;
 	CANTxData[4] = 15;
@@ -461,8 +482,9 @@ static void MX_GPIO_Init(void)
 	__HAL_RCC_GPIOA_CLK_ENABLE();
 
 	HAL_GPIO_WritePin(GPIOA, GPIO_PIN_15, 0);
+	HAL_GPIO_WritePin(GPIOA, GPIO_PIN_8, 0);
 
-	GPIO_InitStruct.Pin = GPIO_PIN_15;
+	GPIO_InitStruct.Pin = GPIO_PIN_15|GPIO_PIN_8;
 	GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
 	GPIO_InitStruct.Pull = GPIO_NOPULL;
 	GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;

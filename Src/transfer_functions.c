@@ -9,7 +9,7 @@ uint32_t NTC_NTC1_360_LUT[2*16] =	{	233, 359, 439, 588, 753, 1023, 1333, 1665, 2
 										100, 200, 250, 300, 400, 500, 600, 700, 800, 900, 1000, 1100, 1200, 1300, 1400, 1500	}; //in .1 °C
 
 //note that the max range on this is a bit low as it is only planned to be used for tires; also there are so few steps because the graph is so hard to read and it seems to be almost linear for short ranges in general
-int32_t ZTF_115M_LUT[2*16] =	{	969, 1171, 1534, 2019,
+uint32_t ZTF_115M_LUT[2*4] =	{	969, 1171, 1534, 2019,
 										-10, 20, 50, 80	}; //in 1 °C; casted as uint but that is fine
 
 uint32_t TF_Select(uint8_t bytes, uint8_t sensor, uint16_t raw)
@@ -271,7 +271,7 @@ uint32_t TF_ZTP_115M(uint8_t bytes, uint16_t raw)
 	switch(bytes)
 	{
 	case 1:
-		temperature = LUT(raw, ZTF_115M_LUT);
+		temperature = LUT(raw, ZTF_115M_LUT, 2);
 		break;
 	default:
 		Set_Error(ERR_WRONG_BYTES);
