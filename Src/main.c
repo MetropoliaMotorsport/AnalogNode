@@ -355,7 +355,7 @@ void Can_Send_Diagnostics()
 	}
 	rawT/=(TWritten+1); rawI/=(IWritten+1);
 
-	int16_t T = ((rawT*T_m+T_b)+5000)/10000;
+	int16_t T = ((rawT*30*T_m+T_b)+5000)/(10000*33); //*3/3.3 to convert for Vref being 3.3 instead of 3
 
 	CANTxData[0] = ((T>>8)&0xFF);
 	CANTxData[1] = (T&&0xFF); //TODO: check that this is reasonable
