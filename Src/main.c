@@ -231,7 +231,7 @@ void HAL_ADC_ConvCpltCallback(ADC_HandleTypeDef* hadc)
 			AI6Written = AI6Pos;
 		}
 
-		ADCRawData[5][IPos] = ADC1Data[2];
+		ADCRawData[5][IPos] = ADC2Data[2];
 		IPos++;
 		if (IPos>(I_ROLLING_AVERAGE-1))
 		{
@@ -363,18 +363,26 @@ void Can_Send_Diagnostics()
 	int32_t Thres = raw3T*T_m+T_b; // to .01°C resolution
 	int16_t T = (Thres+5)/10; //round to .1°C resolution
 
+	uint16_t I;
+	if(rawI>1000) //fault condition
+	{
+		I = -1; //overflow to maximum value
+	}
+	else
+	{
+		I = (rawI*4075+500)/1000; //in mA
+	}
+
 	CANTxData[0] = ((T>>8)&0xFF);
-	CANTxData[1] = (T&0xFF); //TODO: check that this is reasonable
-	CANTxData[2] = 0;
-	CANTxData[3] = 0;
+	CANTxData[1] = (T&0xFF);
+	CANTxData[2] = ((I>>8)&0xFF);
+	CANTxData[3] = (I&0xFF);
 	CANTxData[4] = 0;
-	CANTxData[5] = 7;
+	CANTxData[5] = 0;
 	CANTxData[6] = 3;
 	CANTxData[7] = 1;
 	//TODO: SET OUTPUT BYTES
 
-	volatile uint32_t a = T110cal;
-	volatile uint32_t b = T30cal;
 
 	TxHeader.IdType = FDCAN_STANDARD_ID;
 	TxHeader.TxFrameType = FDCAN_DATA_FRAME;
