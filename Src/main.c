@@ -101,6 +101,10 @@ int main(void)
 				canSendErrorFlag=0;
 			}
 		}
+
+		HAL_Delay(10);
+		Can_Send_Diagnostics();
+		HAL_Delay(10);
 	}
 }
 
@@ -340,7 +344,7 @@ void Can_Send_Diagnostics()
 		CANTxData[i]=0;
 	}
 
-	uint32_t rawT = 0; uint32_t rawI = 0;
+	int32_t rawT = 0; uint32_t rawI = 0;
 
 	for(uint32_t i=0; i<ROLLING_AVERAGE_MAX; i++)
 	{
@@ -355,17 +359,22 @@ void Can_Send_Diagnostics()
 	}
 	rawT/=(TWritten+1); rawI/=(IWritten+1);
 
-	int16_t T = ((rawT*30*T_m+T_b)+5000)/(10000*33); //*3/3.3 to convert for Vref being 3.3 instead of 3
+	int32_t raw3T = (rawT*330)/300; //*3.3/3 to convert for Vref being 3.3 instead of 3
+	int32_t Thres = raw3T*T_m+T_b; // to .01°C resolution
+	int16_t T = (Thres+5)/10; //round to .1°C resolution
 
 	CANTxData[0] = ((T>>8)&0xFF);
-	CANTxData[1] = (T&&0xFF); //TODO: check that this is reasonable
-	CANTxData[2] = 63;
-	CANTxData[3] = 31;
-	CANTxData[4] = 15;
+	CANTxData[1] = (T&0xFF); //TODO: check that this is reasonable
+	CANTxData[2] = 0;
+	CANTxData[3] = 0;
+	CANTxData[4] = 0;
 	CANTxData[5] = 7;
 	CANTxData[6] = 3;
 	CANTxData[7] = 1;
 	//TODO: SET OUTPUT BYTES
+
+	volatile uint32_t a = T110cal;
+	volatile uint32_t b = T30cal;
 
 	TxHeader.IdType = FDCAN_STANDARD_ID;
 	TxHeader.TxFrameType = FDCAN_DATA_FRAME;

@@ -20,8 +20,8 @@ extern "C" {
 //temperature sensor definitions
 #define T110cal (*(uint16_t*)(0x1FFF75CA))
 #define T30cal (*(uint16_t*)(0x1FFF75A8))
-#define T_m (80000/(T110cal-T30cal)) //m is in .001 °C / 1
-#define T_b (30000-(T30cal*T_m)) //b is in .001 °C
+#define T_m (8000/(T110cal-T30cal)) //m is in .01 °C / 1
+#define T_b (3000-(T30cal*T_m)) //b is in .01 °C
 
 //function prototypes
 void Error_Handler(void);

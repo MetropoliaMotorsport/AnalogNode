@@ -6,7 +6,7 @@
 
 //definitions
 #define ROLLING_AVERAGE_MAX 128
-#define T_ROLLING_AVERAGE	ROLLING_AVERAGE_MAX
+#define T_ROLLING_AVERAGE	16
 #define I_ROLLING_AVERAGE	ROLLING_AVERAGE_MAX
 
 //function prototypes
