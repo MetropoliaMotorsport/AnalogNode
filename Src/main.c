@@ -53,14 +53,17 @@ uint16_t CanId_Diagnostics;
 uint16_t SendAnalogPeriod; //0 = use sync
 uint16_t CanSyncDelay;
 
-uint8_t DriverDefaultState;
+uint8_t DriverDefaultState; //TODO
 uint32_t OverCurrentWarning; //in mA
+uint32_t OverCurrentLimit; //in mA
 
 //global variables
 uint8_t canErrorToTransmit; //8 32 bit values, each 32 bit value can store 32 errors or warnings
 uint32_t canErrors[8];
 uint8_t canSendErrorFlag;
 uint8_t canSendFlag;
+uint8_t driverState;
+uint8_t driverError;
 
 
 int main(void)
@@ -148,6 +151,9 @@ void HAL_FDCAN_RxFifo0Callback(FDCAN_HandleTypeDef *hfdcan, uint32_t RxFifo0ITs)
 					Switch_Driver(CANRxData[2]);
 					if ((RxHeader.DataLength>>16) < 3) { Set_Error(ERR_COMMAND_SHORT); }
 					break;
+				case CLEAR_ERROR:
+					Clear_Error();
+					break;
 				default:
 					Set_Error(ERR_INVALID_COMMAND);
 					break;
@@ -171,6 +177,11 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 	else if (htim->Instance == TIM7)
 	{
 		canSendErrorFlag=1;
+
+		if (driverError)
+		{
+			Set_Error(ERR_OVERCURR_SHUTOFF); //send continously until the error is cleared
+		}
 	}
 	else if (htim->Instance == TIM6)
 	{
@@ -252,6 +263,36 @@ void HAL_ADC_ConvCpltCallback(ADC_HandleTypeDef* hadc)
 		else if (IWritten<IPos)
 		{
 			IWritten = IPos;
+		}
+
+		if(driverState)
+		{
+			//this is copied twice, so it should be made a function instead, but too lazy now
+			uint32_t rawI = 0;
+
+			for(uint32_t i=0; i<ROLLING_AVERAGE_MAX; i++)
+			{
+				if (i<=IWritten)
+				{
+					rawI+=ADCRawData[5][i];
+				}
+			}
+			rawI/=(IWritten+1);
+
+			uint16_t I = (rawI*4075+500)/1000; //in mA
+
+			if (I>OverCurrentWarning)
+			{
+				Set_Error(WARN_OVERCURR);
+			}
+
+			if (rawI>1000 || I>OverCurrentLimit)
+			{
+				//TODO: this should be PA9 instead
+				HAL_GPIO_WritePin(GPIOA, GPIO_PIN_8, 0);
+				driverState = 0;
+				driverError = 1;
+			}
 		}
 	}
 	else

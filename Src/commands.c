@@ -69,13 +69,18 @@ void Diagnose_Can()
 
 void Switch_Driver(uint8_t state)
 {
-	HAL_GPIO_WritePin(GPIOA, GPIO_PIN_8, state); //should be PA9, check with the new boards TODO to see if it works with them
+	if (!driverError)
+	{
+		HAL_GPIO_WritePin(GPIOA, GPIO_PIN_8, state); //should be PA9, check with the new boards TODO to see if it works with them
+		driverState = state;
 
-	Acknowledge(SWITCH_DRIVER);
+		Acknowledge(SWITCH_DRIVER);
+	}
 }
 
-void Clear_Error(uint8_t error) //TODO //also TODO set error and stuff
+void Clear_Error()
 {
+	driverError=0;
 
 	Acknowledge(CLEAR_ERROR);
 }

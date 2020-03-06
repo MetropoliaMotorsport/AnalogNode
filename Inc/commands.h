@@ -6,8 +6,7 @@
 #define DIAGNOSE_CAN				1
 #define SWITCH_DRIVER				2
 #define CLEAR_ERROR					12
-#define SAVE_CONFIGS				128
-//TODO: configuration for pwm input, but PWM input currently not supported
+#define SAVE_CONFIGS				128 //TODO this next
 
 
 //function prototypes

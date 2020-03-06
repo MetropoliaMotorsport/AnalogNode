@@ -47,6 +47,9 @@ void Send_Error(void);
 #define ERR_INCORRECT_TF_NTC		36
 #define ERR_INCORRECT_TF_I_TRANS	37
 
+#define WARN_OVERCURR				49
+#define ERR_OVERCURR_SHUTOFF		50
+
 
 //config externs
 extern uint8_t MeasureDriverCurrent;

@@ -48,6 +48,9 @@ void Config_0(void)
 
 	SendAnalogPeriod = 0; //in 100us resolution
 	CanSyncDelay = 0; //in 10us resolution
+
+	OverCurrentWarning = 1000;
+	OverCurrentLimit = 2000;
 }
 
 void Config_1(void)
