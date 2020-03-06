@@ -259,7 +259,7 @@ void Can_Send_Analog()
 
 	FDCAN_TxHeaderTypeDef TxHeader;
 
-	TxHeader.Identifier = 0x90;
+	TxHeader.Identifier = CanId_Analog;
 	TxHeader.DataLength = (8<<16); //<<16 makes storing the number of bytes not require a switch statement for classic can
 
 	//clear can tx data so that data from incorrectly configured message is 0
@@ -335,7 +335,7 @@ void Can_Send_Diagnostics()
 
 	FDCAN_TxHeaderTypeDef TxHeader;
 
-	TxHeader.Identifier = 0x90;
+	TxHeader.Identifier = CanId_Diagnostics;
 	TxHeader.DataLength = (8<<16); //<<16 makes storing the number of bytes not require a switch statement for classic can
 
 	//clear can tx data so that data from incorrectly configured message is 0
