@@ -39,6 +39,7 @@ void Send_Error(void);
 #define ERR_RECIEVED_INVALID_ID		3
 #define ERR_RECIEVE_FAILED			4
 #define ERR_INVALID_COMMAND			5
+#define ERR_COMMAND_SHORT			6
 
 #define ERR_WRONG_BYTES				33
 #define ERR_INCORRECT_TF			34

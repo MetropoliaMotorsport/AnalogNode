@@ -65,8 +65,13 @@ void Save_Config() //TODO
 void Diagnose_Can()
 {
 	Can_Send_Diagnostics();
+}
 
-	//Acknowledge(); //no need to acknowledge when sending a message
+void Switch_Driver(uint8_t state)
+{
+	HAL_GPIO_WritePin(GPIOA, GPIO_PIN_8, state); //should be PA9, check with the new boards TODO to see if it works with them
+
+	Acknowledge(SWITCH_DRIVER);
 }
 
 void Clear_Error(uint8_t error) //TODO //also TODO set error and stuff

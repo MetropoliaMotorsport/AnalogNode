@@ -83,8 +83,6 @@ int main(void)
     if (HAL_ADC_Start_DMA(&hadc1, ADC1Data, hadc1.Init.NbrOfConversion) != HAL_OK) { Error_Handler(); }
     if (HAL_ADC_Start_DMA(&hadc2, ADC2Data, hadc2.Init.NbrOfConversion) != HAL_OK) { Error_Handler(); }
 
-	HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_8); //should be pin 9, but that seems to be having some problems so test with this pin maybe???
-
 	while (1)
 	{
 		if (canSendFlag)
@@ -146,7 +144,10 @@ void HAL_FDCAN_RxFifo0Callback(FDCAN_HandleTypeDef *hfdcan, uint32_t RxFifo0ITs)
 				case DIAGNOSE_CAN:
 					Diagnose_Can();
 					break;
-					//if ((RxHeader.DataLength>>16) < 4) { Set_Error(ERR_COMMAND_SHORT); }
+				case SWITCH_DRIVER:
+					Switch_Driver(CANRxData[2]);
+					if ((RxHeader.DataLength>>16) < 3) { Set_Error(ERR_COMMAND_SHORT); }
+					break;
 				default:
 					Set_Error(ERR_INVALID_COMMAND);
 					break;
