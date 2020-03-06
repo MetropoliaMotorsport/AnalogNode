@@ -10,12 +10,14 @@ extern "C" {
 #include "stm32g4xx_ll_pwr.h"
 #include "config.h"
 #include "transfer_functions.h"
+#include "commands.h"
 
 
 //definitions
 #define CANID_SYNC		0x80
 #define CANID_CONFIG	0x601
 #define CANID_ERROR		0x600
+#define CANID_ACK	0x602
 
 //temperature sensor definitions
 #define T110cal (*(uint16_t*)(0x1FFF75CA))
@@ -36,6 +38,7 @@ void Send_Error(void);
 #define ERR_SEND_FAILED				2
 #define ERR_RECIEVED_INVALID_ID		3
 #define ERR_RECIEVE_FAILED			4
+#define ERR_INVALID_COMMAND			5
 
 #define ERR_WRONG_BYTES				33
 #define ERR_INCORRECT_TF			34

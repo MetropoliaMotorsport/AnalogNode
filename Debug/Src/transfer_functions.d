@@ -31,7 +31,8 @@ Src/transfer_functions.o: ../Src/transfer_functions.c ../Inc/main.h \
  ../Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal_tim.h \
  ../Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal_tim_ex.h \
  ../Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_pwr.h ../Inc/config.h \
- ../Inc/transfer_functions.h ../Inc/transfer_functions.h
+ ../Inc/transfer_functions.h ../Inc/commands.h \
+ ../Inc/transfer_functions.h
 
 ../Inc/main.h:
 
@@ -102,5 +103,7 @@ Src/transfer_functions.o: ../Src/transfer_functions.c ../Inc/main.h \
 ../Inc/config.h:
 
 ../Inc/transfer_functions.h:
+
+../Inc/commands.h:
 
 ../Inc/transfer_functions.h:

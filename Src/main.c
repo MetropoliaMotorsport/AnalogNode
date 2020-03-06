@@ -101,10 +101,6 @@ int main(void)
 				canSendErrorFlag=0;
 			}
 		}
-
-		HAL_Delay(10);
-		Can_Send_Diagnostics();
-		HAL_Delay(10);
 	}
 }
 
@@ -141,7 +137,22 @@ void HAL_FDCAN_RxFifo0Callback(FDCAN_HandleTypeDef *hfdcan, uint32_t RxFifo0ITs)
 				}
 			}
 		}
-		//TODO: config
+		else if(RxHeader.Identifier == CANID_CONFIG)
+		{
+			if (CANRxData[0] == ID)
+			{
+				switch(CANRxData[1])
+				{
+				case DIAGNOSE_CAN:
+					Diagnose_Can();
+					break;
+					//if ((RxHeader.DataLength>>16) < 4) { Set_Error(ERR_COMMAND_SHORT); }
+				default:
+					Set_Error(ERR_INVALID_COMMAND);
+					break;
+				}
+			}
+		}
 		else
 		{
 			Set_Error(ERR_RECIEVED_INVALID_ID);
@@ -686,7 +697,7 @@ static void MX_FDCAN_Init(void)
 	}
 
 	//only accept config/request can messages and sync can messages
-	/*sFilterConfig.IdType = FDCAN_STANDARD_ID;
+	sFilterConfig.IdType = FDCAN_STANDARD_ID;
 	sFilterConfig.FilterIndex = 0;
 	sFilterConfig.FilterType = FDCAN_FILTER_MASK;
 	sFilterConfig.FilterConfig = FDCAN_FILTER_TO_RXFIFO0;
@@ -695,7 +706,7 @@ static void MX_FDCAN_Init(void)
 	if (HAL_FDCAN_ConfigFilter(&hfdcan, &sFilterConfig) != HAL_OK)
 	{
 		Error_Handler();
-	}*/ //no config yet
+	}
 
 	sFilterConfig.IdType = FDCAN_STANDARD_ID;
 	sFilterConfig.FilterIndex = 1;
