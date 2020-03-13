@@ -12555,9 +12555,9 @@ void Config_0(void)
  800474c:	2289      	movs	r2, #137	; 0x89
  800474e:	801a      	strh	r2, [r3, #0]
 
-	SendAnalogPeriod = 10000; //in 100us resolution
+	SendAnalogPeriod = 1000; //in 100us resolution
  8004750:	4b10      	ldr	r3, [pc, #64]	; (8004794 <Config_0+0xa8>)
- 8004752:	f242 7210 	movw	r2, #10000	; 0x2710
+ 8004752:	f44f 727a 	mov.w	r2, #1000	; 0x3e8
  8004756:	801a      	strh	r2, [r3, #0]
 	CanSyncDelay = 0; //in 10us resolution
  8004758:	4b0f      	ldr	r3, [pc, #60]	; (8004798 <Config_0+0xac>)
