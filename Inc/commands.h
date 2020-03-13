@@ -15,7 +15,7 @@ void Save_Config();
 
 void Diagnose_Can();
 void Switch_Driver(uint8_t);
-void Clear_Error(uint8_t);
+void Clear_Error();
 
 //stuff here
 
