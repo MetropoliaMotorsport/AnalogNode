@@ -63,14 +63,49 @@ void Config_Write_Flash(void)
 {
 	uint32_t data[512] = {0};
 
-	//data[TV_BURST_TIMING_POS]=((SampleTemperatureVoltagePeriod&0xFFFF)<<0);
 
-	//Flash_Write(FLASH_PAGE_63, 63, data, 512);
+	data[MEASURES_POS]=((MeasureDriverCurrent&0b1)<<0)+((MeasureTemperature&0b1)<<8);
+
+	data[ROLLING_AVERAGE_0_POS]=((SensorRollingAverages[0]&0xFFFF)<<0)+((SensorRollingAverages[1]&0xFFFF)<<16);
+	data[ROLLING_AVERAGE_1_POS]=((SensorRollingAverages[2]&0xFFFF)<<0)+((SensorRollingAverages[3]&0xFFFF)<<16);
+	data[TRANSFER_FUNCTION_POS]=((TransferFunctions[0]&0xFF)<<0)+((TransferFunctions[1]&0xFF)<<8)+((TransferFunctions[2]&0xFF)<<16)+((TransferFunctions[3]&0xFF)<<24);
+
+	data[CANIDS_POS]=((CanId_Analog&0xFFFF)<<0)+((CanId_Diagnostics&0xFFFF)<<16);
+	data[CANBYTES_POS]=((AnalogSensorBytes[0]&0xFF)<<0)+((AnalogSensorBytes[1]&0xFF)<<8)+((AnalogSensorBytes[2]&0xFF)<<16)+((AnalogSensorBytes[3]&0xFF)<<24);
+	data[DELAYS_POS]=((SendAnalogPeriod&0xFFFF)<<0)+((CanSyncDelay&0xFFFF)<<16);
+
+	data[I_WARN_POS]=OverCurrentWarning;
+	data[I_ERROR_POS]=OverCurrentLimit;
+
+
+	Flash_Write(FLASH_PAGE_63, 63, data, 512);
 }
 
 void Config_Read_Flash(void)
 {
-	//warn_undervoltage_U5=((U5_VOLTAGE_WARNING_LIMIT>>0)&0xFFFF);
+	MeasureDriverCurrent=((MEASURES>>0)&0b1);
+	MeasureTemperature=((MEASURES>>0)&0b1);
+
+	SensorRollingAverages[0]=((ROLLING_AVERAGE_0>>0)&0xFFFF);
+	SensorRollingAverages[1]=((ROLLING_AVERAGE_0>>16)&0xFFFF);
+	SensorRollingAverages[2]=((ROLLING_AVERAGE_1>>0)&0xFFFF);
+	SensorRollingAverages[3]=((ROLLING_AVERAGE_1>>16)&0xFFFF);
+	TransferFunctions[0]=((TRANSFER_FUNCTION>>0)&0xFF);
+	TransferFunctions[1]=((TRANSFER_FUNCTION>>8)&0xFF);
+	TransferFunctions[2]=((TRANSFER_FUNCTION>>16)&0xFF);
+	TransferFunctions[3]=((TRANSFER_FUNCTION>>24)&0xFF);
+
+	CanId_Analog=((CANIDS>>0)&0xFFFF);
+	CanId_Diagnostics=((CANIDS>>16)&0xFFFF);
+	AnalogSensorBytes[0]=((CANBYTES>>0)&0xFF);
+	AnalogSensorBytes[1]=((CANBYTES>>8)&0xFF);
+	AnalogSensorBytes[2]=((CANBYTES>>16)&0xFF);
+	AnalogSensorBytes[3]=((CANBYTES>>24)&0xFF);
+	SendAnalogPeriod=((DELAYS>>0)&0xFFFF);
+	CanSyncDelay=((DELAYS>>16)&0xFFFF);
+
+	OverCurrentWarning=I_WARN;
+	OverCurrentLimit=I_ERROR;
 }
 
 
