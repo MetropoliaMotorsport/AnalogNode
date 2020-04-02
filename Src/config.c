@@ -61,10 +61,10 @@ void Config_1(void)
 	SensorRollingAverages[1] = 32; //AI3
 	SensorRollingAverages[2] = 32; //AI5
 	SensorRollingAverages[3] = 32; //AI6
-	TransferFunctions[0] = VOLTAGE_3V3_UNCAL; //AI2
-	TransferFunctions[1] = DHABS106_20A; //AI3
-	TransferFunctions[2] = RAW; //AI5
-	TransferFunctions[3] = RAW; //AI6
+	TransferFunctions[0] = VOLTAGE_3V3_UNCAL; //AI2 //NC
+	TransferFunctions[1] = DHABS106_20A; //AI3 //current sensor
+	TransferFunctions[2] = RAW; //AI5 //regen
+	TransferFunctions[3] = RAW; //AI6 //apps 0
 
 	CanId_Analog = 0x680;
 	AnalogSensorBytes[0] = 0;
@@ -82,52 +82,272 @@ void Config_1(void)
 
 void Config_9(void)
 {
-	//TODO: setup code for each node that will be in the car
+	MeasureDriverCurrent = 0;
+	MeasureTemperature = 1;
+	SensorRollingAverages[0] = 32; //AI2
+	SensorRollingAverages[1] = 32; //AI3
+	SensorRollingAverages[2] = 32; //AI5
+	SensorRollingAverages[3] = 1; //AI6
+	TransferFunctions[0] = VOLTAGE_3V3_UNCAL; //AI2 //brake temperature
+	TransferFunctions[1] = NTC_NTC1_360; //AI3 //oil temperature
+	TransferFunctions[2] = NTC_NTC1_680; //AI5 //water temperature
+	TransferFunctions[3] = VOLTAGE_3V3_UNCAL; //AI6 //NC
+
+	CanId_Analog = 0x690;
+	AnalogSensorBytes[0] = 2; //TODO
+	AnalogSensorBytes[1] = 1;
+	AnalogSensorBytes[2] = 1;
+	AnalogSensorBytes[3] = 0;
+	CanId_Diagnostics = 0x691;
+
+	SendAnalogPeriod = 0; //in 100us resolution
+	CanSyncDelay = 0; //in 10us resolution
+
+	OverCurrentWarning = 1000;
+	OverCurrentLimit = 2000;
 }
 
 void Config_10(void)
 {
-	//TODO: setup code for each node that will be in the car
+	MeasureDriverCurrent = 0;
+	MeasureTemperature = 1;
+	SensorRollingAverages[0] = 32; //AI2
+	SensorRollingAverages[1] = 32; //AI3
+	SensorRollingAverages[2] = 32; //AI5
+	SensorRollingAverages[3] = 32; //AI6
+	TransferFunctions[0] = RAW; //AI2 //suspension
+	TransferFunctions[1] = NTC_NTC1_360; //AI3 //oil temperature
+	TransferFunctions[2] = NTC_NTC1_680; //AI5 //water temperature
+	TransferFunctions[3] = RAW; //AI6 //suspension
+
+	CanId_Analog = 0x692;
+	AnalogSensorBytes[0] = 2; //TODO need to calibrate
+	AnalogSensorBytes[1] = 1;
+	AnalogSensorBytes[2] = 1;
+	AnalogSensorBytes[3] = 2; //TODO need to calibrate
+	CanId_Diagnostics = 0x693;
+
+	SendAnalogPeriod = 0; //in 100us resolution
+	CanSyncDelay = 0; //in 10us resolution
+
+	OverCurrentWarning = 1000;
+	OverCurrentLimit = 2000;
 }
 
 void Config_11(void)
 {
-	//TODO: setup code for each node that will be in the car
+	MeasureDriverCurrent = 0;
+	MeasureTemperature = 1;
+	SensorRollingAverages[0] = 32; //AI2
+	SensorRollingAverages[1] = 32; //AI3
+	SensorRollingAverages[2] = 32; //AI5
+	SensorRollingAverages[3] = 32; //AI6
+	TransferFunctions[0] = VOLTAGE_3V3_UNCAL; //AI2 //brake temperature
+	TransferFunctions[1] = VOLTAGE_3V3_UNCAL; //AI3 //brake pressure
+	TransferFunctions[2] = VOLTAGE_3V3_UNCAL; //AI5 //brake pressure
+	TransferFunctions[3] = RAW; //AI6 //apps 1
+
+	CanId_Analog = 0x694;
+	AnalogSensorBytes[0] = 2; //TODO
+	AnalogSensorBytes[1] = 1; //TODO
+	AnalogSensorBytes[2] = 1; //TODO
+	AnalogSensorBytes[3] = 1;
+	CanId_Diagnostics = 0x695;
+
+	SendAnalogPeriod = 0; //in 100us resolution
+	CanSyncDelay = 0; //in 10us resolution
+
+	OverCurrentWarning = 1000;
+	OverCurrentLimit = 2000;
 }
 
 void Config_12(void)
 {
-	//TODO: setup code for each node that will be in the car
+	MeasureDriverCurrent = 0;
+	MeasureTemperature = 1;
+	SensorRollingAverages[0] = 32; //AI2
+	SensorRollingAverages[1] = 32; //AI3
+	SensorRollingAverages[2] = 32; //AI5
+	SensorRollingAverages[3] = 32; //AI6
+	TransferFunctions[0] = NTC_NTC1_680; //AI2 //water temperature
+	TransferFunctions[1] = NTC_NTC1_680; //AI3 //water temperature
+	TransferFunctions[2] = NTC_NTC1_680; //AI5 //water temperature
+	TransferFunctions[3] = NTC_NTC1_680; //AI6 //water temperature
+
+	CanId_Analog = 0x696;
+	AnalogSensorBytes[0] = 1;
+	AnalogSensorBytes[1] = 1;
+	AnalogSensorBytes[2] = 1;
+	AnalogSensorBytes[3] = 1;
+	CanId_Diagnostics = 0x697;
+
+	SendAnalogPeriod = 0; //in 100us resolution
+	CanSyncDelay = 0; //in 10us resolution
+
+	OverCurrentWarning = 1000;
+	OverCurrentLimit = 2000;
 }
 
 void Config_13(void)
 {
-	//TODO: setup code for each node that will be in the car
+	MeasureDriverCurrent = 0;
+	MeasureTemperature = 1;
+	SensorRollingAverages[0] = 1; //AI2
+	SensorRollingAverages[1] = 1; //AI3
+	SensorRollingAverages[2] = 32; //AI5
+	SensorRollingAverages[3] = 32; //AI6
+	TransferFunctions[0] = VOLTAGE_3V3_UNCAL; //AI2 //NC
+	TransferFunctions[1] = VOLTAGE_3V3_UNCAL; //AI3 //NC
+	TransferFunctions[2] = RAW; //AI5 //suspension sensor
+	TransferFunctions[3] = RAW; //AI6 //suspension sensor
+
+	CanId_Analog = 0x698;
+	AnalogSensorBytes[0] = 0;
+	AnalogSensorBytes[1] = 0;
+	AnalogSensorBytes[2] = 2; //todo needs to be calibrated
+	AnalogSensorBytes[3] = 2; //todo needs to be calibrated
+	CanId_Diagnostics = 0x699;
+
+	SendAnalogPeriod = 0; //in 100us resolution
+	CanSyncDelay = 0; //in 10us resolution
+
+	OverCurrentWarning = 1000;
+	OverCurrentLimit = 2000;
 }
 
 void Config_14(void)
 {
-	//TODO: setup code for each node that will be in the car
+	MeasureDriverCurrent = 0;
+	MeasureTemperature = 1;
+	SensorRollingAverages[0] = 32; //AI2
+	SensorRollingAverages[1] = 32; //AI3
+	SensorRollingAverages[2] = 32; //AI5
+	SensorRollingAverages[3] = 32; //AI6
+	TransferFunctions[0] = VOLTAGE_3V3_UNCAL; //AI2 //brake temperature
+	TransferFunctions[1] = VOLTAGE_3V3_UNCAL; //AI3 //brake temperature
+	TransferFunctions[2] = NTC_NTC1_360; //AI5 //oil temperature
+	TransferFunctions[3] = NTC_NTC1_360; //AI6 //oil temperature
+
+	CanId_Analog = 0x69A;
+	AnalogSensorBytes[0] = 2; //TODO
+	AnalogSensorBytes[1] = 2; //TODO
+	AnalogSensorBytes[2] = 1;
+	AnalogSensorBytes[3] = 1;
+	CanId_Diagnostics = 0x69B;
+
+	SendAnalogPeriod = 0; //in 100us resolution
+	CanSyncDelay = 0; //in 10us resolution
+
+	OverCurrentWarning = 1000;
+	OverCurrentLimit = 2000;
 }
 
 void Config_15(void)
 {
-	//TODO: setup code for each node that will be in the car
+	MeasureDriverCurrent = 0;
+	MeasureTemperature = 1;
+	SensorRollingAverages[0] = 1; //AI2
+	SensorRollingAverages[1] = 32; //AI3
+	SensorRollingAverages[2] = 32; //AI5
+	SensorRollingAverages[3] = 32; //AI6
+	TransferFunctions[0] = VOLTAGE_3V3_UNCAL; //AI2 //NC
+	TransferFunctions[1] = ZTP_115M; //AI3 //tire temperature
+	TransferFunctions[2] = ZTP_115M; //AI5 //tire temperature
+	TransferFunctions[3] = ZTP_115M; //AI6 //tire temperature
+
+	CanId_Analog = 0x69C;
+	AnalogSensorBytes[0] = 0;
+	AnalogSensorBytes[1] = 1;
+	AnalogSensorBytes[2] = 1;
+	AnalogSensorBytes[3] = 1;
+	CanId_Diagnostics = 0x69D;
+
+	SendAnalogPeriod = 0; //in 100us resolution
+	CanSyncDelay = 0; //in 10us resolution
+
+	OverCurrentWarning = 1000;
+	OverCurrentLimit = 2000;
 }
 
 void Config_16(void)
 {
-	//TODO: setup code for each node that will be in the car
+	MeasureDriverCurrent = 0;
+	MeasureTemperature = 1;
+	SensorRollingAverages[0] = 1; //AI2
+	SensorRollingAverages[1] = 32; //AI3
+	SensorRollingAverages[2] = 32; //AI5
+	SensorRollingAverages[3] = 32; //AI6
+	TransferFunctions[0] = VOLTAGE_3V3_UNCAL; //AI2 //NC
+	TransferFunctions[1] = ZTP_115M; //AI3 //tire temperature
+	TransferFunctions[2] = ZTP_115M; //AI5 //tire temperature
+	TransferFunctions[3] = ZTP_115M; //AI6 //tire temperature
+
+	CanId_Analog = 0x69E;
+	AnalogSensorBytes[0] = 0;
+	AnalogSensorBytes[1] = 1;
+	AnalogSensorBytes[2] = 1;
+	AnalogSensorBytes[3] = 1;
+	CanId_Diagnostics = 0x69F;
+
+	SendAnalogPeriod = 0; //in 100us resolution
+	CanSyncDelay = 0; //in 10us resolution
+
+	OverCurrentWarning = 1000;
+	OverCurrentLimit = 2000;
 }
 
 void Config_17(void)
 {
-	//TODO: setup code for each node that will be in the car
+	MeasureDriverCurrent = 0;
+	MeasureTemperature = 1;
+	SensorRollingAverages[0] = 1; //AI2
+	SensorRollingAverages[1] = 32; //AI3
+	SensorRollingAverages[2] = 32; //AI5
+	SensorRollingAverages[3] = 32; //AI6
+	TransferFunctions[0] = VOLTAGE_3V3_UNCAL; //AI2 //NC
+	TransferFunctions[1] = ZTP_115M; //AI3 //tire temperature
+	TransferFunctions[2] = ZTP_115M; //AI5 //tire temperature
+	TransferFunctions[3] = ZTP_115M; //AI6 //tire temperature
+
+	CanId_Analog = 0x6A0;
+	AnalogSensorBytes[0] = 0;
+	AnalogSensorBytes[1] = 1;
+	AnalogSensorBytes[2] = 1;
+	AnalogSensorBytes[3] = 1;
+	CanId_Diagnostics = 0x6A1;
+
+	SendAnalogPeriod = 0; //in 100us resolution
+	CanSyncDelay = 0; //in 10us resolution
+
+	OverCurrentWarning = 1000;
+	OverCurrentLimit = 2000;
 }
 
 void Config_18(void)
 {
-	//TODO: setup code for each node that will be in the car
+	MeasureDriverCurrent = 0;
+	MeasureTemperature = 1;
+	SensorRollingAverages[0] = 1; //AI2
+	SensorRollingAverages[1] = 32; //AI3
+	SensorRollingAverages[2] = 32; //AI5
+	SensorRollingAverages[3] = 32; //AI6
+	TransferFunctions[0] = VOLTAGE_3V3_UNCAL; //AI2 //NC
+	TransferFunctions[1] = ZTP_115M; //AI3 //tire temperature
+	TransferFunctions[2] = ZTP_115M; //AI5 //tire temperature
+	TransferFunctions[3] = ZTP_115M; //AI6 //tire temperature
+
+	CanId_Analog = 0x6A2;
+	AnalogSensorBytes[0] = 0;
+	AnalogSensorBytes[1] = 1;
+	AnalogSensorBytes[2] = 1;
+	AnalogSensorBytes[3] = 1;
+	CanId_Diagnostics = 0x6A3;
+
+	SendAnalogPeriod = 0; //in 100us resolution
+	CanSyncDelay = 0; //in 10us resolution
+
+	OverCurrentWarning = 1000;
+	OverCurrentLimit = 2000;
 }
 
 
