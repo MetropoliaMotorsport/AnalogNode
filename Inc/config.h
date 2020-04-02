@@ -14,6 +14,16 @@ void Config_Setup(void);
 
 void Config_0(void);
 void Config_1(void);
+void Config_9(void);
+void Config_10(void);
+void Config_11(void);
+void Config_12(void);
+void Config_13(void);
+void Config_14(void);
+void Config_15(void);
+void Config_16(void);
+void Config_17(void);
+void Config_18(void);
 
 void Config_Write_Flash(void);
 void Config_Read_Flash(void);

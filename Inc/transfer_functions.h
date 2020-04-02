@@ -3,6 +3,7 @@
 
 
 //definitions
+#define	RAW						0
 #define VOLTAGE_3V3_UNCAL		1
 #define VOLTAGE_4V5_UNCAL		2
 #define VOLTAGE_5V_UNCAL		3
@@ -19,6 +20,7 @@
 //prototypes
 uint32_t TF_Select(uint8_t, uint8_t, uint16_t);
 
+uint32_t TF_Raw(uint8_t, uint16_t);
 uint32_t TF_Voltage(uint8_t, uint8_t, uint16_t);
 uint32_t TF_NTC(uint8_t, uint8_t, uint16_t);
 uint32_t TF_I_Transducer(uint8_t, uint8_t, uint16_t);

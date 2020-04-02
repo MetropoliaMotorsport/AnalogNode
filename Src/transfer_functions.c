@@ -18,6 +18,9 @@ uint32_t TF_Select(uint8_t bytes, uint8_t sensor, uint16_t raw)
 
 	switch(sensor)
 	{
+	case RAW:
+		transmit = TF_Raw(bytes, raw);
+		break;
 	case VOLTAGE_3V3_UNCAL:
 		transmit = TF_Voltage(bytes, sensor, raw);
 		break;
@@ -59,6 +62,23 @@ uint32_t TF_Select(uint8_t bytes, uint8_t sensor, uint16_t raw)
 	return transmit;
 }
 
+
+uint32_t TF_Raw(uint8_t bytes, uint16_t raw)
+{
+	uint32_t value = 0;
+
+	switch(bytes)
+	{
+	case 1:
+		value = raw/16; //0 to 255
+		break;
+	case 2:
+		value = raw; //0 to 4095
+		break;
+	}
+
+	return value;
+}
 
 //note that these will overflow if higher than 12 bit resolution on the adc is used
 uint32_t TF_Voltage(uint8_t bytes, uint8_t divider, uint16_t raw)

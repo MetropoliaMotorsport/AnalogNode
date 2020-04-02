@@ -75,23 +75,23 @@ extern uint8_t driverError;
 
 //more details about what is stored in each word can be found in config.c
 //flash address definitions
-#define MEASURES_POS					0
+#define MEASURES_POS					(0)
 #define MEASURES						(*(uint32_t*)(FLASH_PAGE_63+0x4*MEASURES_POS))
-#define ROLLING_AVERAGE_0_POS			MEASURES_POS+1
+#define ROLLING_AVERAGE_0_POS			(MEASURES_POS+1)
 #define ROLLING_AVERAGE_0				(*(uint32_t*)(FLASH_PAGE_63+0x4*ROLLING_AVERAGE_0_POS))
-#define ROLLING_AVERAGE_1_POS			ROLLING_AVERAGE_0_POS+1
+#define ROLLING_AVERAGE_1_POS			(ROLLING_AVERAGE_0_POS+1)
 #define ROLLING_AVERAGE_1				(*(uint32_t*)(FLASH_PAGE_63+0x4*ROLLING_AVERAGE_1_POS))
-#define TRANSFER_FUNCTION_POS			ROLLING_AVERAGE_1_POS+1
+#define TRANSFER_FUNCTION_POS			(ROLLING_AVERAGE_1_POS+1)
 #define TRANSFER_FUNCTION				(*(uint32_t*)(FLASH_PAGE_63+0x4*TRANSFER_FUNCTION_POS))
-#define CANIDS_POS						TRANSFER_FUNCTION_POS+1
+#define CANIDS_POS						(TRANSFER_FUNCTION_POS+1)
 #define CANIDS							(*(uint32_t*)(FLASH_PAGE_63+0x4*CANIDS_POS))
-#define CANBYTES_POS					CANIDS_POS+1
+#define CANBYTES_POS					(CANIDS_POS+1)
 #define CANBYTES						(*(uint32_t*)(FLASH_PAGE_63+0x4*CANBYTES_POS))
-#define DELAYS_POS						CANBYTES_POS+1
+#define DELAYS_POS						(CANBYTES_POS+1)
 #define DELAYS							(*(uint32_t*)(FLASH_PAGE_63+0x4*DELAYS_POS))
-#define I_WARN_POS						DELAYS_POS+1
+#define I_WARN_POS						(DELAYS_POS+1)
 #define I_WARN							(*(uint32_t*)(FLASH_PAGE_63+0x4*I_WARN_POS))
-#define I_ERROR_POS						I_WARN_POS+1
+#define I_ERROR_POS						(I_WARN_POS+1)
 #define I_ERROR							(*(uint32_t*)(FLASH_PAGE_63+0x4*I_ERROR_POS))
 
 
@@ -102,7 +102,7 @@ extern uint8_t driverError;
 #define FLASH_PAGE_3 (FLASH_PAGE_2+0x800)
 #define FLASH_PAGE_4 (FLASH_PAGE_3+0x800)
 #define FLASH_PAGE_5 (FLASH_PAGE_4+0x800)
-#define FLASH_PAGE_6 (FLASH_PAGE_5+0x800v
+#define FLASH_PAGE_6 (FLASH_PAGE_5+0x800)
 #define FLASH_PAGE_7 (FLASH_PAGE_6+0x800)
 #define FLASH_PAGE_8 (FLASH_PAGE_7+0x800)
 #define FLASH_PAGE_9 (FLASH_PAGE_8+0x800)

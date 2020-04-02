@@ -5,45 +5,45 @@ Sections:
 Idx Name          Size      VMA       LMA       File off  Algn
   0 .isr_vector   000001d8  08000000  08000000  00010000  2**0
                   CONTENTS, ALLOC, LOAD, READONLY, DATA
-  1 .text         00006bac  080001d8  080001d8  000101d8  2**2
+  1 .text         00006c00  080001d8  080001d8  000101d8  2**2
                   CONTENTS, ALLOC, LOAD, READONLY, CODE
-  2 .rodata       00000020  08006d84  08006d84  00016d84  2**2
+  2 .rodata       00000020  08006dd8  08006dd8  00016dd8  2**2
                   CONTENTS, ALLOC, LOAD, READONLY, DATA
-  3 .ARM.extab    00000000  08006da4  08006da4  0002012c  2**0
+  3 .ARM.extab    00000000  08006df8  08006df8  0002012c  2**0
                   CONTENTS
-  4 .ARM          00000000  08006da4  08006da4  0002012c  2**0
+  4 .ARM          00000000  08006df8  08006df8  0002012c  2**0
                   CONTENTS
-  5 .preinit_array 00000000  08006da4  08006da4  0002012c  2**0
+  5 .preinit_array 00000000  08006df8  08006df8  0002012c  2**0
                   CONTENTS, ALLOC, LOAD, DATA
-  6 .init_array   00000004  08006da4  08006da4  00016da4  2**2
+  6 .init_array   00000004  08006df8  08006df8  00016df8  2**2
                   CONTENTS, ALLOC, LOAD, DATA
-  7 .fini_array   00000004  08006da8  08006da8  00016da8  2**2
+  7 .fini_array   00000004  08006dfc  08006dfc  00016dfc  2**2
                   CONTENTS, ALLOC, LOAD, DATA
-  8 .data         0000012c  20000000  08006dac  00020000  2**2
+  8 .data         0000012c  20000000  08006e00  00020000  2**2
                   CONTENTS, ALLOC, LOAD, DATA
-  9 .bss          00000f90  2000012c  08006ed8  0002012c  2**2
+  9 .bss          00000f90  2000012c  08006f2c  0002012c  2**2
                   ALLOC
- 10 ._user_heap_stack 00000604  200010bc  08006ed8  000210bc  2**0
+ 10 ._user_heap_stack 00000604  200010bc  08006f2c  000210bc  2**0
                   ALLOC
  11 .ARM.attributes 00000030  00000000  00000000  0002012c  2**0
                   CONTENTS, READONLY
- 12 .debug_info   0001626d  00000000  00000000  0002015c  2**0
+ 12 .debug_info   0001635b  00000000  00000000  0002015c  2**0
                   CONTENTS, READONLY, DEBUGGING
- 13 .debug_abbrev 00002b56  00000000  00000000  000363c9  2**0
+ 13 .debug_abbrev 00002b72  00000000  00000000  000364b7  2**0
                   CONTENTS, READONLY, DEBUGGING
- 14 .debug_aranges 000015c0  00000000  00000000  00038f20  2**3
+ 14 .debug_aranges 00001618  00000000  00000000  00039030  2**3
                   CONTENTS, READONLY, DEBUGGING
- 15 .debug_ranges 00001468  00000000  00000000  0003a4e0  2**3
+ 15 .debug_ranges 000014c0  00000000  00000000  0003a648  2**3
                   CONTENTS, READONLY, DEBUGGING
- 16 .debug_macro  000207fe  00000000  00000000  0003b948  2**0
+ 16 .debug_macro  00020804  00000000  00000000  0003bb08  2**0
                   CONTENTS, READONLY, DEBUGGING
- 17 .debug_line   0000f7a7  00000000  00000000  0005c146  2**0
+ 17 .debug_line   0000f875  00000000  00000000  0005c30c  2**0
                   CONTENTS, READONLY, DEBUGGING
- 18 .debug_str    000d87c6  00000000  00000000  0006b8ed  2**0
+ 18 .debug_str    000d88c8  00000000  00000000  0006bb81  2**0
                   CONTENTS, READONLY, DEBUGGING
- 19 .comment      0000007b  00000000  00000000  001440b3  2**0
+ 19 .comment      0000007b  00000000  00000000  00144449  2**0
                   CONTENTS, READONLY
- 20 .debug_frame  00005ccc  00000000  00000000  00144130  2**2
+ 20 .debug_frame  00005e34  00000000  00000000  001444c4  2**2
                   CONTENTS, READONLY, DEBUGGING
 
 Disassembly of section .text:
@@ -62,7 +62,7 @@ Disassembly of section .text:
  80001ee:	bd10      	pop	{r4, pc}
  80001f0:	2000012c 	.word	0x2000012c
  80001f4:	00000000 	.word	0x00000000
- 80001f8:	08006d6c 	.word	0x08006d6c
+ 80001f8:	08006dc0 	.word	0x08006dc0
 
 080001fc <frame_dummy>:
  80001fc:	b508      	push	{r3, lr}
@@ -74,7 +74,7 @@ Disassembly of section .text:
  800020a:	bd08      	pop	{r3, pc}
  800020c:	00000000 	.word	0x00000000
  8000210:	20000130 	.word	0x20000130
- 8000214:	08006d6c 	.word	0x08006d6c
+ 8000214:	08006dc0 	.word	0x08006dc0
 
 08000218 <HAL_Init>:
   *         each 1ms in the SysTick_Handler() interrupt handler.
@@ -6496,7 +6496,7 @@ HAL_StatusTypeDef HAL_FDCAN_GetRxMessage(FDCAN_HandleTypeDef *hfdcan, uint32_t R
  8002600:	46bd      	mov	sp, r7
  8002602:	f85d 7b04 	ldr.w	r7, [sp], #4
  8002606:	4770      	bx	lr
- 8002608:	08006d84 	.word	0x08006d84
+ 8002608:	08006dd8 	.word	0x08006dd8
 
 0800260c <HAL_FDCAN_GetTxFifoFreeLevel>:
   * @param  hfdcan pointer to an FDCAN_HandleTypeDef structure that contains
@@ -7848,7 +7848,7 @@ static void FDCAN_CopyMessageToRAM(FDCAN_HandleTypeDef *hfdcan, FDCAN_TxHeaderTy
  8002cd8:	f85d 7b04 	ldr.w	r7, [sp], #4
  8002cdc:	4770      	bx	lr
  8002cde:	bf00      	nop
- 8002ce0:	08006d84 	.word	0x08006d84
+ 8002ce0:	08006dd8 	.word	0x08006dd8
 
 08002ce4 <HAL_FLASH_Program>:
   *         are stored the data for the row fast program.
@@ -11038,7 +11038,7 @@ HAL_StatusTypeDef HAL_RCC_ClockConfig(RCC_ClkInitTypeDef  *RCC_ClkInitStruct, ui
  8003ee8:	40022000 	.word	0x40022000
  8003eec:	40021000 	.word	0x40021000
  8003ef0:	04c4b400 	.word	0x04c4b400
- 8003ef4:	08006d94 	.word	0x08006d94
+ 8003ef4:	08006de8 	.word	0x08006de8
  8003ef8:	20000028 	.word	0x20000028
  8003efc:	20000000 	.word	0x20000000
 
@@ -13520,7 +13520,7 @@ void Config_Write_Flash(void)
  8004c74:	f44f 6300 	mov.w	r3, #2048	; 0x800
  8004c78:	461a      	mov	r2, r3
  8004c7a:	2100      	movs	r1, #0
- 8004c7c:	f002 f86e 	bl	8006d5c <memset>
+ 8004c7c:	f002 f898 	bl	8006db0 <memset>
 
 
 	data[MEASURES_POS]=((MeasureDriverCurrent&0b1)<<0)+((MeasureTemperature&0b1)<<8);
@@ -13807,22 +13807,22 @@ void Config_Read_Flash(void)
  8004e80:	0801f800 	.word	0x0801f800
  8004e84:	20000fac 	.word	0x20000fac
  8004e88:	20000df9 	.word	0x20000df9
- 8004e8c:	0801f801 	.word	0x0801f801
+ 8004e8c:	0801f804 	.word	0x0801f804
  8004e90:	20000d84 	.word	0x20000d84
- 8004e94:	0801f802 	.word	0x0801f802
- 8004e98:	0801f803 	.word	0x0801f803
+ 8004e94:	0801f808 	.word	0x0801f808
+ 8004e98:	0801f80c 	.word	0x0801f80c
  8004e9c:	20000ee8 	.word	0x20000ee8
- 8004ea0:	0801f804 	.word	0x0801f804
+ 8004ea0:	0801f810 	.word	0x0801f810
  8004ea4:	20000e70 	.word	0x20000e70
  8004ea8:	20000e60 	.word	0x20000e60
- 8004eac:	0801f805 	.word	0x0801f805
+ 8004eac:	0801f814 	.word	0x0801f814
  8004eb0:	20000f60 	.word	0x20000f60
- 8004eb4:	0801f806 	.word	0x0801f806
+ 8004eb4:	0801f818 	.word	0x0801f818
  8004eb8:	20000e68 	.word	0x20000e68
  8004ebc:	20000158 	.word	0x20000158
- 8004ec0:	0801f807 	.word	0x0801f807
+ 8004ec0:	0801f81c 	.word	0x0801f81c
  8004ec4:	20000ee4 	.word	0x20000ee4
- 8004ec8:	0801f808 	.word	0x0801f808
+ 8004ec8:	0801f820 	.word	0x0801f820
  8004ecc:	20000fd0 	.word	0x20000fd0
 
 08004ed0 <Flash_Write>:
@@ -14147,7 +14147,7 @@ void HAL_FDCAN_RxFifo0Callback(FDCAN_HandleTypeDef *hfdcan, uint32_t RxFifo0ITs)
  80050d6:	2228      	movs	r2, #40	; 0x28
  80050d8:	2100      	movs	r1, #0
  80050da:	4618      	mov	r0, r3
- 80050dc:	f001 fe3e 	bl	8006d5c <memset>
+ 80050dc:	f001 fe68 	bl	8006db0 <memset>
 	uint8_t CANRxData[8] = {0};
  80050e0:	f107 030c 	add.w	r3, r7, #12
  80050e4:	2200      	movs	r2, #0
@@ -15569,7 +15569,7 @@ void SystemClock_Config(void)
  8005a62:	2238      	movs	r2, #56	; 0x38
  8005a64:	2100      	movs	r1, #0
  8005a66:	4618      	mov	r0, r3
- 8005a68:	f001 f978 	bl	8006d5c <memset>
+ 8005a68:	f001 f9a2 	bl	8006db0 <memset>
 	RCC_ClkInitTypeDef RCC_ClkInitStruct = {0};
  8005a6c:	f107 0344 	add.w	r3, r7, #68	; 0x44
  8005a70:	2200      	movs	r2, #0
@@ -15583,7 +15583,7 @@ void SystemClock_Config(void)
  8005a7e:	2244      	movs	r2, #68	; 0x44
  8005a80:	2100      	movs	r1, #0
  8005a82:	4618      	mov	r0, r3
- 8005a84:	f001 f96a 	bl	8006d5c <memset>
+ 8005a84:	f001 f994 	bl	8006db0 <memset>
 
 	HAL_PWREx_ControlVoltageScaling(PWR_REGULATOR_VOLTAGE_SCALE1_BOOST);
  8005a88:	2000      	movs	r0, #0
@@ -15829,7 +15829,7 @@ static void MX_ADC1_Init(void)
  8005c2c:	2220      	movs	r2, #32
  8005c2e:	2100      	movs	r1, #0
  8005c30:	4618      	mov	r0, r3
- 8005c32:	f001 f893 	bl	8006d5c <memset>
+ 8005c32:	f001 f8bd 	bl	8006db0 <memset>
 
 	hadc1.Instance = ADC1;
  8005c36:	4b4e      	ldr	r3, [pc, #312]	; (8005d70 <MX_ADC1_Init+0x158>)
@@ -16049,7 +16049,7 @@ static void MX_ADC2_Init(void)
  8005d8c:	2220      	movs	r2, #32
  8005d8e:	2100      	movs	r1, #0
  8005d90:	4618      	mov	r0, r3
- 8005d92:	f000 ffe3 	bl	8006d5c <memset>
+ 8005d92:	f001 f80d 	bl	8006db0 <memset>
 
 	hadc2.Instance = ADC2;
  8005d96:	4b44      	ldr	r3, [pc, #272]	; (8005ea8 <MX_ADC2_Init+0x124>)
@@ -17410,1234 +17410,1295 @@ uint32_t TF_Select(uint8_t bytes, uint8_t sensor, uint16_t raw)
 
 	switch(sensor)
  80065ae:	79bb      	ldrb	r3, [r7, #6]
- 80065b0:	3b01      	subs	r3, #1
- 80065b2:	2b0a      	cmp	r3, #10
- 80065b4:	d870      	bhi.n	8006698 <TF_Select+0x100>
- 80065b6:	a201      	add	r2, pc, #4	; (adr r2, 80065bc <TF_Select+0x24>)
- 80065b8:	f852 f023 	ldr.w	pc, [r2, r3, lsl #2]
- 80065bc:	080065e9 	.word	0x080065e9
- 80065c0:	080065f9 	.word	0x080065f9
- 80065c4:	08006609 	.word	0x08006609
- 80065c8:	08006619 	.word	0x08006619
- 80065cc:	08006629 	.word	0x08006629
- 80065d0:	08006639 	.word	0x08006639
- 80065d4:	08006649 	.word	0x08006649
- 80065d8:	08006659 	.word	0x08006659
- 80065dc:	08006669 	.word	0x08006669
- 80065e0:	08006679 	.word	0x08006679
- 80065e4:	08006689 	.word	0x08006689
+ 80065b0:	2b0b      	cmp	r3, #11
+ 80065b2:	d87b      	bhi.n	80066ac <TF_Select+0x114>
+ 80065b4:	a201      	add	r2, pc, #4	; (adr r2, 80065bc <TF_Select+0x24>)
+ 80065b6:	f852 f023 	ldr.w	pc, [r2, r3, lsl #2]
+ 80065ba:	bf00      	nop
+ 80065bc:	080065ed 	.word	0x080065ed
+ 80065c0:	080065fd 	.word	0x080065fd
+ 80065c4:	0800660d 	.word	0x0800660d
+ 80065c8:	0800661d 	.word	0x0800661d
+ 80065cc:	0800662d 	.word	0x0800662d
+ 80065d0:	0800663d 	.word	0x0800663d
+ 80065d4:	0800664d 	.word	0x0800664d
+ 80065d8:	0800665d 	.word	0x0800665d
+ 80065dc:	0800666d 	.word	0x0800666d
+ 80065e0:	0800667d 	.word	0x0800667d
+ 80065e4:	0800668d 	.word	0x0800668d
+ 80065e8:	0800669d 	.word	0x0800669d
 	{
+	case RAW:
+		transmit = TF_Raw(bytes, raw);
+ 80065ec:	88ba      	ldrh	r2, [r7, #4]
+ 80065ee:	79fb      	ldrb	r3, [r7, #7]
+ 80065f0:	4611      	mov	r1, r2
+ 80065f2:	4618      	mov	r0, r3
+ 80065f4:	f000 f864 	bl	80066c0 <TF_Raw>
+ 80065f8:	60f8      	str	r0, [r7, #12]
+		break;
+ 80065fa:	e05b      	b.n	80066b4 <TF_Select+0x11c>
 	case VOLTAGE_3V3_UNCAL:
 		transmit = TF_Voltage(bytes, sensor, raw);
- 80065e8:	88ba      	ldrh	r2, [r7, #4]
- 80065ea:	79b9      	ldrb	r1, [r7, #6]
- 80065ec:	79fb      	ldrb	r3, [r7, #7]
- 80065ee:	4618      	mov	r0, r3
- 80065f0:	f000 f85c 	bl	80066ac <TF_Voltage>
- 80065f4:	60f8      	str	r0, [r7, #12]
+ 80065fc:	88ba      	ldrh	r2, [r7, #4]
+ 80065fe:	79b9      	ldrb	r1, [r7, #6]
+ 8006600:	79fb      	ldrb	r3, [r7, #7]
+ 8006602:	4618      	mov	r0, r3
+ 8006604:	f000 f87c 	bl	8006700 <TF_Voltage>
+ 8006608:	60f8      	str	r0, [r7, #12]
 		break;
- 80065f6:	e053      	b.n	80066a0 <TF_Select+0x108>
+ 800660a:	e053      	b.n	80066b4 <TF_Select+0x11c>
 	case VOLTAGE_4V5_UNCAL:
 		transmit = TF_Voltage(bytes, sensor, raw);
- 80065f8:	88ba      	ldrh	r2, [r7, #4]
- 80065fa:	79b9      	ldrb	r1, [r7, #6]
- 80065fc:	79fb      	ldrb	r3, [r7, #7]
- 80065fe:	4618      	mov	r0, r3
- 8006600:	f000 f854 	bl	80066ac <TF_Voltage>
- 8006604:	60f8      	str	r0, [r7, #12]
+ 800660c:	88ba      	ldrh	r2, [r7, #4]
+ 800660e:	79b9      	ldrb	r1, [r7, #6]
+ 8006610:	79fb      	ldrb	r3, [r7, #7]
+ 8006612:	4618      	mov	r0, r3
+ 8006614:	f000 f874 	bl	8006700 <TF_Voltage>
+ 8006618:	60f8      	str	r0, [r7, #12]
 		break;
- 8006606:	e04b      	b.n	80066a0 <TF_Select+0x108>
+ 800661a:	e04b      	b.n	80066b4 <TF_Select+0x11c>
 	case VOLTAGE_5V_UNCAL:
 		transmit = TF_Voltage(bytes, sensor, raw);
- 8006608:	88ba      	ldrh	r2, [r7, #4]
- 800660a:	79b9      	ldrb	r1, [r7, #6]
- 800660c:	79fb      	ldrb	r3, [r7, #7]
- 800660e:	4618      	mov	r0, r3
- 8006610:	f000 f84c 	bl	80066ac <TF_Voltage>
- 8006614:	60f8      	str	r0, [r7, #12]
+ 800661c:	88ba      	ldrh	r2, [r7, #4]
+ 800661e:	79b9      	ldrb	r1, [r7, #6]
+ 8006620:	79fb      	ldrb	r3, [r7, #7]
+ 8006622:	4618      	mov	r0, r3
+ 8006624:	f000 f86c 	bl	8006700 <TF_Voltage>
+ 8006628:	60f8      	str	r0, [r7, #12]
 		break;
- 8006616:	e043      	b.n	80066a0 <TF_Select+0x108>
+ 800662a:	e043      	b.n	80066b4 <TF_Select+0x11c>
 	case VOLTAGE_9V_UNCAL:
 		transmit = TF_Voltage(bytes, sensor, raw);
- 8006618:	88ba      	ldrh	r2, [r7, #4]
- 800661a:	79b9      	ldrb	r1, [r7, #6]
- 800661c:	79fb      	ldrb	r3, [r7, #7]
- 800661e:	4618      	mov	r0, r3
- 8006620:	f000 f844 	bl	80066ac <TF_Voltage>
- 8006624:	60f8      	str	r0, [r7, #12]
+ 800662c:	88ba      	ldrh	r2, [r7, #4]
+ 800662e:	79b9      	ldrb	r1, [r7, #6]
+ 8006630:	79fb      	ldrb	r3, [r7, #7]
+ 8006632:	4618      	mov	r0, r3
+ 8006634:	f000 f864 	bl	8006700 <TF_Voltage>
+ 8006638:	60f8      	str	r0, [r7, #12]
 		break;
- 8006626:	e03b      	b.n	80066a0 <TF_Select+0x108>
+ 800663a:	e03b      	b.n	80066b4 <TF_Select+0x11c>
 	case VOLTAGE_12V_UNCAL:
 		transmit = TF_Voltage(bytes, sensor, raw);
- 8006628:	88ba      	ldrh	r2, [r7, #4]
- 800662a:	79b9      	ldrb	r1, [r7, #6]
- 800662c:	79fb      	ldrb	r3, [r7, #7]
- 800662e:	4618      	mov	r0, r3
- 8006630:	f000 f83c 	bl	80066ac <TF_Voltage>
- 8006634:	60f8      	str	r0, [r7, #12]
+ 800663c:	88ba      	ldrh	r2, [r7, #4]
+ 800663e:	79b9      	ldrb	r1, [r7, #6]
+ 8006640:	79fb      	ldrb	r3, [r7, #7]
+ 8006642:	4618      	mov	r0, r3
+ 8006644:	f000 f85c 	bl	8006700 <TF_Voltage>
+ 8006648:	60f8      	str	r0, [r7, #12]
 		break;
- 8006636:	e033      	b.n	80066a0 <TF_Select+0x108>
+ 800664a:	e033      	b.n	80066b4 <TF_Select+0x11c>
 	case VOLTAGE_24V_UNCAL:
 		transmit = TF_Voltage(bytes, sensor, raw);
- 8006638:	88ba      	ldrh	r2, [r7, #4]
- 800663a:	79b9      	ldrb	r1, [r7, #6]
- 800663c:	79fb      	ldrb	r3, [r7, #7]
- 800663e:	4618      	mov	r0, r3
- 8006640:	f000 f834 	bl	80066ac <TF_Voltage>
- 8006644:	60f8      	str	r0, [r7, #12]
+ 800664c:	88ba      	ldrh	r2, [r7, #4]
+ 800664e:	79b9      	ldrb	r1, [r7, #6]
+ 8006650:	79fb      	ldrb	r3, [r7, #7]
+ 8006652:	4618      	mov	r0, r3
+ 8006654:	f000 f854 	bl	8006700 <TF_Voltage>
+ 8006658:	60f8      	str	r0, [r7, #12]
 		break;
- 8006646:	e02b      	b.n	80066a0 <TF_Select+0x108>
+ 800665a:	e02b      	b.n	80066b4 <TF_Select+0x11c>
 	case VOLTAGE_30V_UNCAL:
 		transmit = TF_Voltage(bytes, sensor, raw);
- 8006648:	88ba      	ldrh	r2, [r7, #4]
- 800664a:	79b9      	ldrb	r1, [r7, #6]
- 800664c:	79fb      	ldrb	r3, [r7, #7]
- 800664e:	4618      	mov	r0, r3
- 8006650:	f000 f82c 	bl	80066ac <TF_Voltage>
- 8006654:	60f8      	str	r0, [r7, #12]
+ 800665c:	88ba      	ldrh	r2, [r7, #4]
+ 800665e:	79b9      	ldrb	r1, [r7, #6]
+ 8006660:	79fb      	ldrb	r3, [r7, #7]
+ 8006662:	4618      	mov	r0, r3
+ 8006664:	f000 f84c 	bl	8006700 <TF_Voltage>
+ 8006668:	60f8      	str	r0, [r7, #12]
 		break;
- 8006656:	e023      	b.n	80066a0 <TF_Select+0x108>
+ 800666a:	e023      	b.n	80066b4 <TF_Select+0x11c>
 	case NTC_NTC1_680:
 		transmit = TF_NTC(bytes, sensor, raw);
- 8006658:	88ba      	ldrh	r2, [r7, #4]
- 800665a:	79b9      	ldrb	r1, [r7, #6]
- 800665c:	79fb      	ldrb	r3, [r7, #7]
- 800665e:	4618      	mov	r0, r3
- 8006660:	f000 f9a6 	bl	80069b0 <TF_NTC>
- 8006664:	60f8      	str	r0, [r7, #12]
+ 800666c:	88ba      	ldrh	r2, [r7, #4]
+ 800666e:	79b9      	ldrb	r1, [r7, #6]
+ 8006670:	79fb      	ldrb	r3, [r7, #7]
+ 8006672:	4618      	mov	r0, r3
+ 8006674:	f000 f9c6 	bl	8006a04 <TF_NTC>
+ 8006678:	60f8      	str	r0, [r7, #12]
 		break;
- 8006666:	e01b      	b.n	80066a0 <TF_Select+0x108>
+ 800667a:	e01b      	b.n	80066b4 <TF_Select+0x11c>
 	case NTC_NTC1_360:
 		transmit = TF_NTC(bytes, sensor, raw);
- 8006668:	88ba      	ldrh	r2, [r7, #4]
- 800666a:	79b9      	ldrb	r1, [r7, #6]
- 800666c:	79fb      	ldrb	r3, [r7, #7]
- 800666e:	4618      	mov	r0, r3
- 8006670:	f000 f99e 	bl	80069b0 <TF_NTC>
- 8006674:	60f8      	str	r0, [r7, #12]
+ 800667c:	88ba      	ldrh	r2, [r7, #4]
+ 800667e:	79b9      	ldrb	r1, [r7, #6]
+ 8006680:	79fb      	ldrb	r3, [r7, #7]
+ 8006682:	4618      	mov	r0, r3
+ 8006684:	f000 f9be 	bl	8006a04 <TF_NTC>
+ 8006688:	60f8      	str	r0, [r7, #12]
 		break;
- 8006676:	e013      	b.n	80066a0 <TF_Select+0x108>
+ 800668a:	e013      	b.n	80066b4 <TF_Select+0x11c>
 	case DHABS106_20A:
 		transmit = TF_I_Transducer(bytes, sensor, raw);
- 8006678:	88ba      	ldrh	r2, [r7, #4]
- 800667a:	79b9      	ldrb	r1, [r7, #6]
- 800667c:	79fb      	ldrb	r3, [r7, #7]
- 800667e:	4618      	mov	r0, r3
- 8006680:	f000 f9c4 	bl	8006a0c <TF_I_Transducer>
- 8006684:	60f8      	str	r0, [r7, #12]
+ 800668c:	88ba      	ldrh	r2, [r7, #4]
+ 800668e:	79b9      	ldrb	r1, [r7, #6]
+ 8006690:	79fb      	ldrb	r3, [r7, #7]
+ 8006692:	4618      	mov	r0, r3
+ 8006694:	f000 f9e4 	bl	8006a60 <TF_I_Transducer>
+ 8006698:	60f8      	str	r0, [r7, #12]
 		break;
- 8006686:	e00b      	b.n	80066a0 <TF_Select+0x108>
+ 800669a:	e00b      	b.n	80066b4 <TF_Select+0x11c>
 	case DHABS106_500A:
 		transmit = TF_I_Transducer(bytes, sensor, raw);
- 8006688:	88ba      	ldrh	r2, [r7, #4]
- 800668a:	79b9      	ldrb	r1, [r7, #6]
- 800668c:	79fb      	ldrb	r3, [r7, #7]
- 800668e:	4618      	mov	r0, r3
- 8006690:	f000 f9bc 	bl	8006a0c <TF_I_Transducer>
- 8006694:	60f8      	str	r0, [r7, #12]
+ 800669c:	88ba      	ldrh	r2, [r7, #4]
+ 800669e:	79b9      	ldrb	r1, [r7, #6]
+ 80066a0:	79fb      	ldrb	r3, [r7, #7]
+ 80066a2:	4618      	mov	r0, r3
+ 80066a4:	f000 f9dc 	bl	8006a60 <TF_I_Transducer>
+ 80066a8:	60f8      	str	r0, [r7, #12]
 		break;
- 8006696:	e003      	b.n	80066a0 <TF_Select+0x108>
+ 80066aa:	e003      	b.n	80066b4 <TF_Select+0x11c>
 	default:
 		Set_Error(ERR_INCORRECT_TF);
- 8006698:	2022      	movs	r0, #34	; 0x22
- 800669a:	f7ff f92f 	bl	80058fc <Set_Error>
+ 80066ac:	2022      	movs	r0, #34	; 0x22
+ 80066ae:	f7ff f925 	bl	80058fc <Set_Error>
 		break;
- 800669e:	bf00      	nop
+ 80066b2:	bf00      	nop
 	}
 
 	return transmit;
- 80066a0:	68fb      	ldr	r3, [r7, #12]
+ 80066b4:	68fb      	ldr	r3, [r7, #12]
 }
- 80066a2:	4618      	mov	r0, r3
- 80066a4:	3710      	adds	r7, #16
- 80066a6:	46bd      	mov	sp, r7
- 80066a8:	bd80      	pop	{r7, pc}
- 80066aa:	bf00      	nop
+ 80066b6:	4618      	mov	r0, r3
+ 80066b8:	3710      	adds	r7, #16
+ 80066ba:	46bd      	mov	sp, r7
+ 80066bc:	bd80      	pop	{r7, pc}
+ 80066be:	bf00      	nop
 
-080066ac <TF_Voltage>:
+080066c0 <TF_Raw>:
 
+
+uint32_t TF_Raw(uint8_t bytes, uint16_t raw)
+{
+ 80066c0:	b480      	push	{r7}
+ 80066c2:	b085      	sub	sp, #20
+ 80066c4:	af00      	add	r7, sp, #0
+ 80066c6:	4603      	mov	r3, r0
+ 80066c8:	460a      	mov	r2, r1
+ 80066ca:	71fb      	strb	r3, [r7, #7]
+ 80066cc:	4613      	mov	r3, r2
+ 80066ce:	80bb      	strh	r3, [r7, #4]
+	uint32_t value = 0;
+ 80066d0:	2300      	movs	r3, #0
+ 80066d2:	60fb      	str	r3, [r7, #12]
+
+	switch(bytes)
+ 80066d4:	79fb      	ldrb	r3, [r7, #7]
+ 80066d6:	2b01      	cmp	r3, #1
+ 80066d8:	d002      	beq.n	80066e0 <TF_Raw+0x20>
+ 80066da:	2b02      	cmp	r3, #2
+ 80066dc:	d005      	beq.n	80066ea <TF_Raw+0x2a>
+ 80066de:	e007      	b.n	80066f0 <TF_Raw+0x30>
+	{
+	case 1:
+		value = raw/16; //0 to 255
+ 80066e0:	88bb      	ldrh	r3, [r7, #4]
+ 80066e2:	091b      	lsrs	r3, r3, #4
+ 80066e4:	b29b      	uxth	r3, r3
+ 80066e6:	60fb      	str	r3, [r7, #12]
+		break;
+ 80066e8:	e002      	b.n	80066f0 <TF_Raw+0x30>
+	case 2:
+		value = raw; //0 to 4095
+ 80066ea:	88bb      	ldrh	r3, [r7, #4]
+ 80066ec:	60fb      	str	r3, [r7, #12]
+		break;
+ 80066ee:	bf00      	nop
+	}
+
+	return value;
+ 80066f0:	68fb      	ldr	r3, [r7, #12]
+}
+ 80066f2:	4618      	mov	r0, r3
+ 80066f4:	3714      	adds	r7, #20
+ 80066f6:	46bd      	mov	sp, r7
+ 80066f8:	f85d 7b04 	ldr.w	r7, [sp], #4
+ 80066fc:	4770      	bx	lr
+	...
+
+08006700 <TF_Voltage>:
 
 //note that these will overflow if higher than 12 bit resolution on the adc is used
 uint32_t TF_Voltage(uint8_t bytes, uint8_t divider, uint16_t raw)
 {
- 80066ac:	b580      	push	{r7, lr}
- 80066ae:	b084      	sub	sp, #16
- 80066b0:	af00      	add	r7, sp, #0
- 80066b2:	4603      	mov	r3, r0
- 80066b4:	71fb      	strb	r3, [r7, #7]
- 80066b6:	460b      	mov	r3, r1
- 80066b8:	71bb      	strb	r3, [r7, #6]
- 80066ba:	4613      	mov	r3, r2
- 80066bc:	80bb      	strh	r3, [r7, #4]
+ 8006700:	b580      	push	{r7, lr}
+ 8006702:	b084      	sub	sp, #16
+ 8006704:	af00      	add	r7, sp, #0
+ 8006706:	4603      	mov	r3, r0
+ 8006708:	71fb      	strb	r3, [r7, #7]
+ 800670a:	460b      	mov	r3, r1
+ 800670c:	71bb      	strb	r3, [r7, #6]
+ 800670e:	4613      	mov	r3, r2
+ 8006710:	80bb      	strh	r3, [r7, #4]
 	uint32_t voltage = 0;
- 80066be:	2300      	movs	r3, #0
- 80066c0:	60fb      	str	r3, [r7, #12]
+ 8006712:	2300      	movs	r3, #0
+ 8006714:	60fb      	str	r3, [r7, #12]
 
 	switch(divider) //calculate voltage in uV
- 80066c2:	79bb      	ldrb	r3, [r7, #6]
- 80066c4:	3b01      	subs	r3, #1
- 80066c6:	2b06      	cmp	r3, #6
- 80066c8:	f200 8152 	bhi.w	8006970 <TF_Voltage+0x2c4>
- 80066cc:	a201      	add	r2, pc, #4	; (adr r2, 80066d4 <TF_Voltage+0x28>)
- 80066ce:	f852 f023 	ldr.w	pc, [r2, r3, lsl #2]
- 80066d2:	bf00      	nop
- 80066d4:	080066f1 	.word	0x080066f1
- 80066d8:	08006749 	.word	0x08006749
- 80066dc:	080067a7 	.word	0x080067a7
- 80066e0:	08006803 	.word	0x08006803
- 80066e4:	08006861 	.word	0x08006861
- 80066e8:	080068bd 	.word	0x080068bd
- 80066ec:	08006919 	.word	0x08006919
+ 8006716:	79bb      	ldrb	r3, [r7, #6]
+ 8006718:	3b01      	subs	r3, #1
+ 800671a:	2b06      	cmp	r3, #6
+ 800671c:	f200 8152 	bhi.w	80069c4 <TF_Voltage+0x2c4>
+ 8006720:	a201      	add	r2, pc, #4	; (adr r2, 8006728 <TF_Voltage+0x28>)
+ 8006722:	f852 f023 	ldr.w	pc, [r2, r3, lsl #2]
+ 8006726:	bf00      	nop
+ 8006728:	08006745 	.word	0x08006745
+ 800672c:	0800679d 	.word	0x0800679d
+ 8006730:	080067fb 	.word	0x080067fb
+ 8006734:	08006857 	.word	0x08006857
+ 8006738:	080068b5 	.word	0x080068b5
+ 800673c:	08006911 	.word	0x08006911
+ 8006740:	0800696d 	.word	0x0800696d
 	{
 	case VOLTAGE_3V3_UNCAL:
 		voltage = (raw*103125)/128; // C = 3.3*1000000/2^12 //3.3/2^12 gives in V
- 80066f0:	88bb      	ldrh	r3, [r7, #4]
- 80066f2:	4aa4      	ldr	r2, [pc, #656]	; (8006984 <TF_Voltage+0x2d8>)
- 80066f4:	fb02 f303 	mul.w	r3, r2, r3
- 80066f8:	2b00      	cmp	r3, #0
- 80066fa:	da00      	bge.n	80066fe <TF_Voltage+0x52>
- 80066fc:	337f      	adds	r3, #127	; 0x7f
- 80066fe:	11db      	asrs	r3, r3, #7
- 8006700:	60fb      	str	r3, [r7, #12]
+ 8006744:	88bb      	ldrh	r3, [r7, #4]
+ 8006746:	4aa4      	ldr	r2, [pc, #656]	; (80069d8 <TF_Voltage+0x2d8>)
+ 8006748:	fb02 f303 	mul.w	r3, r2, r3
+ 800674c:	2b00      	cmp	r3, #0
+ 800674e:	da00      	bge.n	8006752 <TF_Voltage+0x52>
+ 8006750:	337f      	adds	r3, #127	; 0x7f
+ 8006752:	11db      	asrs	r3, r3, #7
+ 8006754:	60fb      	str	r3, [r7, #12]
 		switch(bytes)
- 8006702:	79fb      	ldrb	r3, [r7, #7]
- 8006704:	2b01      	cmp	r3, #1
- 8006706:	d002      	beq.n	800670e <TF_Voltage+0x62>
- 8006708:	2b02      	cmp	r3, #2
- 800670a:	d00d      	beq.n	8006728 <TF_Voltage+0x7c>
- 800670c:	e017      	b.n	800673e <TF_Voltage+0x92>
+ 8006756:	79fb      	ldrb	r3, [r7, #7]
+ 8006758:	2b01      	cmp	r3, #1
+ 800675a:	d002      	beq.n	8006762 <TF_Voltage+0x62>
+ 800675c:	2b02      	cmp	r3, #2
+ 800675e:	d00d      	beq.n	800677c <TF_Voltage+0x7c>
+ 8006760:	e017      	b.n	8006792 <TF_Voltage+0x92>
 		{
 		case 1:
 			voltage+=500000;
- 800670e:	68fb      	ldr	r3, [r7, #12]
- 8006710:	f503 23f4 	add.w	r3, r3, #499712	; 0x7a000
- 8006714:	f503 7390 	add.w	r3, r3, #288	; 0x120
- 8006718:	60fb      	str	r3, [r7, #12]
+ 8006762:	68fb      	ldr	r3, [r7, #12]
+ 8006764:	f503 23f4 	add.w	r3, r3, #499712	; 0x7a000
+ 8006768:	f503 7390 	add.w	r3, r3, #288	; 0x120
+ 800676c:	60fb      	str	r3, [r7, #12]
 			voltage/=1000000; //voltage in 100's of mV
- 800671a:	68fb      	ldr	r3, [r7, #12]
- 800671c:	4a9a      	ldr	r2, [pc, #616]	; (8006988 <TF_Voltage+0x2dc>)
- 800671e:	fba2 2303 	umull	r2, r3, r2, r3
- 8006722:	0c9b      	lsrs	r3, r3, #18
- 8006724:	60fb      	str	r3, [r7, #12]
+ 800676e:	68fb      	ldr	r3, [r7, #12]
+ 8006770:	4a9a      	ldr	r2, [pc, #616]	; (80069dc <TF_Voltage+0x2dc>)
+ 8006772:	fba2 2303 	umull	r2, r3, r2, r3
+ 8006776:	0c9b      	lsrs	r3, r3, #18
+ 8006778:	60fb      	str	r3, [r7, #12]
 			break;
- 8006726:	e00e      	b.n	8006746 <TF_Voltage+0x9a>
+ 800677a:	e00e      	b.n	800679a <TF_Voltage+0x9a>
 		case 2:
 			voltage+=500;
- 8006728:	68fb      	ldr	r3, [r7, #12]
- 800672a:	f503 73fa 	add.w	r3, r3, #500	; 0x1f4
- 800672e:	60fb      	str	r3, [r7, #12]
+ 800677c:	68fb      	ldr	r3, [r7, #12]
+ 800677e:	f503 73fa 	add.w	r3, r3, #500	; 0x1f4
+ 8006782:	60fb      	str	r3, [r7, #12]
 			voltage/=1000; //voltage in mV
- 8006730:	68fb      	ldr	r3, [r7, #12]
- 8006732:	4a96      	ldr	r2, [pc, #600]	; (800698c <TF_Voltage+0x2e0>)
- 8006734:	fba2 2303 	umull	r2, r3, r2, r3
- 8006738:	099b      	lsrs	r3, r3, #6
- 800673a:	60fb      	str	r3, [r7, #12]
+ 8006784:	68fb      	ldr	r3, [r7, #12]
+ 8006786:	4a96      	ldr	r2, [pc, #600]	; (80069e0 <TF_Voltage+0x2e0>)
+ 8006788:	fba2 2303 	umull	r2, r3, r2, r3
+ 800678c:	099b      	lsrs	r3, r3, #6
+ 800678e:	60fb      	str	r3, [r7, #12]
 			break;
- 800673c:	e003      	b.n	8006746 <TF_Voltage+0x9a>
+ 8006790:	e003      	b.n	800679a <TF_Voltage+0x9a>
 		default:
 			Set_Error(ERR_WRONG_BYTES);
- 800673e:	2021      	movs	r0, #33	; 0x21
- 8006740:	f7ff f8dc 	bl	80058fc <Set_Error>
+ 8006792:	2021      	movs	r0, #33	; 0x21
+ 8006794:	f7ff f8b2 	bl	80058fc <Set_Error>
 			break;
- 8006744:	bf00      	nop
+ 8006798:	bf00      	nop
 		}
 		break;
- 8006746:	e117      	b.n	8006978 <TF_Voltage+0x2cc>
+ 800679a:	e117      	b.n	80069cc <TF_Voltage+0x2cc>
 	case VOLTAGE_4V5_UNCAL:
 		voltage = (raw*55327)/50; // C*(1.21+3.24)/3.24
- 8006748:	88bb      	ldrh	r3, [r7, #4]
- 800674a:	f64d 021f 	movw	r2, #55327	; 0xd81f
- 800674e:	fb02 f303 	mul.w	r3, r2, r3
- 8006752:	4a8f      	ldr	r2, [pc, #572]	; (8006990 <TF_Voltage+0x2e4>)
- 8006754:	fb82 1203 	smull	r1, r2, r2, r3
- 8006758:	1112      	asrs	r2, r2, #4
- 800675a:	17db      	asrs	r3, r3, #31
- 800675c:	1ad3      	subs	r3, r2, r3
- 800675e:	60fb      	str	r3, [r7, #12]
+ 800679c:	88bb      	ldrh	r3, [r7, #4]
+ 800679e:	f64d 021f 	movw	r2, #55327	; 0xd81f
+ 80067a2:	fb02 f303 	mul.w	r3, r2, r3
+ 80067a6:	4a8f      	ldr	r2, [pc, #572]	; (80069e4 <TF_Voltage+0x2e4>)
+ 80067a8:	fb82 1203 	smull	r1, r2, r2, r3
+ 80067ac:	1112      	asrs	r2, r2, #4
+ 80067ae:	17db      	asrs	r3, r3, #31
+ 80067b0:	1ad3      	subs	r3, r2, r3
+ 80067b2:	60fb      	str	r3, [r7, #12]
 		switch(bytes)
- 8006760:	79fb      	ldrb	r3, [r7, #7]
- 8006762:	2b01      	cmp	r3, #1
- 8006764:	d002      	beq.n	800676c <TF_Voltage+0xc0>
- 8006766:	2b02      	cmp	r3, #2
- 8006768:	d00d      	beq.n	8006786 <TF_Voltage+0xda>
- 800676a:	e017      	b.n	800679c <TF_Voltage+0xf0>
+ 80067b4:	79fb      	ldrb	r3, [r7, #7]
+ 80067b6:	2b01      	cmp	r3, #1
+ 80067b8:	d002      	beq.n	80067c0 <TF_Voltage+0xc0>
+ 80067ba:	2b02      	cmp	r3, #2
+ 80067bc:	d00d      	beq.n	80067da <TF_Voltage+0xda>
+ 80067be:	e017      	b.n	80067f0 <TF_Voltage+0xf0>
 		{
 		case 1:
 			voltage+=500000;
- 800676c:	68fb      	ldr	r3, [r7, #12]
- 800676e:	f503 23f4 	add.w	r3, r3, #499712	; 0x7a000
- 8006772:	f503 7390 	add.w	r3, r3, #288	; 0x120
- 8006776:	60fb      	str	r3, [r7, #12]
+ 80067c0:	68fb      	ldr	r3, [r7, #12]
+ 80067c2:	f503 23f4 	add.w	r3, r3, #499712	; 0x7a000
+ 80067c6:	f503 7390 	add.w	r3, r3, #288	; 0x120
+ 80067ca:	60fb      	str	r3, [r7, #12]
 			voltage/=1000000; //voltage in 100's of mV
- 8006778:	68fb      	ldr	r3, [r7, #12]
- 800677a:	4a83      	ldr	r2, [pc, #524]	; (8006988 <TF_Voltage+0x2dc>)
- 800677c:	fba2 2303 	umull	r2, r3, r2, r3
- 8006780:	0c9b      	lsrs	r3, r3, #18
- 8006782:	60fb      	str	r3, [r7, #12]
+ 80067cc:	68fb      	ldr	r3, [r7, #12]
+ 80067ce:	4a83      	ldr	r2, [pc, #524]	; (80069dc <TF_Voltage+0x2dc>)
+ 80067d0:	fba2 2303 	umull	r2, r3, r2, r3
+ 80067d4:	0c9b      	lsrs	r3, r3, #18
+ 80067d6:	60fb      	str	r3, [r7, #12]
 			break;
- 8006784:	e00e      	b.n	80067a4 <TF_Voltage+0xf8>
+ 80067d8:	e00e      	b.n	80067f8 <TF_Voltage+0xf8>
 		case 2:
 			voltage+=500;
- 8006786:	68fb      	ldr	r3, [r7, #12]
- 8006788:	f503 73fa 	add.w	r3, r3, #500	; 0x1f4
- 800678c:	60fb      	str	r3, [r7, #12]
+ 80067da:	68fb      	ldr	r3, [r7, #12]
+ 80067dc:	f503 73fa 	add.w	r3, r3, #500	; 0x1f4
+ 80067e0:	60fb      	str	r3, [r7, #12]
 			voltage/=1000; //voltage in mV
- 800678e:	68fb      	ldr	r3, [r7, #12]
- 8006790:	4a7e      	ldr	r2, [pc, #504]	; (800698c <TF_Voltage+0x2e0>)
- 8006792:	fba2 2303 	umull	r2, r3, r2, r3
- 8006796:	099b      	lsrs	r3, r3, #6
- 8006798:	60fb      	str	r3, [r7, #12]
+ 80067e2:	68fb      	ldr	r3, [r7, #12]
+ 80067e4:	4a7e      	ldr	r2, [pc, #504]	; (80069e0 <TF_Voltage+0x2e0>)
+ 80067e6:	fba2 2303 	umull	r2, r3, r2, r3
+ 80067ea:	099b      	lsrs	r3, r3, #6
+ 80067ec:	60fb      	str	r3, [r7, #12]
 			break;
- 800679a:	e003      	b.n	80067a4 <TF_Voltage+0xf8>
+ 80067ee:	e003      	b.n	80067f8 <TF_Voltage+0xf8>
 		default:
 			Set_Error(ERR_WRONG_BYTES);
- 800679c:	2021      	movs	r0, #33	; 0x21
- 800679e:	f7ff f8ad 	bl	80058fc <Set_Error>
+ 80067f0:	2021      	movs	r0, #33	; 0x21
+ 80067f2:	f7ff f883 	bl	80058fc <Set_Error>
 			break;
- 80067a2:	bf00      	nop
+ 80067f6:	bf00      	nop
 		}
 		break;
- 80067a4:	e0e8      	b.n	8006978 <TF_Voltage+0x2cc>
+ 80067f8:	e0e8      	b.n	80069cc <TF_Voltage+0x2cc>
 	case VOLTAGE_5V_UNCAL:
 		voltage = (raw*247667)/20; // C*(1.74+3.24)/3.24
- 80067a6:	88bb      	ldrh	r3, [r7, #4]
- 80067a8:	4a7a      	ldr	r2, [pc, #488]	; (8006994 <TF_Voltage+0x2e8>)
- 80067aa:	fb02 f303 	mul.w	r3, r2, r3
- 80067ae:	4a7a      	ldr	r2, [pc, #488]	; (8006998 <TF_Voltage+0x2ec>)
- 80067b0:	fb82 1203 	smull	r1, r2, r2, r3
- 80067b4:	10d2      	asrs	r2, r2, #3
- 80067b6:	17db      	asrs	r3, r3, #31
- 80067b8:	1ad3      	subs	r3, r2, r3
- 80067ba:	60fb      	str	r3, [r7, #12]
+ 80067fa:	88bb      	ldrh	r3, [r7, #4]
+ 80067fc:	4a7a      	ldr	r2, [pc, #488]	; (80069e8 <TF_Voltage+0x2e8>)
+ 80067fe:	fb02 f303 	mul.w	r3, r2, r3
+ 8006802:	4a7a      	ldr	r2, [pc, #488]	; (80069ec <TF_Voltage+0x2ec>)
+ 8006804:	fb82 1203 	smull	r1, r2, r2, r3
+ 8006808:	10d2      	asrs	r2, r2, #3
+ 800680a:	17db      	asrs	r3, r3, #31
+ 800680c:	1ad3      	subs	r3, r2, r3
+ 800680e:	60fb      	str	r3, [r7, #12]
 		switch(bytes)
- 80067bc:	79fb      	ldrb	r3, [r7, #7]
- 80067be:	2b01      	cmp	r3, #1
- 80067c0:	d002      	beq.n	80067c8 <TF_Voltage+0x11c>
- 80067c2:	2b02      	cmp	r3, #2
- 80067c4:	d00d      	beq.n	80067e2 <TF_Voltage+0x136>
- 80067c6:	e017      	b.n	80067f8 <TF_Voltage+0x14c>
+ 8006810:	79fb      	ldrb	r3, [r7, #7]
+ 8006812:	2b01      	cmp	r3, #1
+ 8006814:	d002      	beq.n	800681c <TF_Voltage+0x11c>
+ 8006816:	2b02      	cmp	r3, #2
+ 8006818:	d00d      	beq.n	8006836 <TF_Voltage+0x136>
+ 800681a:	e017      	b.n	800684c <TF_Voltage+0x14c>
 		{
 		case 1:
 			voltage+=500000;
- 80067c8:	68fb      	ldr	r3, [r7, #12]
- 80067ca:	f503 23f4 	add.w	r3, r3, #499712	; 0x7a000
- 80067ce:	f503 7390 	add.w	r3, r3, #288	; 0x120
- 80067d2:	60fb      	str	r3, [r7, #12]
+ 800681c:	68fb      	ldr	r3, [r7, #12]
+ 800681e:	f503 23f4 	add.w	r3, r3, #499712	; 0x7a000
+ 8006822:	f503 7390 	add.w	r3, r3, #288	; 0x120
+ 8006826:	60fb      	str	r3, [r7, #12]
 			voltage/=1000000; //voltage in 100's of mV
- 80067d4:	68fb      	ldr	r3, [r7, #12]
- 80067d6:	4a6c      	ldr	r2, [pc, #432]	; (8006988 <TF_Voltage+0x2dc>)
- 80067d8:	fba2 2303 	umull	r2, r3, r2, r3
- 80067dc:	0c9b      	lsrs	r3, r3, #18
- 80067de:	60fb      	str	r3, [r7, #12]
+ 8006828:	68fb      	ldr	r3, [r7, #12]
+ 800682a:	4a6c      	ldr	r2, [pc, #432]	; (80069dc <TF_Voltage+0x2dc>)
+ 800682c:	fba2 2303 	umull	r2, r3, r2, r3
+ 8006830:	0c9b      	lsrs	r3, r3, #18
+ 8006832:	60fb      	str	r3, [r7, #12]
 			break;
- 80067e0:	e00e      	b.n	8006800 <TF_Voltage+0x154>
+ 8006834:	e00e      	b.n	8006854 <TF_Voltage+0x154>
 		case 2:
 			voltage+=500;
- 80067e2:	68fb      	ldr	r3, [r7, #12]
- 80067e4:	f503 73fa 	add.w	r3, r3, #500	; 0x1f4
- 80067e8:	60fb      	str	r3, [r7, #12]
+ 8006836:	68fb      	ldr	r3, [r7, #12]
+ 8006838:	f503 73fa 	add.w	r3, r3, #500	; 0x1f4
+ 800683c:	60fb      	str	r3, [r7, #12]
 			voltage/=1000; //voltage in mV
- 80067ea:	68fb      	ldr	r3, [r7, #12]
- 80067ec:	4a67      	ldr	r2, [pc, #412]	; (800698c <TF_Voltage+0x2e0>)
- 80067ee:	fba2 2303 	umull	r2, r3, r2, r3
- 80067f2:	099b      	lsrs	r3, r3, #6
- 80067f4:	60fb      	str	r3, [r7, #12]
+ 800683e:	68fb      	ldr	r3, [r7, #12]
+ 8006840:	4a67      	ldr	r2, [pc, #412]	; (80069e0 <TF_Voltage+0x2e0>)
+ 8006842:	fba2 2303 	umull	r2, r3, r2, r3
+ 8006846:	099b      	lsrs	r3, r3, #6
+ 8006848:	60fb      	str	r3, [r7, #12]
 			break;
- 80067f6:	e003      	b.n	8006800 <TF_Voltage+0x154>
+ 800684a:	e003      	b.n	8006854 <TF_Voltage+0x154>
 		default:
 			Set_Error(ERR_WRONG_BYTES);
- 80067f8:	2021      	movs	r0, #33	; 0x21
- 80067fa:	f7ff f87f 	bl	80058fc <Set_Error>
+ 800684c:	2021      	movs	r0, #33	; 0x21
+ 800684e:	f7ff f855 	bl	80058fc <Set_Error>
 			break;
- 80067fe:	bf00      	nop
+ 8006852:	bf00      	nop
 		}
 		break;
- 8006800:	e0ba      	b.n	8006978 <TF_Voltage+0x2cc>
+ 8006854:	e0ba      	b.n	80069cc <TF_Voltage+0x2cc>
 	case VOLTAGE_9V_UNCAL:
 		voltage = (raw*44759)/20; // C*(5.76+3.24)/3.24
- 8006802:	88bb      	ldrh	r3, [r7, #4]
- 8006804:	f64a 62d7 	movw	r2, #44759	; 0xaed7
- 8006808:	fb02 f303 	mul.w	r3, r2, r3
- 800680c:	4a62      	ldr	r2, [pc, #392]	; (8006998 <TF_Voltage+0x2ec>)
- 800680e:	fb82 1203 	smull	r1, r2, r2, r3
- 8006812:	10d2      	asrs	r2, r2, #3
- 8006814:	17db      	asrs	r3, r3, #31
- 8006816:	1ad3      	subs	r3, r2, r3
- 8006818:	60fb      	str	r3, [r7, #12]
+ 8006856:	88bb      	ldrh	r3, [r7, #4]
+ 8006858:	f64a 62d7 	movw	r2, #44759	; 0xaed7
+ 800685c:	fb02 f303 	mul.w	r3, r2, r3
+ 8006860:	4a62      	ldr	r2, [pc, #392]	; (80069ec <TF_Voltage+0x2ec>)
+ 8006862:	fb82 1203 	smull	r1, r2, r2, r3
+ 8006866:	10d2      	asrs	r2, r2, #3
+ 8006868:	17db      	asrs	r3, r3, #31
+ 800686a:	1ad3      	subs	r3, r2, r3
+ 800686c:	60fb      	str	r3, [r7, #12]
 		switch(bytes)
- 800681a:	79fb      	ldrb	r3, [r7, #7]
- 800681c:	2b01      	cmp	r3, #1
- 800681e:	d002      	beq.n	8006826 <TF_Voltage+0x17a>
- 8006820:	2b02      	cmp	r3, #2
- 8006822:	d00d      	beq.n	8006840 <TF_Voltage+0x194>
- 8006824:	e017      	b.n	8006856 <TF_Voltage+0x1aa>
+ 800686e:	79fb      	ldrb	r3, [r7, #7]
+ 8006870:	2b01      	cmp	r3, #1
+ 8006872:	d002      	beq.n	800687a <TF_Voltage+0x17a>
+ 8006874:	2b02      	cmp	r3, #2
+ 8006876:	d00d      	beq.n	8006894 <TF_Voltage+0x194>
+ 8006878:	e017      	b.n	80068aa <TF_Voltage+0x1aa>
 		{
 		case 1:
 			voltage+=500000;
- 8006826:	68fb      	ldr	r3, [r7, #12]
- 8006828:	f503 23f4 	add.w	r3, r3, #499712	; 0x7a000
- 800682c:	f503 7390 	add.w	r3, r3, #288	; 0x120
- 8006830:	60fb      	str	r3, [r7, #12]
+ 800687a:	68fb      	ldr	r3, [r7, #12]
+ 800687c:	f503 23f4 	add.w	r3, r3, #499712	; 0x7a000
+ 8006880:	f503 7390 	add.w	r3, r3, #288	; 0x120
+ 8006884:	60fb      	str	r3, [r7, #12]
 			voltage/=1000000; //voltage in 100's of mV
- 8006832:	68fb      	ldr	r3, [r7, #12]
- 8006834:	4a54      	ldr	r2, [pc, #336]	; (8006988 <TF_Voltage+0x2dc>)
- 8006836:	fba2 2303 	umull	r2, r3, r2, r3
- 800683a:	0c9b      	lsrs	r3, r3, #18
- 800683c:	60fb      	str	r3, [r7, #12]
+ 8006886:	68fb      	ldr	r3, [r7, #12]
+ 8006888:	4a54      	ldr	r2, [pc, #336]	; (80069dc <TF_Voltage+0x2dc>)
+ 800688a:	fba2 2303 	umull	r2, r3, r2, r3
+ 800688e:	0c9b      	lsrs	r3, r3, #18
+ 8006890:	60fb      	str	r3, [r7, #12]
 			break;
- 800683e:	e00e      	b.n	800685e <TF_Voltage+0x1b2>
+ 8006892:	e00e      	b.n	80068b2 <TF_Voltage+0x1b2>
 		case 2:
 			voltage+=500;
- 8006840:	68fb      	ldr	r3, [r7, #12]
- 8006842:	f503 73fa 	add.w	r3, r3, #500	; 0x1f4
- 8006846:	60fb      	str	r3, [r7, #12]
+ 8006894:	68fb      	ldr	r3, [r7, #12]
+ 8006896:	f503 73fa 	add.w	r3, r3, #500	; 0x1f4
+ 800689a:	60fb      	str	r3, [r7, #12]
 			voltage/=1000; //voltage in mV
- 8006848:	68fb      	ldr	r3, [r7, #12]
- 800684a:	4a50      	ldr	r2, [pc, #320]	; (800698c <TF_Voltage+0x2e0>)
- 800684c:	fba2 2303 	umull	r2, r3, r2, r3
- 8006850:	099b      	lsrs	r3, r3, #6
- 8006852:	60fb      	str	r3, [r7, #12]
+ 800689c:	68fb      	ldr	r3, [r7, #12]
+ 800689e:	4a50      	ldr	r2, [pc, #320]	; (80069e0 <TF_Voltage+0x2e0>)
+ 80068a0:	fba2 2303 	umull	r2, r3, r2, r3
+ 80068a4:	099b      	lsrs	r3, r3, #6
+ 80068a6:	60fb      	str	r3, [r7, #12]
 			break;
- 8006854:	e003      	b.n	800685e <TF_Voltage+0x1b2>
+ 80068a8:	e003      	b.n	80068b2 <TF_Voltage+0x1b2>
 		default:
 			Set_Error(ERR_WRONG_BYTES);
- 8006856:	2021      	movs	r0, #33	; 0x21
- 8006858:	f7ff f850 	bl	80058fc <Set_Error>
+ 80068aa:	2021      	movs	r0, #33	; 0x21
+ 80068ac:	f7ff f826 	bl	80058fc <Set_Error>
 			break;
- 800685c:	bf00      	nop
+ 80068b0:	bf00      	nop
 		}
 		break;
- 800685e:	e08b      	b.n	8006978 <TF_Voltage+0x2cc>
+ 80068b2:	e08b      	b.n	80069cc <TF_Voltage+0x2cc>
 	case VOLTAGE_12V_UNCAL:
 		voltage = (raw*301129)/100; // C*(8.87+3.24)/3.24
- 8006860:	88bb      	ldrh	r3, [r7, #4]
- 8006862:	4a4e      	ldr	r2, [pc, #312]	; (800699c <TF_Voltage+0x2f0>)
- 8006864:	fb02 f303 	mul.w	r3, r2, r3
- 8006868:	4a49      	ldr	r2, [pc, #292]	; (8006990 <TF_Voltage+0x2e4>)
- 800686a:	fb82 1203 	smull	r1, r2, r2, r3
- 800686e:	1152      	asrs	r2, r2, #5
- 8006870:	17db      	asrs	r3, r3, #31
- 8006872:	1ad3      	subs	r3, r2, r3
- 8006874:	60fb      	str	r3, [r7, #12]
+ 80068b4:	88bb      	ldrh	r3, [r7, #4]
+ 80068b6:	4a4e      	ldr	r2, [pc, #312]	; (80069f0 <TF_Voltage+0x2f0>)
+ 80068b8:	fb02 f303 	mul.w	r3, r2, r3
+ 80068bc:	4a49      	ldr	r2, [pc, #292]	; (80069e4 <TF_Voltage+0x2e4>)
+ 80068be:	fb82 1203 	smull	r1, r2, r2, r3
+ 80068c2:	1152      	asrs	r2, r2, #5
+ 80068c4:	17db      	asrs	r3, r3, #31
+ 80068c6:	1ad3      	subs	r3, r2, r3
+ 80068c8:	60fb      	str	r3, [r7, #12]
 		switch(bytes)
- 8006876:	79fb      	ldrb	r3, [r7, #7]
- 8006878:	2b01      	cmp	r3, #1
- 800687a:	d002      	beq.n	8006882 <TF_Voltage+0x1d6>
- 800687c:	2b02      	cmp	r3, #2
- 800687e:	d00d      	beq.n	800689c <TF_Voltage+0x1f0>
- 8006880:	e017      	b.n	80068b2 <TF_Voltage+0x206>
+ 80068ca:	79fb      	ldrb	r3, [r7, #7]
+ 80068cc:	2b01      	cmp	r3, #1
+ 80068ce:	d002      	beq.n	80068d6 <TF_Voltage+0x1d6>
+ 80068d0:	2b02      	cmp	r3, #2
+ 80068d2:	d00d      	beq.n	80068f0 <TF_Voltage+0x1f0>
+ 80068d4:	e017      	b.n	8006906 <TF_Voltage+0x206>
 		{
 		case 1:
 			voltage+=500000;
- 8006882:	68fb      	ldr	r3, [r7, #12]
- 8006884:	f503 23f4 	add.w	r3, r3, #499712	; 0x7a000
- 8006888:	f503 7390 	add.w	r3, r3, #288	; 0x120
- 800688c:	60fb      	str	r3, [r7, #12]
+ 80068d6:	68fb      	ldr	r3, [r7, #12]
+ 80068d8:	f503 23f4 	add.w	r3, r3, #499712	; 0x7a000
+ 80068dc:	f503 7390 	add.w	r3, r3, #288	; 0x120
+ 80068e0:	60fb      	str	r3, [r7, #12]
 			voltage/=1000000; //voltage in 100's of mV
- 800688e:	68fb      	ldr	r3, [r7, #12]
- 8006890:	4a3d      	ldr	r2, [pc, #244]	; (8006988 <TF_Voltage+0x2dc>)
- 8006892:	fba2 2303 	umull	r2, r3, r2, r3
- 8006896:	0c9b      	lsrs	r3, r3, #18
- 8006898:	60fb      	str	r3, [r7, #12]
+ 80068e2:	68fb      	ldr	r3, [r7, #12]
+ 80068e4:	4a3d      	ldr	r2, [pc, #244]	; (80069dc <TF_Voltage+0x2dc>)
+ 80068e6:	fba2 2303 	umull	r2, r3, r2, r3
+ 80068ea:	0c9b      	lsrs	r3, r3, #18
+ 80068ec:	60fb      	str	r3, [r7, #12]
 			break;
- 800689a:	e00e      	b.n	80068ba <TF_Voltage+0x20e>
+ 80068ee:	e00e      	b.n	800690e <TF_Voltage+0x20e>
 		case 2:
 			voltage+=500;
- 800689c:	68fb      	ldr	r3, [r7, #12]
- 800689e:	f503 73fa 	add.w	r3, r3, #500	; 0x1f4
- 80068a2:	60fb      	str	r3, [r7, #12]
+ 80068f0:	68fb      	ldr	r3, [r7, #12]
+ 80068f2:	f503 73fa 	add.w	r3, r3, #500	; 0x1f4
+ 80068f6:	60fb      	str	r3, [r7, #12]
 			voltage/=1000; //voltage in mV
- 80068a4:	68fb      	ldr	r3, [r7, #12]
- 80068a6:	4a39      	ldr	r2, [pc, #228]	; (800698c <TF_Voltage+0x2e0>)
- 80068a8:	fba2 2303 	umull	r2, r3, r2, r3
- 80068ac:	099b      	lsrs	r3, r3, #6
- 80068ae:	60fb      	str	r3, [r7, #12]
+ 80068f8:	68fb      	ldr	r3, [r7, #12]
+ 80068fa:	4a39      	ldr	r2, [pc, #228]	; (80069e0 <TF_Voltage+0x2e0>)
+ 80068fc:	fba2 2303 	umull	r2, r3, r2, r3
+ 8006900:	099b      	lsrs	r3, r3, #6
+ 8006902:	60fb      	str	r3, [r7, #12]
 			break;
- 80068b0:	e003      	b.n	80068ba <TF_Voltage+0x20e>
+ 8006904:	e003      	b.n	800690e <TF_Voltage+0x20e>
 		default:
 			Set_Error(ERR_WRONG_BYTES);
- 80068b2:	2021      	movs	r0, #33	; 0x21
- 80068b4:	f7ff f822 	bl	80058fc <Set_Error>
+ 8006906:	2021      	movs	r0, #33	; 0x21
+ 8006908:	f7fe fff8 	bl	80058fc <Set_Error>
 			break;
- 80068b8:	bf00      	nop
+ 800690c:	bf00      	nop
 		}
 		break;
- 80068ba:	e05d      	b.n	8006978 <TF_Voltage+0x2cc>
+ 800690e:	e05d      	b.n	80069cc <TF_Voltage+0x2cc>
 	case VOLTAGE_24V_UNCAL:
 		voltage = (raw*150689)/25; // C*(21+3.24)/3.24
- 80068bc:	88bb      	ldrh	r3, [r7, #4]
- 80068be:	4a38      	ldr	r2, [pc, #224]	; (80069a0 <TF_Voltage+0x2f4>)
- 80068c0:	fb02 f303 	mul.w	r3, r2, r3
- 80068c4:	4a32      	ldr	r2, [pc, #200]	; (8006990 <TF_Voltage+0x2e4>)
- 80068c6:	fb82 1203 	smull	r1, r2, r2, r3
- 80068ca:	10d2      	asrs	r2, r2, #3
- 80068cc:	17db      	asrs	r3, r3, #31
- 80068ce:	1ad3      	subs	r3, r2, r3
- 80068d0:	60fb      	str	r3, [r7, #12]
+ 8006910:	88bb      	ldrh	r3, [r7, #4]
+ 8006912:	4a38      	ldr	r2, [pc, #224]	; (80069f4 <TF_Voltage+0x2f4>)
+ 8006914:	fb02 f303 	mul.w	r3, r2, r3
+ 8006918:	4a32      	ldr	r2, [pc, #200]	; (80069e4 <TF_Voltage+0x2e4>)
+ 800691a:	fb82 1203 	smull	r1, r2, r2, r3
+ 800691e:	10d2      	asrs	r2, r2, #3
+ 8006920:	17db      	asrs	r3, r3, #31
+ 8006922:	1ad3      	subs	r3, r2, r3
+ 8006924:	60fb      	str	r3, [r7, #12]
 		switch(bytes)
- 80068d2:	79fb      	ldrb	r3, [r7, #7]
- 80068d4:	2b01      	cmp	r3, #1
- 80068d6:	d002      	beq.n	80068de <TF_Voltage+0x232>
- 80068d8:	2b02      	cmp	r3, #2
- 80068da:	d00d      	beq.n	80068f8 <TF_Voltage+0x24c>
- 80068dc:	e017      	b.n	800690e <TF_Voltage+0x262>
+ 8006926:	79fb      	ldrb	r3, [r7, #7]
+ 8006928:	2b01      	cmp	r3, #1
+ 800692a:	d002      	beq.n	8006932 <TF_Voltage+0x232>
+ 800692c:	2b02      	cmp	r3, #2
+ 800692e:	d00d      	beq.n	800694c <TF_Voltage+0x24c>
+ 8006930:	e017      	b.n	8006962 <TF_Voltage+0x262>
 		{
 		case 1:
 			voltage+=500000;
- 80068de:	68fb      	ldr	r3, [r7, #12]
- 80068e0:	f503 23f4 	add.w	r3, r3, #499712	; 0x7a000
- 80068e4:	f503 7390 	add.w	r3, r3, #288	; 0x120
- 80068e8:	60fb      	str	r3, [r7, #12]
+ 8006932:	68fb      	ldr	r3, [r7, #12]
+ 8006934:	f503 23f4 	add.w	r3, r3, #499712	; 0x7a000
+ 8006938:	f503 7390 	add.w	r3, r3, #288	; 0x120
+ 800693c:	60fb      	str	r3, [r7, #12]
 			voltage/=1000000; //voltage in 100's of mV
- 80068ea:	68fb      	ldr	r3, [r7, #12]
- 80068ec:	4a26      	ldr	r2, [pc, #152]	; (8006988 <TF_Voltage+0x2dc>)
- 80068ee:	fba2 2303 	umull	r2, r3, r2, r3
- 80068f2:	0c9b      	lsrs	r3, r3, #18
- 80068f4:	60fb      	str	r3, [r7, #12]
+ 800693e:	68fb      	ldr	r3, [r7, #12]
+ 8006940:	4a26      	ldr	r2, [pc, #152]	; (80069dc <TF_Voltage+0x2dc>)
+ 8006942:	fba2 2303 	umull	r2, r3, r2, r3
+ 8006946:	0c9b      	lsrs	r3, r3, #18
+ 8006948:	60fb      	str	r3, [r7, #12]
 			break;
- 80068f6:	e00e      	b.n	8006916 <TF_Voltage+0x26a>
+ 800694a:	e00e      	b.n	800696a <TF_Voltage+0x26a>
 		case 2:
 			voltage+=500;
- 80068f8:	68fb      	ldr	r3, [r7, #12]
- 80068fa:	f503 73fa 	add.w	r3, r3, #500	; 0x1f4
- 80068fe:	60fb      	str	r3, [r7, #12]
+ 800694c:	68fb      	ldr	r3, [r7, #12]
+ 800694e:	f503 73fa 	add.w	r3, r3, #500	; 0x1f4
+ 8006952:	60fb      	str	r3, [r7, #12]
 			voltage/=1000; //voltage in mV
- 8006900:	68fb      	ldr	r3, [r7, #12]
- 8006902:	4a22      	ldr	r2, [pc, #136]	; (800698c <TF_Voltage+0x2e0>)
- 8006904:	fba2 2303 	umull	r2, r3, r2, r3
- 8006908:	099b      	lsrs	r3, r3, #6
- 800690a:	60fb      	str	r3, [r7, #12]
+ 8006954:	68fb      	ldr	r3, [r7, #12]
+ 8006956:	4a22      	ldr	r2, [pc, #136]	; (80069e0 <TF_Voltage+0x2e0>)
+ 8006958:	fba2 2303 	umull	r2, r3, r2, r3
+ 800695c:	099b      	lsrs	r3, r3, #6
+ 800695e:	60fb      	str	r3, [r7, #12]
 			break;
- 800690c:	e003      	b.n	8006916 <TF_Voltage+0x26a>
+ 8006960:	e003      	b.n	800696a <TF_Voltage+0x26a>
 		default:
 			Set_Error(ERR_WRONG_BYTES);
- 800690e:	2021      	movs	r0, #33	; 0x21
- 8006910:	f7fe fff4 	bl	80058fc <Set_Error>
+ 8006962:	2021      	movs	r0, #33	; 0x21
+ 8006964:	f7fe ffca 	bl	80058fc <Set_Error>
 			break;
- 8006914:	bf00      	nop
+ 8006968:	bf00      	nop
 		}
 		break;
- 8006916:	e02f      	b.n	8006978 <TF_Voltage+0x2cc>
+ 800696a:	e02f      	b.n	80069cc <TF_Voltage+0x2cc>
 	case VOLTAGE_30V_UNCAL:
 		voltage = (raw*744493)/100; // C*(26.7+3.24)/3.24
- 8006918:	88bb      	ldrh	r3, [r7, #4]
- 800691a:	4a22      	ldr	r2, [pc, #136]	; (80069a4 <TF_Voltage+0x2f8>)
- 800691c:	fb02 f303 	mul.w	r3, r2, r3
- 8006920:	4a1b      	ldr	r2, [pc, #108]	; (8006990 <TF_Voltage+0x2e4>)
- 8006922:	fb82 1203 	smull	r1, r2, r2, r3
- 8006926:	1152      	asrs	r2, r2, #5
- 8006928:	17db      	asrs	r3, r3, #31
- 800692a:	1ad3      	subs	r3, r2, r3
- 800692c:	60fb      	str	r3, [r7, #12]
+ 800696c:	88bb      	ldrh	r3, [r7, #4]
+ 800696e:	4a22      	ldr	r2, [pc, #136]	; (80069f8 <TF_Voltage+0x2f8>)
+ 8006970:	fb02 f303 	mul.w	r3, r2, r3
+ 8006974:	4a1b      	ldr	r2, [pc, #108]	; (80069e4 <TF_Voltage+0x2e4>)
+ 8006976:	fb82 1203 	smull	r1, r2, r2, r3
+ 800697a:	1152      	asrs	r2, r2, #5
+ 800697c:	17db      	asrs	r3, r3, #31
+ 800697e:	1ad3      	subs	r3, r2, r3
+ 8006980:	60fb      	str	r3, [r7, #12]
 		switch(bytes)
- 800692e:	79fb      	ldrb	r3, [r7, #7]
- 8006930:	2b01      	cmp	r3, #1
- 8006932:	d002      	beq.n	800693a <TF_Voltage+0x28e>
- 8006934:	2b02      	cmp	r3, #2
- 8006936:	d00b      	beq.n	8006950 <TF_Voltage+0x2a4>
- 8006938:	e015      	b.n	8006966 <TF_Voltage+0x2ba>
+ 8006982:	79fb      	ldrb	r3, [r7, #7]
+ 8006984:	2b01      	cmp	r3, #1
+ 8006986:	d002      	beq.n	800698e <TF_Voltage+0x28e>
+ 8006988:	2b02      	cmp	r3, #2
+ 800698a:	d00b      	beq.n	80069a4 <TF_Voltage+0x2a4>
+ 800698c:	e015      	b.n	80069ba <TF_Voltage+0x2ba>
 		{
 		case 1:
 			voltage+=5000000;
- 800693a:	68fa      	ldr	r2, [r7, #12]
- 800693c:	4b1a      	ldr	r3, [pc, #104]	; (80069a8 <TF_Voltage+0x2fc>)
- 800693e:	4413      	add	r3, r2
- 8006940:	60fb      	str	r3, [r7, #12]
+ 800698e:	68fa      	ldr	r2, [r7, #12]
+ 8006990:	4b1a      	ldr	r3, [pc, #104]	; (80069fc <TF_Voltage+0x2fc>)
+ 8006992:	4413      	add	r3, r2
+ 8006994:	60fb      	str	r3, [r7, #12]
 			voltage/=10000000; //voltage in V
- 8006942:	68fb      	ldr	r3, [r7, #12]
- 8006944:	4a19      	ldr	r2, [pc, #100]	; (80069ac <TF_Voltage+0x300>)
- 8006946:	fba2 2303 	umull	r2, r3, r2, r3
- 800694a:	0d9b      	lsrs	r3, r3, #22
- 800694c:	60fb      	str	r3, [r7, #12]
+ 8006996:	68fb      	ldr	r3, [r7, #12]
+ 8006998:	4a19      	ldr	r2, [pc, #100]	; (8006a00 <TF_Voltage+0x300>)
+ 800699a:	fba2 2303 	umull	r2, r3, r2, r3
+ 800699e:	0d9b      	lsrs	r3, r3, #22
+ 80069a0:	60fb      	str	r3, [r7, #12]
 			break;
- 800694e:	e00e      	b.n	800696e <TF_Voltage+0x2c2>
+ 80069a2:	e00e      	b.n	80069c2 <TF_Voltage+0x2c2>
 		case 2:
 			voltage+=500;
- 8006950:	68fb      	ldr	r3, [r7, #12]
- 8006952:	f503 73fa 	add.w	r3, r3, #500	; 0x1f4
- 8006956:	60fb      	str	r3, [r7, #12]
+ 80069a4:	68fb      	ldr	r3, [r7, #12]
+ 80069a6:	f503 73fa 	add.w	r3, r3, #500	; 0x1f4
+ 80069aa:	60fb      	str	r3, [r7, #12]
 			voltage/=1000; //voltage in mV
- 8006958:	68fb      	ldr	r3, [r7, #12]
- 800695a:	4a0c      	ldr	r2, [pc, #48]	; (800698c <TF_Voltage+0x2e0>)
- 800695c:	fba2 2303 	umull	r2, r3, r2, r3
- 8006960:	099b      	lsrs	r3, r3, #6
- 8006962:	60fb      	str	r3, [r7, #12]
+ 80069ac:	68fb      	ldr	r3, [r7, #12]
+ 80069ae:	4a0c      	ldr	r2, [pc, #48]	; (80069e0 <TF_Voltage+0x2e0>)
+ 80069b0:	fba2 2303 	umull	r2, r3, r2, r3
+ 80069b4:	099b      	lsrs	r3, r3, #6
+ 80069b6:	60fb      	str	r3, [r7, #12]
 			break;
- 8006964:	e003      	b.n	800696e <TF_Voltage+0x2c2>
+ 80069b8:	e003      	b.n	80069c2 <TF_Voltage+0x2c2>
 		default:
 			Set_Error(ERR_WRONG_BYTES);
- 8006966:	2021      	movs	r0, #33	; 0x21
- 8006968:	f7fe ffc8 	bl	80058fc <Set_Error>
+ 80069ba:	2021      	movs	r0, #33	; 0x21
+ 80069bc:	f7fe ff9e 	bl	80058fc <Set_Error>
 			break;
- 800696c:	bf00      	nop
+ 80069c0:	bf00      	nop
 		}
 		break;
- 800696e:	e003      	b.n	8006978 <TF_Voltage+0x2cc>
+ 80069c2:	e003      	b.n	80069cc <TF_Voltage+0x2cc>
 	default:
 		Set_Error(ERR_INCORRECT_TF_VOLTAGE);
- 8006970:	2023      	movs	r0, #35	; 0x23
- 8006972:	f7fe ffc3 	bl	80058fc <Set_Error>
+ 80069c4:	2023      	movs	r0, #35	; 0x23
+ 80069c6:	f7fe ff99 	bl	80058fc <Set_Error>
 		break;
- 8006976:	bf00      	nop
+ 80069ca:	bf00      	nop
 	}
 
 	return voltage;
- 8006978:	68fb      	ldr	r3, [r7, #12]
+ 80069cc:	68fb      	ldr	r3, [r7, #12]
 }
- 800697a:	4618      	mov	r0, r3
- 800697c:	3710      	adds	r7, #16
- 800697e:	46bd      	mov	sp, r7
- 8006980:	bd80      	pop	{r7, pc}
- 8006982:	bf00      	nop
- 8006984:	000192d5 	.word	0x000192d5
- 8006988:	431bde83 	.word	0x431bde83
- 800698c:	10624dd3 	.word	0x10624dd3
- 8006990:	51eb851f 	.word	0x51eb851f
- 8006994:	0003c773 	.word	0x0003c773
- 8006998:	66666667 	.word	0x66666667
- 800699c:	00049849 	.word	0x00049849
- 80069a0:	00024ca1 	.word	0x00024ca1
- 80069a4:	000b5c2d 	.word	0x000b5c2d
- 80069a8:	004c4b40 	.word	0x004c4b40
- 80069ac:	6b5fca6b 	.word	0x6b5fca6b
+ 80069ce:	4618      	mov	r0, r3
+ 80069d0:	3710      	adds	r7, #16
+ 80069d2:	46bd      	mov	sp, r7
+ 80069d4:	bd80      	pop	{r7, pc}
+ 80069d6:	bf00      	nop
+ 80069d8:	000192d5 	.word	0x000192d5
+ 80069dc:	431bde83 	.word	0x431bde83
+ 80069e0:	10624dd3 	.word	0x10624dd3
+ 80069e4:	51eb851f 	.word	0x51eb851f
+ 80069e8:	0003c773 	.word	0x0003c773
+ 80069ec:	66666667 	.word	0x66666667
+ 80069f0:	00049849 	.word	0x00049849
+ 80069f4:	00024ca1 	.word	0x00024ca1
+ 80069f8:	000b5c2d 	.word	0x000b5c2d
+ 80069fc:	004c4b40 	.word	0x004c4b40
+ 8006a00:	6b5fca6b 	.word	0x6b5fca6b
 
-080069b0 <TF_NTC>:
+08006a04 <TF_NTC>:
 
 uint32_t TF_NTC(uint8_t bytes, uint8_t resistor, uint16_t raw)
 {
- 80069b0:	b580      	push	{r7, lr}
- 80069b2:	b084      	sub	sp, #16
- 80069b4:	af00      	add	r7, sp, #0
- 80069b6:	4603      	mov	r3, r0
- 80069b8:	71fb      	strb	r3, [r7, #7]
- 80069ba:	460b      	mov	r3, r1
- 80069bc:	71bb      	strb	r3, [r7, #6]
- 80069be:	4613      	mov	r3, r2
- 80069c0:	80bb      	strh	r3, [r7, #4]
+ 8006a04:	b580      	push	{r7, lr}
+ 8006a06:	b084      	sub	sp, #16
+ 8006a08:	af00      	add	r7, sp, #0
+ 8006a0a:	4603      	mov	r3, r0
+ 8006a0c:	71fb      	strb	r3, [r7, #7]
+ 8006a0e:	460b      	mov	r3, r1
+ 8006a10:	71bb      	strb	r3, [r7, #6]
+ 8006a12:	4613      	mov	r3, r2
+ 8006a14:	80bb      	strh	r3, [r7, #4]
 	uint32_t temperature = 0;
- 80069c2:	2300      	movs	r3, #0
- 80069c4:	60fb      	str	r3, [r7, #12]
+ 8006a16:	2300      	movs	r3, #0
+ 8006a18:	60fb      	str	r3, [r7, #12]
 
 	switch(resistor)
- 80069c6:	79bb      	ldrb	r3, [r7, #6]
- 80069c8:	2b08      	cmp	r3, #8
- 80069ca:	d002      	beq.n	80069d2 <TF_NTC+0x22>
- 80069cc:	2b09      	cmp	r3, #9
- 80069ce:	d008      	beq.n	80069e2 <TF_NTC+0x32>
- 80069d0:	e00f      	b.n	80069f2 <TF_NTC+0x42>
+ 8006a1a:	79bb      	ldrb	r3, [r7, #6]
+ 8006a1c:	2b08      	cmp	r3, #8
+ 8006a1e:	d002      	beq.n	8006a26 <TF_NTC+0x22>
+ 8006a20:	2b09      	cmp	r3, #9
+ 8006a22:	d008      	beq.n	8006a36 <TF_NTC+0x32>
+ 8006a24:	e00f      	b.n	8006a46 <TF_NTC+0x42>
 	{
 	case NTC_NTC1_680:
 		temperature = LUT(raw, NTC_NTC1_680_LUT, 4);
- 80069d2:	88bb      	ldrh	r3, [r7, #4]
- 80069d4:	2204      	movs	r2, #4
- 80069d6:	490b      	ldr	r1, [pc, #44]	; (8006a04 <TF_NTC+0x54>)
- 80069d8:	4618      	mov	r0, r3
- 80069da:	f000 f89f 	bl	8006b1c <LUT>
- 80069de:	60f8      	str	r0, [r7, #12]
+ 8006a26:	88bb      	ldrh	r3, [r7, #4]
+ 8006a28:	2204      	movs	r2, #4
+ 8006a2a:	490b      	ldr	r1, [pc, #44]	; (8006a58 <TF_NTC+0x54>)
+ 8006a2c:	4618      	mov	r0, r3
+ 8006a2e:	f000 f89f 	bl	8006b70 <LUT>
+ 8006a32:	60f8      	str	r0, [r7, #12]
 		break;
- 80069e0:	e00b      	b.n	80069fa <TF_NTC+0x4a>
+ 8006a34:	e00b      	b.n	8006a4e <TF_NTC+0x4a>
 	case NTC_NTC1_360:
 		temperature = LUT(raw, NTC_NTC1_360_LUT, 4);
- 80069e2:	88bb      	ldrh	r3, [r7, #4]
- 80069e4:	2204      	movs	r2, #4
- 80069e6:	4908      	ldr	r1, [pc, #32]	; (8006a08 <TF_NTC+0x58>)
- 80069e8:	4618      	mov	r0, r3
- 80069ea:	f000 f897 	bl	8006b1c <LUT>
- 80069ee:	60f8      	str	r0, [r7, #12]
+ 8006a36:	88bb      	ldrh	r3, [r7, #4]
+ 8006a38:	2204      	movs	r2, #4
+ 8006a3a:	4908      	ldr	r1, [pc, #32]	; (8006a5c <TF_NTC+0x58>)
+ 8006a3c:	4618      	mov	r0, r3
+ 8006a3e:	f000 f897 	bl	8006b70 <LUT>
+ 8006a42:	60f8      	str	r0, [r7, #12]
 		break;
- 80069f0:	e003      	b.n	80069fa <TF_NTC+0x4a>
+ 8006a44:	e003      	b.n	8006a4e <TF_NTC+0x4a>
 	default:
 		Set_Error(ERR_INCORRECT_TF_NTC);
- 80069f2:	2024      	movs	r0, #36	; 0x24
- 80069f4:	f7fe ff82 	bl	80058fc <Set_Error>
+ 8006a46:	2024      	movs	r0, #36	; 0x24
+ 8006a48:	f7fe ff58 	bl	80058fc <Set_Error>
 		break;
- 80069f8:	bf00      	nop
+ 8006a4c:	bf00      	nop
 	}
 
 	return temperature;
- 80069fa:	68fb      	ldr	r3, [r7, #12]
+ 8006a4e:	68fb      	ldr	r3, [r7, #12]
 }
- 80069fc:	4618      	mov	r0, r3
- 80069fe:	3710      	adds	r7, #16
- 8006a00:	46bd      	mov	sp, r7
- 8006a02:	bd80      	pop	{r7, pc}
- 8006a04:	2000002c 	.word	0x2000002c
- 8006a08:	200000ac 	.word	0x200000ac
+ 8006a50:	4618      	mov	r0, r3
+ 8006a52:	3710      	adds	r7, #16
+ 8006a54:	46bd      	mov	sp, r7
+ 8006a56:	bd80      	pop	{r7, pc}
+ 8006a58:	2000002c 	.word	0x2000002c
+ 8006a5c:	200000ac 	.word	0x200000ac
 
-08006a0c <TF_I_Transducer>:
+08006a60 <TF_I_Transducer>:
 
 //this is for 5V voltage divider
 uint32_t TF_I_Transducer(uint8_t bytes, uint8_t channel, uint16_t raw)
 {
- 8006a0c:	b580      	push	{r7, lr}
- 8006a0e:	b084      	sub	sp, #16
- 8006a10:	af00      	add	r7, sp, #0
- 8006a12:	4603      	mov	r3, r0
- 8006a14:	71fb      	strb	r3, [r7, #7]
- 8006a16:	460b      	mov	r3, r1
- 8006a18:	71bb      	strb	r3, [r7, #6]
- 8006a1a:	4613      	mov	r3, r2
- 8006a1c:	80bb      	strh	r3, [r7, #4]
+ 8006a60:	b580      	push	{r7, lr}
+ 8006a62:	b084      	sub	sp, #16
+ 8006a64:	af00      	add	r7, sp, #0
+ 8006a66:	4603      	mov	r3, r0
+ 8006a68:	71fb      	strb	r3, [r7, #7]
+ 8006a6a:	460b      	mov	r3, r1
+ 8006a6c:	71bb      	strb	r3, [r7, #6]
+ 8006a6e:	4613      	mov	r3, r2
+ 8006a70:	80bb      	strh	r3, [r7, #4]
 	int32_t current = 0;
- 8006a1e:	2300      	movs	r3, #0
- 8006a20:	60fb      	str	r3, [r7, #12]
+ 8006a72:	2300      	movs	r3, #0
+ 8006a74:	60fb      	str	r3, [r7, #12]
 
 	switch(channel)
- 8006a22:	79bb      	ldrb	r3, [r7, #6]
- 8006a24:	2b0a      	cmp	r3, #10
- 8006a26:	d002      	beq.n	8006a2e <TF_I_Transducer+0x22>
- 8006a28:	2b0b      	cmp	r3, #11
- 8006a2a:	d032      	beq.n	8006a92 <TF_I_Transducer+0x86>
- 8006a2c:	e064      	b.n	8006af8 <TF_I_Transducer+0xec>
+ 8006a76:	79bb      	ldrb	r3, [r7, #6]
+ 8006a78:	2b0a      	cmp	r3, #10
+ 8006a7a:	d002      	beq.n	8006a82 <TF_I_Transducer+0x22>
+ 8006a7c:	2b0b      	cmp	r3, #11
+ 8006a7e:	d032      	beq.n	8006ae6 <TF_I_Transducer+0x86>
+ 8006a80:	e064      	b.n	8006b4c <TF_I_Transducer+0xec>
 	{
 	case DHABS106_20A: //calculate current in 100's of uA
 		current = ((raw*253611)/2048)-250000; // C = 3.3*10*((1.74+3.24)/3.24)*10000/2^12; 2.5*10*10000*((1.74+3.24)/3.24)
- 8006a2e:	88bb      	ldrh	r3, [r7, #4]
- 8006a30:	4a36      	ldr	r2, [pc, #216]	; (8006b0c <TF_I_Transducer+0x100>)
- 8006a32:	fb02 f303 	mul.w	r3, r2, r3
- 8006a36:	2b00      	cmp	r3, #0
- 8006a38:	da01      	bge.n	8006a3e <TF_I_Transducer+0x32>
- 8006a3a:	f203 73ff 	addw	r3, r3, #2047	; 0x7ff
- 8006a3e:	12db      	asrs	r3, r3, #11
- 8006a40:	f5a3 3374 	sub.w	r3, r3, #249856	; 0x3d000
- 8006a44:	3b90      	subs	r3, #144	; 0x90
- 8006a46:	60fb      	str	r3, [r7, #12]
+ 8006a82:	88bb      	ldrh	r3, [r7, #4]
+ 8006a84:	4a36      	ldr	r2, [pc, #216]	; (8006b60 <TF_I_Transducer+0x100>)
+ 8006a86:	fb02 f303 	mul.w	r3, r2, r3
+ 8006a8a:	2b00      	cmp	r3, #0
+ 8006a8c:	da01      	bge.n	8006a92 <TF_I_Transducer+0x32>
+ 8006a8e:	f203 73ff 	addw	r3, r3, #2047	; 0x7ff
+ 8006a92:	12db      	asrs	r3, r3, #11
+ 8006a94:	f5a3 3374 	sub.w	r3, r3, #249856	; 0x3d000
+ 8006a98:	3b90      	subs	r3, #144	; 0x90
+ 8006a9a:	60fb      	str	r3, [r7, #12]
 		switch(bytes)
- 8006a48:	79fb      	ldrb	r3, [r7, #7]
- 8006a4a:	2b01      	cmp	r3, #1
- 8006a4c:	d002      	beq.n	8006a54 <TF_I_Transducer+0x48>
- 8006a4e:	2b02      	cmp	r3, #2
- 8006a50:	d00e      	beq.n	8006a70 <TF_I_Transducer+0x64>
- 8006a52:	e019      	b.n	8006a88 <TF_I_Transducer+0x7c>
+ 8006a9c:	79fb      	ldrb	r3, [r7, #7]
+ 8006a9e:	2b01      	cmp	r3, #1
+ 8006aa0:	d002      	beq.n	8006aa8 <TF_I_Transducer+0x48>
+ 8006aa2:	2b02      	cmp	r3, #2
+ 8006aa4:	d00e      	beq.n	8006ac4 <TF_I_Transducer+0x64>
+ 8006aa6:	e019      	b.n	8006adc <TF_I_Transducer+0x7c>
 		{
 		case 1:
 			current+=5000;
- 8006a54:	68fb      	ldr	r3, [r7, #12]
- 8006a56:	f503 539c 	add.w	r3, r3, #4992	; 0x1380
- 8006a5a:	3308      	adds	r3, #8
- 8006a5c:	60fb      	str	r3, [r7, #12]
+ 8006aa8:	68fb      	ldr	r3, [r7, #12]
+ 8006aaa:	f503 539c 	add.w	r3, r3, #4992	; 0x1380
+ 8006aae:	3308      	adds	r3, #8
+ 8006ab0:	60fb      	str	r3, [r7, #12]
 			current/=10000; //current in A
- 8006a5e:	68fb      	ldr	r3, [r7, #12]
- 8006a60:	4a2b      	ldr	r2, [pc, #172]	; (8006b10 <TF_I_Transducer+0x104>)
- 8006a62:	fb82 1203 	smull	r1, r2, r2, r3
- 8006a66:	1312      	asrs	r2, r2, #12
- 8006a68:	17db      	asrs	r3, r3, #31
- 8006a6a:	1ad3      	subs	r3, r2, r3
- 8006a6c:	60fb      	str	r3, [r7, #12]
+ 8006ab2:	68fb      	ldr	r3, [r7, #12]
+ 8006ab4:	4a2b      	ldr	r2, [pc, #172]	; (8006b64 <TF_I_Transducer+0x104>)
+ 8006ab6:	fb82 1203 	smull	r1, r2, r2, r3
+ 8006aba:	1312      	asrs	r2, r2, #12
+ 8006abc:	17db      	asrs	r3, r3, #31
+ 8006abe:	1ad3      	subs	r3, r2, r3
+ 8006ac0:	60fb      	str	r3, [r7, #12]
 			break;
- 8006a6e:	e00f      	b.n	8006a90 <TF_I_Transducer+0x84>
+ 8006ac2:	e00f      	b.n	8006ae4 <TF_I_Transducer+0x84>
 		case 2:
 			current+=5;
- 8006a70:	68fb      	ldr	r3, [r7, #12]
- 8006a72:	3305      	adds	r3, #5
- 8006a74:	60fb      	str	r3, [r7, #12]
+ 8006ac4:	68fb      	ldr	r3, [r7, #12]
+ 8006ac6:	3305      	adds	r3, #5
+ 8006ac8:	60fb      	str	r3, [r7, #12]
 			current/=10; //current in mA
- 8006a76:	68fb      	ldr	r3, [r7, #12]
- 8006a78:	4a26      	ldr	r2, [pc, #152]	; (8006b14 <TF_I_Transducer+0x108>)
- 8006a7a:	fb82 1203 	smull	r1, r2, r2, r3
- 8006a7e:	1092      	asrs	r2, r2, #2
- 8006a80:	17db      	asrs	r3, r3, #31
- 8006a82:	1ad3      	subs	r3, r2, r3
- 8006a84:	60fb      	str	r3, [r7, #12]
+ 8006aca:	68fb      	ldr	r3, [r7, #12]
+ 8006acc:	4a26      	ldr	r2, [pc, #152]	; (8006b68 <TF_I_Transducer+0x108>)
+ 8006ace:	fb82 1203 	smull	r1, r2, r2, r3
+ 8006ad2:	1092      	asrs	r2, r2, #2
+ 8006ad4:	17db      	asrs	r3, r3, #31
+ 8006ad6:	1ad3      	subs	r3, r2, r3
+ 8006ad8:	60fb      	str	r3, [r7, #12]
 			break;
- 8006a86:	e003      	b.n	8006a90 <TF_I_Transducer+0x84>
+ 8006ada:	e003      	b.n	8006ae4 <TF_I_Transducer+0x84>
 		default:
 			Set_Error(ERR_WRONG_BYTES);
- 8006a88:	2021      	movs	r0, #33	; 0x21
- 8006a8a:	f7fe ff37 	bl	80058fc <Set_Error>
+ 8006adc:	2021      	movs	r0, #33	; 0x21
+ 8006ade:	f7fe ff0d 	bl	80058fc <Set_Error>
 			break;
- 8006a8e:	bf00      	nop
+ 8006ae2:	bf00      	nop
 		}
 		break;
- 8006a90:	e036      	b.n	8006b00 <TF_I_Transducer+0xf4>
+ 8006ae4:	e036      	b.n	8006b54 <TF_I_Transducer+0xf4>
 	case DHABS106_500A: //calculate current in mA
 		current = ((raw*158507)/512)-625000; // C = 3.3*250*((1.74+3.24)/3.24)*1000/2^12; 2.5*250*1000 //TODO
- 8006a92:	88bb      	ldrh	r3, [r7, #4]
- 8006a94:	4a20      	ldr	r2, [pc, #128]	; (8006b18 <TF_I_Transducer+0x10c>)
- 8006a96:	fb02 f303 	mul.w	r3, r2, r3
- 8006a9a:	2b00      	cmp	r3, #0
- 8006a9c:	da01      	bge.n	8006aa2 <TF_I_Transducer+0x96>
- 8006a9e:	f203 13ff 	addw	r3, r3, #511	; 0x1ff
- 8006aa2:	125b      	asrs	r3, r3, #9
- 8006aa4:	f5a3 2318 	sub.w	r3, r3, #622592	; 0x98000
- 8006aa8:	f6a3 1368 	subw	r3, r3, #2408	; 0x968
- 8006aac:	60fb      	str	r3, [r7, #12]
+ 8006ae6:	88bb      	ldrh	r3, [r7, #4]
+ 8006ae8:	4a20      	ldr	r2, [pc, #128]	; (8006b6c <TF_I_Transducer+0x10c>)
+ 8006aea:	fb02 f303 	mul.w	r3, r2, r3
+ 8006aee:	2b00      	cmp	r3, #0
+ 8006af0:	da01      	bge.n	8006af6 <TF_I_Transducer+0x96>
+ 8006af2:	f203 13ff 	addw	r3, r3, #511	; 0x1ff
+ 8006af6:	125b      	asrs	r3, r3, #9
+ 8006af8:	f5a3 2318 	sub.w	r3, r3, #622592	; 0x98000
+ 8006afc:	f6a3 1368 	subw	r3, r3, #2408	; 0x968
+ 8006b00:	60fb      	str	r3, [r7, #12]
 		switch(bytes)
- 8006aae:	79fb      	ldrb	r3, [r7, #7]
- 8006ab0:	2b01      	cmp	r3, #1
- 8006ab2:	d002      	beq.n	8006aba <TF_I_Transducer+0xae>
- 8006ab4:	2b02      	cmp	r3, #2
- 8006ab6:	d00e      	beq.n	8006ad6 <TF_I_Transducer+0xca>
- 8006ab8:	e019      	b.n	8006aee <TF_I_Transducer+0xe2>
+ 8006b02:	79fb      	ldrb	r3, [r7, #7]
+ 8006b04:	2b01      	cmp	r3, #1
+ 8006b06:	d002      	beq.n	8006b0e <TF_I_Transducer+0xae>
+ 8006b08:	2b02      	cmp	r3, #2
+ 8006b0a:	d00e      	beq.n	8006b2a <TF_I_Transducer+0xca>
+ 8006b0c:	e019      	b.n	8006b42 <TF_I_Transducer+0xe2>
 		{
 		case 1:
 			current+=5000;
- 8006aba:	68fb      	ldr	r3, [r7, #12]
- 8006abc:	f503 539c 	add.w	r3, r3, #4992	; 0x1380
- 8006ac0:	3308      	adds	r3, #8
- 8006ac2:	60fb      	str	r3, [r7, #12]
+ 8006b0e:	68fb      	ldr	r3, [r7, #12]
+ 8006b10:	f503 539c 	add.w	r3, r3, #4992	; 0x1380
+ 8006b14:	3308      	adds	r3, #8
+ 8006b16:	60fb      	str	r3, [r7, #12]
 			current/=10000; //voltage in 10's of A
- 8006ac4:	68fb      	ldr	r3, [r7, #12]
- 8006ac6:	4a12      	ldr	r2, [pc, #72]	; (8006b10 <TF_I_Transducer+0x104>)
- 8006ac8:	fb82 1203 	smull	r1, r2, r2, r3
- 8006acc:	1312      	asrs	r2, r2, #12
- 8006ace:	17db      	asrs	r3, r3, #31
- 8006ad0:	1ad3      	subs	r3, r2, r3
- 8006ad2:	60fb      	str	r3, [r7, #12]
+ 8006b18:	68fb      	ldr	r3, [r7, #12]
+ 8006b1a:	4a12      	ldr	r2, [pc, #72]	; (8006b64 <TF_I_Transducer+0x104>)
+ 8006b1c:	fb82 1203 	smull	r1, r2, r2, r3
+ 8006b20:	1312      	asrs	r2, r2, #12
+ 8006b22:	17db      	asrs	r3, r3, #31
+ 8006b24:	1ad3      	subs	r3, r2, r3
+ 8006b26:	60fb      	str	r3, [r7, #12]
 			break;
- 8006ad4:	e00f      	b.n	8006af6 <TF_I_Transducer+0xea>
+ 8006b28:	e00f      	b.n	8006b4a <TF_I_Transducer+0xea>
 		case 2:
 			current+=5;
- 8006ad6:	68fb      	ldr	r3, [r7, #12]
- 8006ad8:	3305      	adds	r3, #5
- 8006ada:	60fb      	str	r3, [r7, #12]
+ 8006b2a:	68fb      	ldr	r3, [r7, #12]
+ 8006b2c:	3305      	adds	r3, #5
+ 8006b2e:	60fb      	str	r3, [r7, #12]
 			current/=10; //voltage in 10's of mA
- 8006adc:	68fb      	ldr	r3, [r7, #12]
- 8006ade:	4a0d      	ldr	r2, [pc, #52]	; (8006b14 <TF_I_Transducer+0x108>)
- 8006ae0:	fb82 1203 	smull	r1, r2, r2, r3
- 8006ae4:	1092      	asrs	r2, r2, #2
- 8006ae6:	17db      	asrs	r3, r3, #31
- 8006ae8:	1ad3      	subs	r3, r2, r3
- 8006aea:	60fb      	str	r3, [r7, #12]
+ 8006b30:	68fb      	ldr	r3, [r7, #12]
+ 8006b32:	4a0d      	ldr	r2, [pc, #52]	; (8006b68 <TF_I_Transducer+0x108>)
+ 8006b34:	fb82 1203 	smull	r1, r2, r2, r3
+ 8006b38:	1092      	asrs	r2, r2, #2
+ 8006b3a:	17db      	asrs	r3, r3, #31
+ 8006b3c:	1ad3      	subs	r3, r2, r3
+ 8006b3e:	60fb      	str	r3, [r7, #12]
 			break;
- 8006aec:	e003      	b.n	8006af6 <TF_I_Transducer+0xea>
+ 8006b40:	e003      	b.n	8006b4a <TF_I_Transducer+0xea>
 		default:
 			Set_Error(ERR_WRONG_BYTES);
- 8006aee:	2021      	movs	r0, #33	; 0x21
- 8006af0:	f7fe ff04 	bl	80058fc <Set_Error>
+ 8006b42:	2021      	movs	r0, #33	; 0x21
+ 8006b44:	f7fe feda 	bl	80058fc <Set_Error>
 			break;
- 8006af4:	bf00      	nop
+ 8006b48:	bf00      	nop
 		}
 		break;
- 8006af6:	e003      	b.n	8006b00 <TF_I_Transducer+0xf4>
+ 8006b4a:	e003      	b.n	8006b54 <TF_I_Transducer+0xf4>
 	default:
 		Set_Error(ERR_INCORRECT_TF_I_TRANS);
- 8006af8:	2025      	movs	r0, #37	; 0x25
- 8006afa:	f7fe feff 	bl	80058fc <Set_Error>
+ 8006b4c:	2025      	movs	r0, #37	; 0x25
+ 8006b4e:	f7fe fed5 	bl	80058fc <Set_Error>
 		break;
- 8006afe:	bf00      	nop
+ 8006b52:	bf00      	nop
 	}
 
 	return current; //cast int as uint; this works fine for sending ints as long as expecting ints on other side
- 8006b00:	68fb      	ldr	r3, [r7, #12]
+ 8006b54:	68fb      	ldr	r3, [r7, #12]
 }
- 8006b02:	4618      	mov	r0, r3
- 8006b04:	3710      	adds	r7, #16
- 8006b06:	46bd      	mov	sp, r7
- 8006b08:	bd80      	pop	{r7, pc}
- 8006b0a:	bf00      	nop
- 8006b0c:	0003deab 	.word	0x0003deab
- 8006b10:	68db8bad 	.word	0x68db8bad
- 8006b14:	66666667 	.word	0x66666667
- 8006b18:	00026b2b 	.word	0x00026b2b
+ 8006b56:	4618      	mov	r0, r3
+ 8006b58:	3710      	adds	r7, #16
+ 8006b5a:	46bd      	mov	sp, r7
+ 8006b5c:	bd80      	pop	{r7, pc}
+ 8006b5e:	bf00      	nop
+ 8006b60:	0003deab 	.word	0x0003deab
+ 8006b64:	68db8bad 	.word	0x68db8bad
+ 8006b68:	66666667 	.word	0x66666667
+ 8006b6c:	00026b2b 	.word	0x00026b2b
 
-08006b1c <LUT>:
+08006b70 <LUT>:
 }
 
 
 
 uint32_t LUT(uint16_t input, uint32_t* LUT, uint8_t LUT_length_LN2)
 {
- 8006b1c:	b580      	push	{r7, lr}
- 8006b1e:	b088      	sub	sp, #32
- 8006b20:	af00      	add	r7, sp, #0
- 8006b22:	4603      	mov	r3, r0
- 8006b24:	6039      	str	r1, [r7, #0]
- 8006b26:	80fb      	strh	r3, [r7, #6]
- 8006b28:	4613      	mov	r3, r2
- 8006b2a:	717b      	strb	r3, [r7, #5]
+ 8006b70:	b580      	push	{r7, lr}
+ 8006b72:	b088      	sub	sp, #32
+ 8006b74:	af00      	add	r7, sp, #0
+ 8006b76:	4603      	mov	r3, r0
+ 8006b78:	6039      	str	r1, [r7, #0]
+ 8006b7a:	80fb      	strh	r3, [r7, #6]
+ 8006b7c:	4613      	mov	r3, r2
+ 8006b7e:	717b      	strb	r3, [r7, #5]
 	uint32_t result = 0;
- 8006b2c:	2300      	movs	r3, #0
- 8006b2e:	60fb      	str	r3, [r7, #12]
+ 8006b80:	2300      	movs	r3, #0
+ 8006b82:	60fb      	str	r3, [r7, #12]
 
 	uint8_t length = 2;
- 8006b30:	2302      	movs	r3, #2
- 8006b32:	77fb      	strb	r3, [r7, #31]
+ 8006b84:	2302      	movs	r3, #2
+ 8006b86:	77fb      	strb	r3, [r7, #31]
 	for(uint32_t i=0; i<(LUT_length_LN2-1); i++) { length*=2; }
- 8006b34:	2300      	movs	r3, #0
- 8006b36:	61bb      	str	r3, [r7, #24]
- 8006b38:	e005      	b.n	8006b46 <LUT+0x2a>
- 8006b3a:	7ffb      	ldrb	r3, [r7, #31]
- 8006b3c:	005b      	lsls	r3, r3, #1
- 8006b3e:	77fb      	strb	r3, [r7, #31]
- 8006b40:	69bb      	ldr	r3, [r7, #24]
- 8006b42:	3301      	adds	r3, #1
- 8006b44:	61bb      	str	r3, [r7, #24]
- 8006b46:	797b      	ldrb	r3, [r7, #5]
- 8006b48:	3b01      	subs	r3, #1
- 8006b4a:	461a      	mov	r2, r3
- 8006b4c:	69bb      	ldr	r3, [r7, #24]
- 8006b4e:	4293      	cmp	r3, r2
- 8006b50:	d3f3      	bcc.n	8006b3a <LUT+0x1e>
+ 8006b88:	2300      	movs	r3, #0
+ 8006b8a:	61bb      	str	r3, [r7, #24]
+ 8006b8c:	e005      	b.n	8006b9a <LUT+0x2a>
+ 8006b8e:	7ffb      	ldrb	r3, [r7, #31]
+ 8006b90:	005b      	lsls	r3, r3, #1
+ 8006b92:	77fb      	strb	r3, [r7, #31]
+ 8006b94:	69bb      	ldr	r3, [r7, #24]
+ 8006b96:	3301      	adds	r3, #1
+ 8006b98:	61bb      	str	r3, [r7, #24]
+ 8006b9a:	797b      	ldrb	r3, [r7, #5]
+ 8006b9c:	3b01      	subs	r3, #1
+ 8006b9e:	461a      	mov	r2, r3
+ 8006ba0:	69bb      	ldr	r3, [r7, #24]
+ 8006ba2:	4293      	cmp	r3, r2
+ 8006ba4:	d3f3      	bcc.n	8006b8e <LUT+0x1e>
 
 	uint8_t bound_low = 0;
- 8006b52:	2300      	movs	r3, #0
- 8006b54:	75fb      	strb	r3, [r7, #23]
+ 8006ba6:	2300      	movs	r3, #0
+ 8006ba8:	75fb      	strb	r3, [r7, #23]
 	uint8_t bound_high = length-1;
- 8006b56:	7ffb      	ldrb	r3, [r7, #31]
- 8006b58:	3b01      	subs	r3, #1
- 8006b5a:	75bb      	strb	r3, [r7, #22]
+ 8006baa:	7ffb      	ldrb	r3, [r7, #31]
+ 8006bac:	3b01      	subs	r3, #1
+ 8006bae:	75bb      	strb	r3, [r7, #22]
 	uint8_t mid = 0;
- 8006b5c:	2300      	movs	r3, #0
- 8006b5e:	757b      	strb	r3, [r7, #21]
+ 8006bb0:	2300      	movs	r3, #0
+ 8006bb2:	757b      	strb	r3, [r7, #21]
 
 	if (LUT[bound_low]>input)
- 8006b60:	7dfb      	ldrb	r3, [r7, #23]
- 8006b62:	009b      	lsls	r3, r3, #2
- 8006b64:	683a      	ldr	r2, [r7, #0]
- 8006b66:	4413      	add	r3, r2
- 8006b68:	681a      	ldr	r2, [r3, #0]
- 8006b6a:	88fb      	ldrh	r3, [r7, #6]
- 8006b6c:	429a      	cmp	r2, r3
- 8006b6e:	d907      	bls.n	8006b80 <LUT+0x64>
+ 8006bb4:	7dfb      	ldrb	r3, [r7, #23]
+ 8006bb6:	009b      	lsls	r3, r3, #2
+ 8006bb8:	683a      	ldr	r2, [r7, #0]
+ 8006bba:	4413      	add	r3, r2
+ 8006bbc:	681a      	ldr	r2, [r3, #0]
+ 8006bbe:	88fb      	ldrh	r3, [r7, #6]
+ 8006bc0:	429a      	cmp	r2, r3
+ 8006bc2:	d907      	bls.n	8006bd4 <LUT+0x64>
 	{
 		return LUT[bound_low+length];
- 8006b70:	7dfa      	ldrb	r2, [r7, #23]
- 8006b72:	7ffb      	ldrb	r3, [r7, #31]
- 8006b74:	4413      	add	r3, r2
- 8006b76:	009b      	lsls	r3, r3, #2
- 8006b78:	683a      	ldr	r2, [r7, #0]
- 8006b7a:	4413      	add	r3, r2
- 8006b7c:	681b      	ldr	r3, [r3, #0]
- 8006b7e:	e09b      	b.n	8006cb8 <LUT+0x19c>
+ 8006bc4:	7dfa      	ldrb	r2, [r7, #23]
+ 8006bc6:	7ffb      	ldrb	r3, [r7, #31]
+ 8006bc8:	4413      	add	r3, r2
+ 8006bca:	009b      	lsls	r3, r3, #2
+ 8006bcc:	683a      	ldr	r2, [r7, #0]
+ 8006bce:	4413      	add	r3, r2
+ 8006bd0:	681b      	ldr	r3, [r3, #0]
+ 8006bd2:	e09b      	b.n	8006d0c <LUT+0x19c>
 	}
 	else if (LUT[bound_high]<input)
- 8006b80:	7dbb      	ldrb	r3, [r7, #22]
- 8006b82:	009b      	lsls	r3, r3, #2
- 8006b84:	683a      	ldr	r2, [r7, #0]
- 8006b86:	4413      	add	r3, r2
- 8006b88:	681a      	ldr	r2, [r3, #0]
- 8006b8a:	88fb      	ldrh	r3, [r7, #6]
- 8006b8c:	429a      	cmp	r2, r3
- 8006b8e:	d207      	bcs.n	8006ba0 <LUT+0x84>
-	{
-		return LUT[bound_high+length];
- 8006b90:	7dba      	ldrb	r2, [r7, #22]
- 8006b92:	7ffb      	ldrb	r3, [r7, #31]
- 8006b94:	4413      	add	r3, r2
- 8006b96:	009b      	lsls	r3, r3, #2
- 8006b98:	683a      	ldr	r2, [r7, #0]
- 8006b9a:	4413      	add	r3, r2
- 8006b9c:	681b      	ldr	r3, [r3, #0]
- 8006b9e:	e08b      	b.n	8006cb8 <LUT+0x19c>
-	}
-
-	for(uint32_t i=0; i<LUT_length_LN2; i++)
- 8006ba0:	2300      	movs	r3, #0
- 8006ba2:	613b      	str	r3, [r7, #16]
- 8006ba4:	e043      	b.n	8006c2e <LUT+0x112>
-	{
-		mid = ((bound_high-bound_low)/2)+bound_low;
- 8006ba6:	7dba      	ldrb	r2, [r7, #22]
- 8006ba8:	7dfb      	ldrb	r3, [r7, #23]
- 8006baa:	1ad3      	subs	r3, r2, r3
- 8006bac:	0fda      	lsrs	r2, r3, #31
- 8006bae:	4413      	add	r3, r2
- 8006bb0:	105b      	asrs	r3, r3, #1
- 8006bb2:	b2da      	uxtb	r2, r3
- 8006bb4:	7dfb      	ldrb	r3, [r7, #23]
- 8006bb6:	4413      	add	r3, r2
- 8006bb8:	757b      	strb	r3, [r7, #21]
-
-		switch( (LUT[mid]>input) | ((LUT[mid+1]<input)<<1))
- 8006bba:	7d7b      	ldrb	r3, [r7, #21]
- 8006bbc:	009b      	lsls	r3, r3, #2
- 8006bbe:	683a      	ldr	r2, [r7, #0]
- 8006bc0:	4413      	add	r3, r2
- 8006bc2:	681a      	ldr	r2, [r3, #0]
- 8006bc4:	88fb      	ldrh	r3, [r7, #6]
- 8006bc6:	429a      	cmp	r2, r3
- 8006bc8:	bf8c      	ite	hi
- 8006bca:	2301      	movhi	r3, #1
- 8006bcc:	2300      	movls	r3, #0
- 8006bce:	b2db      	uxtb	r3, r3
- 8006bd0:	4619      	mov	r1, r3
- 8006bd2:	7d7b      	ldrb	r3, [r7, #21]
- 8006bd4:	3301      	adds	r3, #1
+ 8006bd4:	7dbb      	ldrb	r3, [r7, #22]
  8006bd6:	009b      	lsls	r3, r3, #2
  8006bd8:	683a      	ldr	r2, [r7, #0]
  8006bda:	4413      	add	r3, r2
  8006bdc:	681a      	ldr	r2, [r3, #0]
  8006bde:	88fb      	ldrh	r3, [r7, #6]
  8006be0:	429a      	cmp	r2, r3
- 8006be2:	d201      	bcs.n	8006be8 <LUT+0xcc>
- 8006be4:	2302      	movs	r3, #2
- 8006be6:	e000      	b.n	8006bea <LUT+0xce>
- 8006be8:	2300      	movs	r3, #0
- 8006bea:	430b      	orrs	r3, r1
- 8006bec:	2b03      	cmp	r3, #3
- 8006bee:	d818      	bhi.n	8006c22 <LUT+0x106>
- 8006bf0:	a201      	add	r2, pc, #4	; (adr r2, 8006bf8 <LUT+0xdc>)
- 8006bf2:	f852 f023 	ldr.w	pc, [r2, r3, lsl #2]
- 8006bf6:	bf00      	nop
- 8006bf8:	08006c09 	.word	0x08006c09
- 8006bfc:	08006c0f 	.word	0x08006c0f
- 8006c00:	08006c15 	.word	0x08006c15
- 8006c04:	08006c1d 	.word	0x08006c1d
+ 8006be2:	d207      	bcs.n	8006bf4 <LUT+0x84>
+	{
+		return LUT[bound_high+length];
+ 8006be4:	7dba      	ldrb	r2, [r7, #22]
+ 8006be6:	7ffb      	ldrb	r3, [r7, #31]
+ 8006be8:	4413      	add	r3, r2
+ 8006bea:	009b      	lsls	r3, r3, #2
+ 8006bec:	683a      	ldr	r2, [r7, #0]
+ 8006bee:	4413      	add	r3, r2
+ 8006bf0:	681b      	ldr	r3, [r3, #0]
+ 8006bf2:	e08b      	b.n	8006d0c <LUT+0x19c>
+	}
+
+	for(uint32_t i=0; i<LUT_length_LN2; i++)
+ 8006bf4:	2300      	movs	r3, #0
+ 8006bf6:	613b      	str	r3, [r7, #16]
+ 8006bf8:	e043      	b.n	8006c82 <LUT+0x112>
+	{
+		mid = ((bound_high-bound_low)/2)+bound_low;
+ 8006bfa:	7dba      	ldrb	r2, [r7, #22]
+ 8006bfc:	7dfb      	ldrb	r3, [r7, #23]
+ 8006bfe:	1ad3      	subs	r3, r2, r3
+ 8006c00:	0fda      	lsrs	r2, r3, #31
+ 8006c02:	4413      	add	r3, r2
+ 8006c04:	105b      	asrs	r3, r3, #1
+ 8006c06:	b2da      	uxtb	r2, r3
+ 8006c08:	7dfb      	ldrb	r3, [r7, #23]
+ 8006c0a:	4413      	add	r3, r2
+ 8006c0c:	757b      	strb	r3, [r7, #21]
+
+		switch( (LUT[mid]>input) | ((LUT[mid+1]<input)<<1))
+ 8006c0e:	7d7b      	ldrb	r3, [r7, #21]
+ 8006c10:	009b      	lsls	r3, r3, #2
+ 8006c12:	683a      	ldr	r2, [r7, #0]
+ 8006c14:	4413      	add	r3, r2
+ 8006c16:	681a      	ldr	r2, [r3, #0]
+ 8006c18:	88fb      	ldrh	r3, [r7, #6]
+ 8006c1a:	429a      	cmp	r2, r3
+ 8006c1c:	bf8c      	ite	hi
+ 8006c1e:	2301      	movhi	r3, #1
+ 8006c20:	2300      	movls	r3, #0
+ 8006c22:	b2db      	uxtb	r3, r3
+ 8006c24:	4619      	mov	r1, r3
+ 8006c26:	7d7b      	ldrb	r3, [r7, #21]
+ 8006c28:	3301      	adds	r3, #1
+ 8006c2a:	009b      	lsls	r3, r3, #2
+ 8006c2c:	683a      	ldr	r2, [r7, #0]
+ 8006c2e:	4413      	add	r3, r2
+ 8006c30:	681a      	ldr	r2, [r3, #0]
+ 8006c32:	88fb      	ldrh	r3, [r7, #6]
+ 8006c34:	429a      	cmp	r2, r3
+ 8006c36:	d201      	bcs.n	8006c3c <LUT+0xcc>
+ 8006c38:	2302      	movs	r3, #2
+ 8006c3a:	e000      	b.n	8006c3e <LUT+0xce>
+ 8006c3c:	2300      	movs	r3, #0
+ 8006c3e:	430b      	orrs	r3, r1
+ 8006c40:	2b03      	cmp	r3, #3
+ 8006c42:	d818      	bhi.n	8006c76 <LUT+0x106>
+ 8006c44:	a201      	add	r2, pc, #4	; (adr r2, 8006c4c <LUT+0xdc>)
+ 8006c46:	f852 f023 	ldr.w	pc, [r2, r3, lsl #2]
+ 8006c4a:	bf00      	nop
+ 8006c4c:	08006c5d 	.word	0x08006c5d
+ 8006c50:	08006c63 	.word	0x08006c63
+ 8006c54:	08006c69 	.word	0x08006c69
+ 8006c58:	08006c71 	.word	0x08006c71
 		{
 		case 0: //result between mid and mid+1
 			i=LUT_length_LN2; //mid is correct, so exit the loop
- 8006c08:	797b      	ldrb	r3, [r7, #5]
- 8006c0a:	613b      	str	r3, [r7, #16]
+ 8006c5c:	797b      	ldrb	r3, [r7, #5]
+ 8006c5e:	613b      	str	r3, [r7, #16]
 			break;
- 8006c0c:	e00c      	b.n	8006c28 <LUT+0x10c>
+ 8006c60:	e00c      	b.n	8006c7c <LUT+0x10c>
 		case 1: //input < mid value
 			bound_high = mid;
- 8006c0e:	7d7b      	ldrb	r3, [r7, #21]
- 8006c10:	75bb      	strb	r3, [r7, #22]
+ 8006c62:	7d7b      	ldrb	r3, [r7, #21]
+ 8006c64:	75bb      	strb	r3, [r7, #22]
 			break;
- 8006c12:	e009      	b.n	8006c28 <LUT+0x10c>
+ 8006c66:	e009      	b.n	8006c7c <LUT+0x10c>
 		case 2: //input > mid+1 value
 			bound_low = mid+1;
- 8006c14:	7d7b      	ldrb	r3, [r7, #21]
- 8006c16:	3301      	adds	r3, #1
- 8006c18:	75fb      	strb	r3, [r7, #23]
+ 8006c68:	7d7b      	ldrb	r3, [r7, #21]
+ 8006c6a:	3301      	adds	r3, #1
+ 8006c6c:	75fb      	strb	r3, [r7, #23]
 			break;
- 8006c1a:	e005      	b.n	8006c28 <LUT+0x10c>
+ 8006c6e:	e005      	b.n	8006c7c <LUT+0x10c>
 		case 3: //impossible case
 			Error_Handler();
- 8006c1c:	f7ff fa74 	bl	8006108 <Error_Handler>
+ 8006c70:	f7ff fa4a 	bl	8006108 <Error_Handler>
 			break;
- 8006c20:	e002      	b.n	8006c28 <LUT+0x10c>
+ 8006c74:	e002      	b.n	8006c7c <LUT+0x10c>
 		default:
 			Error_Handler();
- 8006c22:	f7ff fa71 	bl	8006108 <Error_Handler>
+ 8006c76:	f7ff fa47 	bl	8006108 <Error_Handler>
 			break;
- 8006c26:	bf00      	nop
+ 8006c7a:	bf00      	nop
 	for(uint32_t i=0; i<LUT_length_LN2; i++)
- 8006c28:	693b      	ldr	r3, [r7, #16]
- 8006c2a:	3301      	adds	r3, #1
- 8006c2c:	613b      	str	r3, [r7, #16]
- 8006c2e:	797b      	ldrb	r3, [r7, #5]
- 8006c30:	693a      	ldr	r2, [r7, #16]
- 8006c32:	429a      	cmp	r2, r3
- 8006c34:	d3b7      	bcc.n	8006ba6 <LUT+0x8a>
+ 8006c7c:	693b      	ldr	r3, [r7, #16]
+ 8006c7e:	3301      	adds	r3, #1
+ 8006c80:	613b      	str	r3, [r7, #16]
+ 8006c82:	797b      	ldrb	r3, [r7, #5]
+ 8006c84:	693a      	ldr	r2, [r7, #16]
+ 8006c86:	429a      	cmp	r2, r3
+ 8006c88:	d3b7      	bcc.n	8006bfa <LUT+0x8a>
 		}
 	}
 
 	result = (int)((((float)(input-LUT[mid]))/((float)(LUT[mid+1]-LUT[mid])))*(LUT[mid+1+length]-LUT[mid+length]))+LUT[mid+length];
- 8006c36:	88fa      	ldrh	r2, [r7, #6]
- 8006c38:	7d7b      	ldrb	r3, [r7, #21]
- 8006c3a:	009b      	lsls	r3, r3, #2
- 8006c3c:	6839      	ldr	r1, [r7, #0]
- 8006c3e:	440b      	add	r3, r1
- 8006c40:	681b      	ldr	r3, [r3, #0]
- 8006c42:	1ad3      	subs	r3, r2, r3
- 8006c44:	ee07 3a90 	vmov	s15, r3
- 8006c48:	eef8 6a67 	vcvt.f32.u32	s13, s15
- 8006c4c:	7d7b      	ldrb	r3, [r7, #21]
- 8006c4e:	3301      	adds	r3, #1
- 8006c50:	009b      	lsls	r3, r3, #2
- 8006c52:	683a      	ldr	r2, [r7, #0]
- 8006c54:	4413      	add	r3, r2
- 8006c56:	681a      	ldr	r2, [r3, #0]
- 8006c58:	7d7b      	ldrb	r3, [r7, #21]
- 8006c5a:	009b      	lsls	r3, r3, #2
- 8006c5c:	6839      	ldr	r1, [r7, #0]
- 8006c5e:	440b      	add	r3, r1
- 8006c60:	681b      	ldr	r3, [r3, #0]
- 8006c62:	1ad3      	subs	r3, r2, r3
- 8006c64:	ee07 3a90 	vmov	s15, r3
- 8006c68:	eef8 7a67 	vcvt.f32.u32	s15, s15
- 8006c6c:	ee86 7aa7 	vdiv.f32	s14, s13, s15
- 8006c70:	7d7b      	ldrb	r3, [r7, #21]
- 8006c72:	1c5a      	adds	r2, r3, #1
- 8006c74:	7ffb      	ldrb	r3, [r7, #31]
- 8006c76:	4413      	add	r3, r2
- 8006c78:	009b      	lsls	r3, r3, #2
- 8006c7a:	683a      	ldr	r2, [r7, #0]
- 8006c7c:	4413      	add	r3, r2
- 8006c7e:	681a      	ldr	r2, [r3, #0]
- 8006c80:	7d79      	ldrb	r1, [r7, #21]
- 8006c82:	7ffb      	ldrb	r3, [r7, #31]
- 8006c84:	440b      	add	r3, r1
- 8006c86:	009b      	lsls	r3, r3, #2
- 8006c88:	6839      	ldr	r1, [r7, #0]
- 8006c8a:	440b      	add	r3, r1
- 8006c8c:	681b      	ldr	r3, [r3, #0]
- 8006c8e:	1ad3      	subs	r3, r2, r3
- 8006c90:	ee07 3a90 	vmov	s15, r3
- 8006c94:	eef8 7a67 	vcvt.f32.u32	s15, s15
- 8006c98:	ee67 7a27 	vmul.f32	s15, s14, s15
- 8006c9c:	eefd 7ae7 	vcvt.s32.f32	s15, s15
- 8006ca0:	ee17 1a90 	vmov	r1, s15
- 8006ca4:	7d7a      	ldrb	r2, [r7, #21]
- 8006ca6:	7ffb      	ldrb	r3, [r7, #31]
+ 8006c8a:	88fa      	ldrh	r2, [r7, #6]
+ 8006c8c:	7d7b      	ldrb	r3, [r7, #21]
+ 8006c8e:	009b      	lsls	r3, r3, #2
+ 8006c90:	6839      	ldr	r1, [r7, #0]
+ 8006c92:	440b      	add	r3, r1
+ 8006c94:	681b      	ldr	r3, [r3, #0]
+ 8006c96:	1ad3      	subs	r3, r2, r3
+ 8006c98:	ee07 3a90 	vmov	s15, r3
+ 8006c9c:	eef8 6a67 	vcvt.f32.u32	s13, s15
+ 8006ca0:	7d7b      	ldrb	r3, [r7, #21]
+ 8006ca2:	3301      	adds	r3, #1
+ 8006ca4:	009b      	lsls	r3, r3, #2
+ 8006ca6:	683a      	ldr	r2, [r7, #0]
  8006ca8:	4413      	add	r3, r2
- 8006caa:	009b      	lsls	r3, r3, #2
- 8006cac:	683a      	ldr	r2, [r7, #0]
- 8006cae:	4413      	add	r3, r2
- 8006cb0:	681b      	ldr	r3, [r3, #0]
+ 8006caa:	681a      	ldr	r2, [r3, #0]
+ 8006cac:	7d7b      	ldrb	r3, [r7, #21]
+ 8006cae:	009b      	lsls	r3, r3, #2
+ 8006cb0:	6839      	ldr	r1, [r7, #0]
  8006cb2:	440b      	add	r3, r1
- 8006cb4:	60fb      	str	r3, [r7, #12]
+ 8006cb4:	681b      	ldr	r3, [r3, #0]
+ 8006cb6:	1ad3      	subs	r3, r2, r3
+ 8006cb8:	ee07 3a90 	vmov	s15, r3
+ 8006cbc:	eef8 7a67 	vcvt.f32.u32	s15, s15
+ 8006cc0:	ee86 7aa7 	vdiv.f32	s14, s13, s15
+ 8006cc4:	7d7b      	ldrb	r3, [r7, #21]
+ 8006cc6:	1c5a      	adds	r2, r3, #1
+ 8006cc8:	7ffb      	ldrb	r3, [r7, #31]
+ 8006cca:	4413      	add	r3, r2
+ 8006ccc:	009b      	lsls	r3, r3, #2
+ 8006cce:	683a      	ldr	r2, [r7, #0]
+ 8006cd0:	4413      	add	r3, r2
+ 8006cd2:	681a      	ldr	r2, [r3, #0]
+ 8006cd4:	7d79      	ldrb	r1, [r7, #21]
+ 8006cd6:	7ffb      	ldrb	r3, [r7, #31]
+ 8006cd8:	440b      	add	r3, r1
+ 8006cda:	009b      	lsls	r3, r3, #2
+ 8006cdc:	6839      	ldr	r1, [r7, #0]
+ 8006cde:	440b      	add	r3, r1
+ 8006ce0:	681b      	ldr	r3, [r3, #0]
+ 8006ce2:	1ad3      	subs	r3, r2, r3
+ 8006ce4:	ee07 3a90 	vmov	s15, r3
+ 8006ce8:	eef8 7a67 	vcvt.f32.u32	s15, s15
+ 8006cec:	ee67 7a27 	vmul.f32	s15, s14, s15
+ 8006cf0:	eefd 7ae7 	vcvt.s32.f32	s15, s15
+ 8006cf4:	ee17 1a90 	vmov	r1, s15
+ 8006cf8:	7d7a      	ldrb	r2, [r7, #21]
+ 8006cfa:	7ffb      	ldrb	r3, [r7, #31]
+ 8006cfc:	4413      	add	r3, r2
+ 8006cfe:	009b      	lsls	r3, r3, #2
+ 8006d00:	683a      	ldr	r2, [r7, #0]
+ 8006d02:	4413      	add	r3, r2
+ 8006d04:	681b      	ldr	r3, [r3, #0]
+ 8006d06:	440b      	add	r3, r1
+ 8006d08:	60fb      	str	r3, [r7, #12]
 
 	return result;
- 8006cb6:	68fb      	ldr	r3, [r7, #12]
+ 8006d0a:	68fb      	ldr	r3, [r7, #12]
 }
- 8006cb8:	4618      	mov	r0, r3
- 8006cba:	3720      	adds	r7, #32
- 8006cbc:	46bd      	mov	sp, r7
- 8006cbe:	bd80      	pop	{r7, pc}
+ 8006d0c:	4618      	mov	r0, r3
+ 8006d0e:	3720      	adds	r7, #32
+ 8006d10:	46bd      	mov	sp, r7
+ 8006d12:	bd80      	pop	{r7, pc}
 
-08006cc0 <Reset_Handler>:
+08006d14 <Reset_Handler>:
 
     .section	.text.Reset_Handler
 	.weak	Reset_Handler
 	.type	Reset_Handler, %function
 Reset_Handler:
   ldr   r0, =_estack
- 8006cc0:	480d      	ldr	r0, [pc, #52]	; (8006cf8 <LoopForever+0x2>)
+ 8006d14:	480d      	ldr	r0, [pc, #52]	; (8006d4c <LoopForever+0x2>)
   mov   sp, r0          /* set stack pointer */
- 8006cc2:	4685      	mov	sp, r0
+ 8006d16:	4685      	mov	sp, r0
 
 /* Copy the data segment initializers from flash to SRAM */
   ldr r0, =_sdata
- 8006cc4:	480d      	ldr	r0, [pc, #52]	; (8006cfc <LoopForever+0x6>)
+ 8006d18:	480d      	ldr	r0, [pc, #52]	; (8006d50 <LoopForever+0x6>)
   ldr r1, =_edata
- 8006cc6:	490e      	ldr	r1, [pc, #56]	; (8006d00 <LoopForever+0xa>)
+ 8006d1a:	490e      	ldr	r1, [pc, #56]	; (8006d54 <LoopForever+0xa>)
   ldr r2, =_sidata
- 8006cc8:	4a0e      	ldr	r2, [pc, #56]	; (8006d04 <LoopForever+0xe>)
+ 8006d1c:	4a0e      	ldr	r2, [pc, #56]	; (8006d58 <LoopForever+0xe>)
   movs r3, #0
- 8006cca:	2300      	movs	r3, #0
+ 8006d1e:	2300      	movs	r3, #0
   b	LoopCopyDataInit
- 8006ccc:	e002      	b.n	8006cd4 <LoopCopyDataInit>
+ 8006d20:	e002      	b.n	8006d28 <LoopCopyDataInit>
 
-08006cce <CopyDataInit>:
+08006d22 <CopyDataInit>:
 
 CopyDataInit:
   ldr r4, [r2, r3]
- 8006cce:	58d4      	ldr	r4, [r2, r3]
+ 8006d22:	58d4      	ldr	r4, [r2, r3]
   str r4, [r0, r3]
- 8006cd0:	50c4      	str	r4, [r0, r3]
+ 8006d24:	50c4      	str	r4, [r0, r3]
   adds r3, r3, #4
- 8006cd2:	3304      	adds	r3, #4
+ 8006d26:	3304      	adds	r3, #4
 
-08006cd4 <LoopCopyDataInit>:
+08006d28 <LoopCopyDataInit>:
 
 LoopCopyDataInit:
   adds r4, r0, r3
- 8006cd4:	18c4      	adds	r4, r0, r3
+ 8006d28:	18c4      	adds	r4, r0, r3
   cmp r4, r1
- 8006cd6:	428c      	cmp	r4, r1
+ 8006d2a:	428c      	cmp	r4, r1
   bcc CopyDataInit
- 8006cd8:	d3f9      	bcc.n	8006cce <CopyDataInit>
+ 8006d2c:	d3f9      	bcc.n	8006d22 <CopyDataInit>
   
 /* Zero fill the bss segment. */
   ldr r2, =_sbss
- 8006cda:	4a0b      	ldr	r2, [pc, #44]	; (8006d08 <LoopForever+0x12>)
+ 8006d2e:	4a0b      	ldr	r2, [pc, #44]	; (8006d5c <LoopForever+0x12>)
   ldr r4, =_ebss
- 8006cdc:	4c0b      	ldr	r4, [pc, #44]	; (8006d0c <LoopForever+0x16>)
+ 8006d30:	4c0b      	ldr	r4, [pc, #44]	; (8006d60 <LoopForever+0x16>)
   movs r3, #0
- 8006cde:	2300      	movs	r3, #0
+ 8006d32:	2300      	movs	r3, #0
   b LoopFillZerobss
- 8006ce0:	e001      	b.n	8006ce6 <LoopFillZerobss>
+ 8006d34:	e001      	b.n	8006d3a <LoopFillZerobss>
 
-08006ce2 <FillZerobss>:
+08006d36 <FillZerobss>:
 
 FillZerobss:
   str  r3, [r2]
- 8006ce2:	6013      	str	r3, [r2, #0]
+ 8006d36:	6013      	str	r3, [r2, #0]
   adds r2, r2, #4
- 8006ce4:	3204      	adds	r2, #4
+ 8006d38:	3204      	adds	r2, #4
 
-08006ce6 <LoopFillZerobss>:
+08006d3a <LoopFillZerobss>:
 
 LoopFillZerobss:
   cmp r2, r4
- 8006ce6:	42a2      	cmp	r2, r4
+ 8006d3a:	42a2      	cmp	r2, r4
   bcc FillZerobss
- 8006ce8:	d3fb      	bcc.n	8006ce2 <FillZerobss>
+ 8006d3c:	d3fb      	bcc.n	8006d36 <FillZerobss>
 
 /* Call the clock system intitialization function.*/
     bl  SystemInit
- 8006cea:	f7ff fc3f 	bl	800656c <SystemInit>
+ 8006d3e:	f7ff fc15 	bl	800656c <SystemInit>
 /* Call static constructors */
     bl __libc_init_array
- 8006cee:	f000 f811 	bl	8006d14 <__libc_init_array>
+ 8006d42:	f000 f811 	bl	8006d68 <__libc_init_array>
 /* Call the application's entry point.*/
 	bl	main
- 8006cf2:	f7fe f98f 	bl	8005014 <main>
+ 8006d46:	f7fe f965 	bl	8005014 <main>
 
-08006cf6 <LoopForever>:
+08006d4a <LoopForever>:
 
 LoopForever:
     b LoopForever
- 8006cf6:	e7fe      	b.n	8006cf6 <LoopForever>
+ 8006d4a:	e7fe      	b.n	8006d4a <LoopForever>
   ldr   r0, =_estack
- 8006cf8:	20008000 	.word	0x20008000
+ 8006d4c:	20008000 	.word	0x20008000
   ldr r0, =_sdata
- 8006cfc:	20000000 	.word	0x20000000
+ 8006d50:	20000000 	.word	0x20000000
   ldr r1, =_edata
- 8006d00:	2000012c 	.word	0x2000012c
+ 8006d54:	2000012c 	.word	0x2000012c
   ldr r2, =_sidata
- 8006d04:	08006dac 	.word	0x08006dac
+ 8006d58:	08006e00 	.word	0x08006e00
   ldr r2, =_sbss
- 8006d08:	2000012c 	.word	0x2000012c
+ 8006d5c:	2000012c 	.word	0x2000012c
   ldr r4, =_ebss
- 8006d0c:	200010bc 	.word	0x200010bc
+ 8006d60:	200010bc 	.word	0x200010bc
 
-08006d10 <ADC1_2_IRQHandler>:
+08006d64 <ADC1_2_IRQHandler>:
  * @retval : None
 */
     .section	.text.Default_Handler,"ax",%progbits
 Default_Handler:
 Infinite_Loop:
 	b	Infinite_Loop
- 8006d10:	e7fe      	b.n	8006d10 <ADC1_2_IRQHandler>
+ 8006d64:	e7fe      	b.n	8006d64 <ADC1_2_IRQHandler>
 	...
 
-08006d14 <__libc_init_array>:
- 8006d14:	b570      	push	{r4, r5, r6, lr}
- 8006d16:	4e0d      	ldr	r6, [pc, #52]	; (8006d4c <__libc_init_array+0x38>)
- 8006d18:	4c0d      	ldr	r4, [pc, #52]	; (8006d50 <__libc_init_array+0x3c>)
- 8006d1a:	1ba4      	subs	r4, r4, r6
- 8006d1c:	10a4      	asrs	r4, r4, #2
- 8006d1e:	2500      	movs	r5, #0
- 8006d20:	42a5      	cmp	r5, r4
- 8006d22:	d109      	bne.n	8006d38 <__libc_init_array+0x24>
- 8006d24:	4e0b      	ldr	r6, [pc, #44]	; (8006d54 <__libc_init_array+0x40>)
- 8006d26:	4c0c      	ldr	r4, [pc, #48]	; (8006d58 <__libc_init_array+0x44>)
- 8006d28:	f000 f820 	bl	8006d6c <_init>
- 8006d2c:	1ba4      	subs	r4, r4, r6
- 8006d2e:	10a4      	asrs	r4, r4, #2
- 8006d30:	2500      	movs	r5, #0
- 8006d32:	42a5      	cmp	r5, r4
- 8006d34:	d105      	bne.n	8006d42 <__libc_init_array+0x2e>
- 8006d36:	bd70      	pop	{r4, r5, r6, pc}
- 8006d38:	f856 3025 	ldr.w	r3, [r6, r5, lsl #2]
- 8006d3c:	4798      	blx	r3
- 8006d3e:	3501      	adds	r5, #1
- 8006d40:	e7ee      	b.n	8006d20 <__libc_init_array+0xc>
- 8006d42:	f856 3025 	ldr.w	r3, [r6, r5, lsl #2]
- 8006d46:	4798      	blx	r3
- 8006d48:	3501      	adds	r5, #1
- 8006d4a:	e7f2      	b.n	8006d32 <__libc_init_array+0x1e>
- 8006d4c:	08006da4 	.word	0x08006da4
- 8006d50:	08006da4 	.word	0x08006da4
- 8006d54:	08006da4 	.word	0x08006da4
- 8006d58:	08006da8 	.word	0x08006da8
+08006d68 <__libc_init_array>:
+ 8006d68:	b570      	push	{r4, r5, r6, lr}
+ 8006d6a:	4e0d      	ldr	r6, [pc, #52]	; (8006da0 <__libc_init_array+0x38>)
+ 8006d6c:	4c0d      	ldr	r4, [pc, #52]	; (8006da4 <__libc_init_array+0x3c>)
+ 8006d6e:	1ba4      	subs	r4, r4, r6
+ 8006d70:	10a4      	asrs	r4, r4, #2
+ 8006d72:	2500      	movs	r5, #0
+ 8006d74:	42a5      	cmp	r5, r4
+ 8006d76:	d109      	bne.n	8006d8c <__libc_init_array+0x24>
+ 8006d78:	4e0b      	ldr	r6, [pc, #44]	; (8006da8 <__libc_init_array+0x40>)
+ 8006d7a:	4c0c      	ldr	r4, [pc, #48]	; (8006dac <__libc_init_array+0x44>)
+ 8006d7c:	f000 f820 	bl	8006dc0 <_init>
+ 8006d80:	1ba4      	subs	r4, r4, r6
+ 8006d82:	10a4      	asrs	r4, r4, #2
+ 8006d84:	2500      	movs	r5, #0
+ 8006d86:	42a5      	cmp	r5, r4
+ 8006d88:	d105      	bne.n	8006d96 <__libc_init_array+0x2e>
+ 8006d8a:	bd70      	pop	{r4, r5, r6, pc}
+ 8006d8c:	f856 3025 	ldr.w	r3, [r6, r5, lsl #2]
+ 8006d90:	4798      	blx	r3
+ 8006d92:	3501      	adds	r5, #1
+ 8006d94:	e7ee      	b.n	8006d74 <__libc_init_array+0xc>
+ 8006d96:	f856 3025 	ldr.w	r3, [r6, r5, lsl #2]
+ 8006d9a:	4798      	blx	r3
+ 8006d9c:	3501      	adds	r5, #1
+ 8006d9e:	e7f2      	b.n	8006d86 <__libc_init_array+0x1e>
+ 8006da0:	08006df8 	.word	0x08006df8
+ 8006da4:	08006df8 	.word	0x08006df8
+ 8006da8:	08006df8 	.word	0x08006df8
+ 8006dac:	08006dfc 	.word	0x08006dfc
 
-08006d5c <memset>:
- 8006d5c:	4402      	add	r2, r0
- 8006d5e:	4603      	mov	r3, r0
- 8006d60:	4293      	cmp	r3, r2
- 8006d62:	d100      	bne.n	8006d66 <memset+0xa>
- 8006d64:	4770      	bx	lr
- 8006d66:	f803 1b01 	strb.w	r1, [r3], #1
- 8006d6a:	e7f9      	b.n	8006d60 <memset+0x4>
+08006db0 <memset>:
+ 8006db0:	4402      	add	r2, r0
+ 8006db2:	4603      	mov	r3, r0
+ 8006db4:	4293      	cmp	r3, r2
+ 8006db6:	d100      	bne.n	8006dba <memset+0xa>
+ 8006db8:	4770      	bx	lr
+ 8006dba:	f803 1b01 	strb.w	r1, [r3], #1
+ 8006dbe:	e7f9      	b.n	8006db4 <memset+0x4>
 
-08006d6c <_init>:
- 8006d6c:	b5f8      	push	{r3, r4, r5, r6, r7, lr}
- 8006d6e:	bf00      	nop
- 8006d70:	bcf8      	pop	{r3, r4, r5, r6, r7}
- 8006d72:	bc08      	pop	{r3}
- 8006d74:	469e      	mov	lr, r3
- 8006d76:	4770      	bx	lr
+08006dc0 <_init>:
+ 8006dc0:	b5f8      	push	{r3, r4, r5, r6, r7, lr}
+ 8006dc2:	bf00      	nop
+ 8006dc4:	bcf8      	pop	{r3, r4, r5, r6, r7}
+ 8006dc6:	bc08      	pop	{r3}
+ 8006dc8:	469e      	mov	lr, r3
+ 8006dca:	4770      	bx	lr
 
-08006d78 <_fini>:
- 8006d78:	b5f8      	push	{r3, r4, r5, r6, r7, lr}
- 8006d7a:	bf00      	nop
- 8006d7c:	bcf8      	pop	{r3, r4, r5, r6, r7}
- 8006d7e:	bc08      	pop	{r3}
- 8006d80:	469e      	mov	lr, r3
- 8006d82:	4770      	bx	lr
+08006dcc <_fini>:
+ 8006dcc:	b5f8      	push	{r3, r4, r5, r6, r7, lr}
+ 8006dce:	bf00      	nop
+ 8006dd0:	bcf8      	pop	{r3, r4, r5, r6, r7}
+ 8006dd2:	bc08      	pop	{r3}
+ 8006dd4:	469e      	mov	lr, r3
+ 8006dd6:	4770      	bx	lr

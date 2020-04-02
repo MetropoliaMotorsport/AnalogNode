@@ -58,6 +58,56 @@ void Config_1(void)
 	//TODO: setup code for each node that will be in the car
 }
 
+void Config_9(void)
+{
+	//TODO: setup code for each node that will be in the car
+}
+
+void Config_10(void)
+{
+	//TODO: setup code for each node that will be in the car
+}
+
+void Config_11(void)
+{
+	//TODO: setup code for each node that will be in the car
+}
+
+void Config_12(void)
+{
+	//TODO: setup code for each node that will be in the car
+}
+
+void Config_13(void)
+{
+	//TODO: setup code for each node that will be in the car
+}
+
+void Config_14(void)
+{
+	//TODO: setup code for each node that will be in the car
+}
+
+void Config_15(void)
+{
+	//TODO: setup code for each node that will be in the car
+}
+
+void Config_16(void)
+{
+	//TODO: setup code for each node that will be in the car
+}
+
+void Config_17(void)
+{
+	//TODO: setup code for each node that will be in the car
+}
+
+void Config_18(void)
+{
+	//TODO: setup code for each node that will be in the car
+}
+
 
 void Config_Write_Flash(void)
 {
