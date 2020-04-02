@@ -46,7 +46,7 @@ void Config_0(void)
 	AnalogSensorBytes[3] = 0;
 	CanId_Diagnostics = 0x89;
 
-	SendAnalogPeriod = 1000; //in 100us resolution
+	SendAnalogPeriod = 0; //in 100us resolution
 	CanSyncDelay = 0; //in 10us resolution
 
 	OverCurrentWarning = 1000;
@@ -55,7 +55,29 @@ void Config_0(void)
 
 void Config_1(void)
 {
-	//TODO: setup code for each node that will be in the car
+	MeasureDriverCurrent = 0;
+	MeasureTemperature = 1;
+	SensorRollingAverages[0] = 1; //AI2
+	SensorRollingAverages[1] = 32; //AI3
+	SensorRollingAverages[2] = 32; //AI5
+	SensorRollingAverages[3] = 32; //AI6
+	TransferFunctions[0] = VOLTAGE_3V3_UNCAL; //AI2
+	TransferFunctions[1] = DHABS106_20A; //AI3
+	TransferFunctions[2] = RAW; //AI5
+	TransferFunctions[3] = RAW; //AI6
+
+	CanId_Analog = 0x680;
+	AnalogSensorBytes[0] = 0;
+	AnalogSensorBytes[1] = 2;
+	AnalogSensorBytes[2] = 2;
+	AnalogSensorBytes[3] = 2;
+	CanId_Diagnostics = 0x681;
+
+	SendAnalogPeriod = 0; //in 100us resolution
+	CanSyncDelay = 0; //in 10us resolution
+
+	OverCurrentWarning = 1000;
+	OverCurrentLimit = 2000;
 }
 
 void Config_9(void)

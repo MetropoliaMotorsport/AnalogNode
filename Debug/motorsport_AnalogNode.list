@@ -37,13 +37,13 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   CONTENTS, READONLY, DEBUGGING
  16 .debug_macro  00020804  00000000  00000000  0003bb08  2**0
                   CONTENTS, READONLY, DEBUGGING
- 17 .debug_line   0000f875  00000000  00000000  0005c30c  2**0
+ 17 .debug_line   0000f88d  00000000  00000000  0005c30c  2**0
                   CONTENTS, READONLY, DEBUGGING
- 18 .debug_str    000d88c8  00000000  00000000  0006bb81  2**0
+ 18 .debug_str    000d88c8  00000000  00000000  0006bb99  2**0
                   CONTENTS, READONLY, DEBUGGING
- 19 .comment      0000007b  00000000  00000000  00144449  2**0
+ 19 .comment      0000007b  00000000  00000000  00144461  2**0
                   CONTENTS, READONLY
- 20 .debug_frame  00005e34  00000000  00000000  001444c4  2**2
+ 20 .debug_frame  00005e34  00000000  00000000  001444dc  2**2
                   CONTENTS, READONLY, DEBUGGING
 
 Disassembly of section .text:
@@ -13470,28 +13470,29 @@ void Config_0(void)
  8004c10:	2289      	movs	r2, #137	; 0x89
  8004c12:	801a      	strh	r2, [r3, #0]
 
-	SendAnalogPeriod = 1000; //in 100us resolution
+	SendAnalogPeriod = 0; //in 100us resolution
  8004c14:	4b10      	ldr	r3, [pc, #64]	; (8004c58 <Config_0+0xa8>)
- 8004c16:	f44f 727a 	mov.w	r2, #1000	; 0x3e8
- 8004c1a:	801a      	strh	r2, [r3, #0]
+ 8004c16:	2200      	movs	r2, #0
+ 8004c18:	801a      	strh	r2, [r3, #0]
 	CanSyncDelay = 0; //in 10us resolution
- 8004c1c:	4b0f      	ldr	r3, [pc, #60]	; (8004c5c <Config_0+0xac>)
- 8004c1e:	2200      	movs	r2, #0
- 8004c20:	801a      	strh	r2, [r3, #0]
+ 8004c1a:	4b10      	ldr	r3, [pc, #64]	; (8004c5c <Config_0+0xac>)
+ 8004c1c:	2200      	movs	r2, #0
+ 8004c1e:	801a      	strh	r2, [r3, #0]
 
 	OverCurrentWarning = 1000;
- 8004c22:	4b0f      	ldr	r3, [pc, #60]	; (8004c60 <Config_0+0xb0>)
- 8004c24:	f44f 727a 	mov.w	r2, #1000	; 0x3e8
- 8004c28:	601a      	str	r2, [r3, #0]
+ 8004c20:	4b0f      	ldr	r3, [pc, #60]	; (8004c60 <Config_0+0xb0>)
+ 8004c22:	f44f 727a 	mov.w	r2, #1000	; 0x3e8
+ 8004c26:	601a      	str	r2, [r3, #0]
 	OverCurrentLimit = 2000;
- 8004c2a:	4b0e      	ldr	r3, [pc, #56]	; (8004c64 <Config_0+0xb4>)
- 8004c2c:	f44f 62fa 	mov.w	r2, #2000	; 0x7d0
- 8004c30:	601a      	str	r2, [r3, #0]
+ 8004c28:	4b0e      	ldr	r3, [pc, #56]	; (8004c64 <Config_0+0xb4>)
+ 8004c2a:	f44f 62fa 	mov.w	r2, #2000	; 0x7d0
+ 8004c2e:	601a      	str	r2, [r3, #0]
 }
- 8004c32:	bf00      	nop
- 8004c34:	46bd      	mov	sp, r7
- 8004c36:	f85d 7b04 	ldr.w	r7, [sp], #4
- 8004c3a:	4770      	bx	lr
+ 8004c30:	bf00      	nop
+ 8004c32:	46bd      	mov	sp, r7
+ 8004c34:	f85d 7b04 	ldr.w	r7, [sp], #4
+ 8004c38:	4770      	bx	lr
+ 8004c3a:	bf00      	nop
  8004c3c:	20000fac 	.word	0x20000fac
  8004c40:	20000df9 	.word	0x20000df9
  8004c44:	20000d84 	.word	0x20000d84
