@@ -114,8 +114,22 @@ void Config_Rolling_Averages(uint8_t enable, uint8_t newAverages[8])
 	Acknowledge(CONFIG_ROLLING_AVERAGES);
 }
 
+void Config_Transfer_Functions(uint8_t enable, uint8_t newTransferFunctions[8])
+{
+	uint32_t pos=3; //start at pos 3 and use a length 8 array so that we can just pass rx data
+	for(uint32_t i=0; i<4; i++)
+	{
+		if ((1<<i) & enable)
+		{
+			TransferFunctions[i] = newTransferFunctions[pos];
+			pos++;
+		}
+	}
+
+	Acknowledge(CONFIG_TRANSFER_FUNCTIONS);
+}
+
 /*
-uint16_t SensorRollingAverages[4]; //[AI2, AI3, AI5, AI6]
 uint8_t TransferFunctions[4];
 
 uint16_t CanId_Analog;
