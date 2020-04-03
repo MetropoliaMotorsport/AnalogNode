@@ -103,7 +103,7 @@ int main(void)
 			}
 		}
 
-		HAL_GPIO_WritePin(GPIOA, GPIO_PIN_15, MeasureTemperature);
+		HAL_GPIO_WritePin(GPIOA, GPIO_PIN_15, (SensorRollingAverages[1]&0x1));
 	}
 }
 
@@ -161,6 +161,10 @@ void HAL_FDCAN_RxFifo0Callback(FDCAN_HandleTypeDef *hfdcan, uint32_t RxFifo0ITs)
 					break;
 				case CONFIG_MEASUREMENTS:
 					Config_Measurements(CANRxData[2], CANRxData[3]);
+					if ((RxHeader.DataLength>>16) < 4) { Set_Error(ERR_COMMAND_SHORT); }
+					break;
+				case CONFIG_ROLLING_AVERAGES:
+					Config_Rolling_Averages(CANRxData[2], CANRxData);
 					if ((RxHeader.DataLength>>16) < 4) { Set_Error(ERR_COMMAND_SHORT); }
 					break;
 				default:

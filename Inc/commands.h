@@ -8,6 +8,7 @@
 #define CLEAR_ERROR					12
 #define SAVE_CONFIGS				128
 #define CONFIG_MEASUREMENTS			129
+#define CONFIG_ROLLING_AVERAGES		130
 
 
 //function prototypes
@@ -19,5 +20,6 @@ void Switch_Driver(uint8_t);
 void Clear_Error();
 
 void Config_Measurements(uint8_t, uint8_t);
+void Config_Rolling_Averages(uint8_t, uint8_t[8]);
 
 #endif
