@@ -53,11 +53,11 @@ void Acknowledge(uint8_t cmd)
 	ack_k++;
 }
 
-void Save_Config() //TODO
+void Save_Config()
 {
-	//Config_Write_Flash();
+	Config_Write_Flash();
 
-	//Config_Read_Flash();
+	Config_Read_Flash();
 
 	Acknowledge(SAVE_CONFIGS);
 }
@@ -84,3 +84,31 @@ void Clear_Error()
 
 	Acknowledge(CLEAR_ERROR);
 }
+
+void Config_Measurements(uint8_t enable, uint8_t state)
+{
+	if (enable & (1<<0))
+	{
+		MeasureDriverCurrent = state&&(1<<0);
+	}
+
+	if (enable & (1<<1))
+	{
+		MeasureTemperature = state&&(1<<1);
+	}
+}
+
+/*
+uint16_t SensorRollingAverages[4]; //[AI2, AI3, AI5, AI6]
+uint8_t TransferFunctions[4];
+
+uint16_t CanId_Analog;
+uint8_t AnalogSensorBytes[4]; //[AI2, AI3, AI5, AI6] //if AI2>2, AI3 not sent, if AI5>2 AI6 not sent //those situations reserved for higher resolution adcs than will be tested now
+uint16_t CanId_Diagnostics;
+
+uint16_t SendAnalogPeriod; //0 = use sync
+uint16_t CanSyncDelay;
+
+uint8_t DriverDefaultState; //TODO
+uint32_t OverCurrentWarning; //in mA
+uint32_t OverCurrentLimit; //in mA*/

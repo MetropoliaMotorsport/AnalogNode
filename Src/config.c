@@ -46,7 +46,7 @@ void Config_0(void)
 	AnalogSensorBytes[3] = 0;
 	CanId_Diagnostics = 0x89;
 
-	SendAnalogPeriod = 0; //in 100us resolution
+	SendAnalogPeriod = 1000; //in 100us resolution
 	CanSyncDelay = 0; //in 10us resolution
 
 	OverCurrentWarning = 1000;
@@ -376,7 +376,7 @@ void Config_Write_Flash(void)
 void Config_Read_Flash(void)
 {
 	MeasureDriverCurrent=((MEASURES>>0)&0b1);
-	MeasureTemperature=((MEASURES>>0)&0b1);
+	MeasureTemperature=((MEASURES>>8)&0b1);
 
 	SensorRollingAverages[0]=((ROLLING_AVERAGE_0>>0)&0xFFFF);
 	SensorRollingAverages[1]=((ROLLING_AVERAGE_0>>16)&0xFFFF);
