@@ -50,6 +50,8 @@ void Send_Error(void);
 #define WARN_OVERCURR				49
 #define ERR_OVERCURR_SHUTOFF		50
 
+#define ERR_INVALID_CONFIG_ID		65
+
 
 //config externs
 extern uint8_t MeasureDriverCurrent;

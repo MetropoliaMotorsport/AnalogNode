@@ -6,3 +6,5 @@ commands.c:81:6:Clear_Error	8	static
 commands.c:88:6:Config_Measurements	16	static
 commands.c:102:6:Config_Rolling_Averages	24	static
 commands.c:117:6:Config_Transfer_Functions	24	static
+commands.c:132:6:Config_Analog_ID	24	static
+commands.c:148:6:Config_Diagnostics_ID	24	static

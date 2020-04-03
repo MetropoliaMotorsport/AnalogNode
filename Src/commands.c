@@ -129,12 +129,40 @@ void Config_Transfer_Functions(uint8_t enable, uint8_t newTransferFunctions[8])
 	Acknowledge(CONFIG_TRANSFER_FUNCTIONS);
 }
 
-/*
-uint8_t TransferFunctions[4];
+void Config_Analog_ID(uint8_t highbyte, uint8_t lowbyte)
+{
+	uint32_t CanID_new = (highbyte<<8)+lowbyte;
 
-uint16_t CanId_Analog;
+	if(ID > 2047)
+	{
+		Set_Error(ERR_INVALID_CONFIG_ID);
+	}
+	else
+	{
+		CanId_Analog = CanID_new;
+
+		Acknowledge(CONFIG_ANALOG_ID);
+	}
+}
+
+void Config_Diagnostics_ID(uint8_t highbyte, uint8_t lowbyte)
+{
+	uint32_t CanID_new = (highbyte<<8)+lowbyte;
+
+	if(ID > 2047)
+	{
+		Set_Error(ERR_INVALID_CONFIG_ID);
+	}
+	else
+	{
+		CanId_Diagnostics = CanID_new;
+
+		Acknowledge(CONFIG_DIAGNOSTICS_ID);
+	}
+}
+
+/*
 uint8_t AnalogSensorBytes[4]; //[AI2, AI3, AI5, AI6] //if AI2>2, AI3 not sent, if AI5>2 AI6 not sent //those situations reserved for higher resolution adcs than will be tested now
-uint16_t CanId_Diagnostics;
 
 uint16_t SendAnalogPeriod; //0 = use sync
 uint16_t CanSyncDelay;

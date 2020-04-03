@@ -169,6 +169,14 @@ void HAL_FDCAN_RxFifo0Callback(FDCAN_HandleTypeDef *hfdcan, uint32_t RxFifo0ITs)
 					Config_Transfer_Functions(CANRxData[2], CANRxData);
 					if ((RxHeader.DataLength>>16) < 4) { Set_Error(ERR_COMMAND_SHORT); }
 					break;
+				case CONFIG_ANALOG_ID:
+					Config_Analog_ID(CANRxData[2], CANRxData[3]);
+					if ((RxHeader.DataLength>>16) < 4) { Set_Error(ERR_COMMAND_SHORT); }
+					break;
+				case CONFIG_DIAGNOSTICS_ID:
+					Config_Diagnostics_ID(CANRxData[2], CANRxData[3]);
+					if ((RxHeader.DataLength>>16) < 4) { Set_Error(ERR_COMMAND_SHORT); }
+					break;
 				default:
 					Set_Error(ERR_INVALID_COMMAND);
 					break;
