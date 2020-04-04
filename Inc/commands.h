@@ -16,6 +16,8 @@
 #define CONFIG_SEND_PERIOD			135
 #define CONFIG_SYNC_DELAY			136
 #define CONFIG_DRIVER_DEFAULT		137
+#define CONFIG_WARN_CURRENT			138
+#define CONFIG_LIMIT_CURRENT		139
 
 
 //function prototypes

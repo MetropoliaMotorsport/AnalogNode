@@ -197,6 +197,16 @@ void Config_Default_Driver_State(uint8_t newDefaultState)
 	Acknowledge(CONFIG_DRIVER_DEFAULT);
 }
 
-/*
-uint32_t OverCurrentWarning; //in mA
-uint32_t OverCurrentLimit; //in mA*/
+void Config_Warn_Current(uint8_t highbyte, uint8_t lowbyte)
+{
+	OverCurrentWarning = (highbyte>>8)+lowbyte;
+
+	Acknowledge(CONFIG_WARN_CURRENT);
+}
+
+void Config_Limit_Current(uint8_t highbyte, uint8_t lowbyte)
+{
+	OverCurrentLimit = (highbyte>>8)+lowbyte;
+
+	Acknowledge(CONFIG_LIMIT_CURRENT);
+}
