@@ -53,7 +53,7 @@ uint16_t CanId_Diagnostics;
 uint16_t SendAnalogPeriod; //0 = use sync
 uint16_t CanSyncDelay;
 
-uint8_t DriverDefaultState; //TODO
+uint8_t DriverDefaultState;
 uint32_t OverCurrentWarning; //in mA
 uint32_t OverCurrentLimit; //in mA
 
@@ -188,6 +188,10 @@ void HAL_FDCAN_RxFifo0Callback(FDCAN_HandleTypeDef *hfdcan, uint32_t RxFifo0ITs)
 				case CONFIG_SYNC_DELAY:
 					Config_Sync_Delay(CANRxData[2], CANRxData[3]);
 					if ((RxHeader.DataLength>>16) < 4) { Set_Error(ERR_COMMAND_SHORT); }
+					break;
+				case CONFIG_DRIVER_DEFAULT:
+					Config_Default_Driver_State(CANRxData[2]);
+					if ((RxHeader.DataLength>>16) < 3) { Set_Error(ERR_COMMAND_SHORT); }
 					break;
 				default:
 					Set_Error(ERR_INVALID_COMMAND);
@@ -324,7 +328,7 @@ void HAL_ADC_ConvCpltCallback(ADC_HandleTypeDef* hadc)
 			if (rawI>1000 || I>OverCurrentLimit)
 			{
 				//TODO: this should be PA9 instead
-				HAL_GPIO_WritePin(GPIOA, GPIO_PIN_8, 0);
+				HAL_GPIO_WritePin(GPIOA, GPIO_PIN_9, 0);
 				driverState = 0;
 				driverError = 1;
 			}
@@ -587,9 +591,9 @@ static void MX_GPIO_Init(void)
 	__HAL_RCC_GPIOA_CLK_ENABLE();
 
 	HAL_GPIO_WritePin(GPIOA, GPIO_PIN_15, 0);
-	HAL_GPIO_WritePin(GPIOA, GPIO_PIN_8, 0);
+	HAL_GPIO_WritePin(GPIOA, GPIO_PIN_9, DriverDefaultState);
 
-	GPIO_InitStruct.Pin = GPIO_PIN_15|GPIO_PIN_8;
+	GPIO_InitStruct.Pin = GPIO_PIN_15|GPIO_PIN_9;
 	GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
 	GPIO_InitStruct.Pull = GPIO_NOPULL;
 	GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;

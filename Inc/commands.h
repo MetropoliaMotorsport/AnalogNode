@@ -15,6 +15,7 @@
 #define CONFIG_SENSOR_BYTES			134
 #define CONFIG_SEND_PERIOD			135
 #define CONFIG_SYNC_DELAY			136
+#define CONFIG_DRIVER_DEFAULT		137
 
 
 //function prototypes

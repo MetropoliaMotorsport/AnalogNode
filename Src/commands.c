@@ -71,7 +71,7 @@ void Switch_Driver(uint8_t state)
 {
 	if (!driverError)
 	{
-		HAL_GPIO_WritePin(GPIOA, GPIO_PIN_8, state); //should be PA9, check with the new boards TODO to see if it works with them
+		HAL_GPIO_WritePin(GPIOA, GPIO_PIN_9, state); //should be PA9, check with the new boards TODO to see if it works with them
 		driverState = state;
 
 		Acknowledge(SWITCH_DRIVER);
@@ -190,9 +190,13 @@ void Config_Sync_Delay(uint8_t highbyte, uint8_t lowbyte)
 	Acknowledge(CONFIG_SYNC_DELAY);
 }
 
+void Config_Default_Driver_State(uint8_t newDefaultState)
+{
+	DriverDefaultState = newDefaultState;
+
+	Acknowledge(CONFIG_DRIVER_DEFAULT);
+}
+
 /*
-
-
-uint8_t DriverDefaultState; //TODO
 uint32_t OverCurrentWarning; //in mA
 uint32_t OverCurrentLimit; //in mA*/
