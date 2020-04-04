@@ -129,6 +129,21 @@ void Config_Transfer_Functions(uint8_t enable, uint8_t newTransferFunctions[8])
 	Acknowledge(CONFIG_TRANSFER_FUNCTIONS);
 }
 
+void Config_Sensor_Bytes(uint8_t enable, uint8_t newSensorBytes[8])
+{
+	uint32_t pos=3; //start at pos 3 and use a length 8 array so that we can just pass rx data
+	for(uint32_t i=0; i<4; i++)
+	{
+		if ((1<<i) & enable)
+		{
+			AnalogSensorBytes[i] = newSensorBytes[pos];
+			pos++;
+		}
+	}
+
+	Acknowledge(CONFIG_SENSOR_BYTES);
+}
+
 void Config_Analog_ID(uint8_t highbyte, uint8_t lowbyte)
 {
 	uint32_t CanID_new = (highbyte<<8)+lowbyte;
@@ -162,7 +177,6 @@ void Config_Diagnostics_ID(uint8_t highbyte, uint8_t lowbyte)
 }
 
 /*
-uint8_t AnalogSensorBytes[4]; //[AI2, AI3, AI5, AI6] //if AI2>2, AI3 not sent, if AI5>2 AI6 not sent //those situations reserved for higher resolution adcs than will be tested now
 
 uint16_t SendAnalogPeriod; //0 = use sync
 uint16_t CanSyncDelay;

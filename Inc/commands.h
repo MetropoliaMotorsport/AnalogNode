@@ -12,6 +12,7 @@
 #define CONFIG_TRANSFER_FUNCTIONS	131
 #define CONFIG_ANALOG_ID			132
 #define CONFIG_DIAGNOSTICS_ID		133
+#define CONFIG_SENSOR_BYTES			134
 
 
 //function prototypes
@@ -27,5 +28,6 @@ void Config_Rolling_Averages(uint8_t, uint8_t[8]);
 void Config_Transfer_Functions(uint8_t, uint8_t[8]); //see transfer_functions.h to see the numbers associated with different transfer functions
 void Config_Analog_ID(uint8_t, uint8_t);
 void Config_Diagnostics_ID(uint8_t, uint8_t);
+void Config_Sensor_Bytes(uint8_t, uint8_t[8]); //check transfer_functions.c to make sure it is valid number of bytes
 
 #endif
