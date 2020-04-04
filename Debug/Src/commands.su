@@ -9,3 +9,5 @@ commands.c:117:6:Config_Transfer_Functions	24	static
 commands.c:132:6:Config_Sensor_Bytes	24	static
 commands.c:147:6:Config_Analog_ID	24	static
 commands.c:163:6:Config_Diagnostics_ID	24	static
+commands.c:179:6:Config_Send_Period	16	static
+commands.c:186:6:Config_Sync_Delay	16	static

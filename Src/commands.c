@@ -176,10 +176,22 @@ void Config_Diagnostics_ID(uint8_t highbyte, uint8_t lowbyte)
 	}
 }
 
+void Config_Send_Period(uint8_t highbyte, uint8_t lowbyte)
+{
+	SendAnalogPeriod = (highbyte<<8)+lowbyte;
+
+	Acknowledge(CONFIG_SEND_PERIOD);
+}
+
+void Config_Sync_Delay(uint8_t highbyte, uint8_t lowbyte)
+{
+	CanSyncDelay = (highbyte<<8)+lowbyte;
+
+	Acknowledge(CONFIG_SYNC_DELAY);
+}
+
 /*
 
-uint16_t SendAnalogPeriod; //0 = use sync
-uint16_t CanSyncDelay;
 
 uint8_t DriverDefaultState; //TODO
 uint32_t OverCurrentWarning; //in mA

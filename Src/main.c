@@ -181,6 +181,14 @@ void HAL_FDCAN_RxFifo0Callback(FDCAN_HandleTypeDef *hfdcan, uint32_t RxFifo0ITs)
 					Config_Sensor_Bytes(CANRxData[2], CANRxData);
 					if ((RxHeader.DataLength>>16) < 4) { Set_Error(ERR_COMMAND_SHORT); }
 					break;
+				case CONFIG_SEND_PERIOD:
+					Config_Send_Period(CANRxData[2], CANRxData[3]);
+					if ((RxHeader.DataLength>>16) < 4) { Set_Error(ERR_COMMAND_SHORT); }
+					break;
+				case CONFIG_SYNC_DELAY:
+					Config_Sync_Delay(CANRxData[2], CANRxData[3]);
+					if ((RxHeader.DataLength>>16) < 4) { Set_Error(ERR_COMMAND_SHORT); }
+					break;
 				default:
 					Set_Error(ERR_INVALID_COMMAND);
 					break;

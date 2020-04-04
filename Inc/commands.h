@@ -13,6 +13,8 @@
 #define CONFIG_ANALOG_ID			132
 #define CONFIG_DIAGNOSTICS_ID		133
 #define CONFIG_SENSOR_BYTES			134
+#define CONFIG_SEND_PERIOD			135
+#define CONFIG_SYNC_DELAY			136
 
 
 //function prototypes
@@ -29,5 +31,7 @@ void Config_Transfer_Functions(uint8_t, uint8_t[8]); //see transfer_functions.h 
 void Config_Analog_ID(uint8_t, uint8_t);
 void Config_Diagnostics_ID(uint8_t, uint8_t);
 void Config_Sensor_Bytes(uint8_t, uint8_t[8]); //check transfer_functions.c to make sure it is valid number of bytes
+void Config_Send_Period(uint8_t, uint8_t);
+void Config_Sync_Delay(uint8_t, uint8_t);
 
 #endif
