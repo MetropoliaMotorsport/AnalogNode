@@ -11,3 +11,6 @@ commands.c:147:6:Config_Analog_ID	24	static
 commands.c:163:6:Config_Diagnostics_ID	24	static
 commands.c:179:6:Config_Send_Period	16	static
 commands.c:186:6:Config_Sync_Delay	16	static
+commands.c:193:6:Config_Default_Driver_State	16	static
+commands.c:200:6:Config_Warn_Current	16	static
+commands.c:207:6:Config_Limit_Current	16	static

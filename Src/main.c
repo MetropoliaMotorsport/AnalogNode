@@ -335,7 +335,6 @@ void HAL_ADC_ConvCpltCallback(ADC_HandleTypeDef* hadc)
 
 			if (rawI>1000 || I>OverCurrentLimit)
 			{
-				//TODO: this should be PA9 instead
 				HAL_GPIO_WritePin(GPIOA, GPIO_PIN_9, 0);
 				driverState = 0;
 				driverError = 1;

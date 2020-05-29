@@ -36,5 +36,8 @@ void Config_Diagnostics_ID(uint8_t, uint8_t);
 void Config_Sensor_Bytes(uint8_t, uint8_t[8]); //check transfer_functions.c to make sure it is valid number of bytes
 void Config_Send_Period(uint8_t, uint8_t);
 void Config_Sync_Delay(uint8_t, uint8_t);
+void Config_Warn_Current(uint8_t, uint8_t);
+void Config_Limit_Current(uint8_t, uint8_t);
+void Config_Default_Driver_State(uint8_t);
 
 #endif
