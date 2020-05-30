@@ -57,6 +57,8 @@ uint8_t DriverDefaultState;
 uint32_t OverCurrentWarning; //in mA
 uint32_t OverCurrentLimit; //in mA
 
+uint8_t canDLC;
+
 //global variables
 uint8_t canErrorToTransmit; //8 32 bit values, each 32 bit value can store 32 errors or warnings
 uint32_t canErrors[8];
@@ -359,7 +361,7 @@ void Can_Send_Analog()
 	FDCAN_TxHeaderTypeDef TxHeader;
 
 	TxHeader.Identifier = CanId_Analog;
-	TxHeader.DataLength = (8<<16); //<<16 makes storing the number of bytes not require a switch statement for classic can
+	TxHeader.DataLength = (canDLC<<16); //<<16 makes storing the number of bytes not require a switch statement for classic can
 
 	//clear can tx data so that data from incorrectly configured message is 0
 	for(uint32_t i=0; i<8; i++)

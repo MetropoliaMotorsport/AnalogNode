@@ -11,6 +11,46 @@ void Config_Setup(void)
 
 		Config_1();
 
+#elif ID == 9
+
+		Config_9();
+
+#elif ID == 10
+
+		Config_10();
+
+#elif ID == 11
+
+		Config_11();
+
+#elif ID == 12
+
+		Config_12();
+
+#elif ID == 13
+
+		Config_13();
+
+#elif ID == 14
+
+		Config_14();
+
+#elif ID == 15
+
+		Config_15();
+
+#elif ID == 16
+
+		Config_16();
+
+#elif ID == 17
+
+		Config_17();
+
+#elif ID == 18
+
+		Config_18();
+
 #else //catch everything that is not a proper ID, give it settings that the debug board would get
 
 		Config_0();
@@ -51,6 +91,8 @@ void Config_0(void)
 
 	OverCurrentWarning = 1000;
 	OverCurrentLimit = 2000;
+
+	canDLC = 8;
 }
 
 void Config_1(void)
@@ -78,6 +120,8 @@ void Config_1(void)
 
 	OverCurrentWarning = 1000;
 	OverCurrentLimit = 2000;
+
+	canDLC = 6;
 }
 
 void Config_9(void)
@@ -94,7 +138,7 @@ void Config_9(void)
 	TransferFunctions[3] = VOLTAGE_3V3_UNCAL; //AI6 //NC
 
 	CanId_Analog = 0x690;
-	AnalogSensorBytes[0] = 2; //TODO
+	AnalogSensorBytes[0] = 2;
 	AnalogSensorBytes[1] = 1;
 	AnalogSensorBytes[2] = 1;
 	AnalogSensorBytes[3] = 0;
@@ -105,6 +149,8 @@ void Config_9(void)
 
 	OverCurrentWarning = 1000;
 	OverCurrentLimit = 2000;
+
+	canDLC = 4;
 }
 
 void Config_10(void)
@@ -132,6 +178,8 @@ void Config_10(void)
 
 	OverCurrentWarning = 1000;
 	OverCurrentLimit = 2000;
+
+	canDLC = 6;
 }
 
 void Config_11(void)
@@ -159,6 +207,8 @@ void Config_11(void)
 
 	OverCurrentWarning = 1000;
 	OverCurrentLimit = 2000;
+
+	canDLC = 5;
 }
 
 void Config_12(void)
@@ -186,6 +236,8 @@ void Config_12(void)
 
 	OverCurrentWarning = 1000;
 	OverCurrentLimit = 2000;
+
+	canDLC = 4;
 }
 
 void Config_13(void)
@@ -213,6 +265,8 @@ void Config_13(void)
 
 	OverCurrentWarning = 1000;
 	OverCurrentLimit = 2000;
+
+	canDLC = 4;
 }
 
 void Config_14(void)
@@ -240,6 +294,8 @@ void Config_14(void)
 
 	OverCurrentWarning = 1000;
 	OverCurrentLimit = 2000;
+
+	canDLC = 6;
 }
 
 void Config_15(void)
@@ -267,6 +323,8 @@ void Config_15(void)
 
 	OverCurrentWarning = 1000;
 	OverCurrentLimit = 2000;
+
+	canDLC = 3;
 }
 
 void Config_16(void)
@@ -294,6 +352,8 @@ void Config_16(void)
 
 	OverCurrentWarning = 1000;
 	OverCurrentLimit = 2000;
+
+	canDLC = 3;
 }
 
 void Config_17(void)
@@ -321,6 +381,8 @@ void Config_17(void)
 
 	OverCurrentWarning = 1000;
 	OverCurrentLimit = 2000;
+
+	canDLC = 3;
 }
 
 void Config_18(void)
@@ -348,6 +410,8 @@ void Config_18(void)
 
 	OverCurrentWarning = 1000;
 	OverCurrentLimit = 2000;
+
+	canDLC = 3;
 }
 
 
@@ -368,6 +432,8 @@ void Config_Write_Flash(void)
 
 	data[I_WARN_POS]=OverCurrentWarning;
 	data[I_ERROR_POS]=OverCurrentLimit;
+
+	data[CANDLC_POS]=canDLC;
 
 
 	Flash_Write(FLASH_PAGE_63, 63, data, 512);
@@ -398,6 +464,8 @@ void Config_Read_Flash(void)
 
 	OverCurrentWarning=I_WARN;
 	OverCurrentLimit=I_ERROR;
+
+	canDLC = CANDLC&0xFF;
 }
 
 

@@ -70,6 +70,8 @@ extern uint8_t DriverDefaultState; //TODO
 extern uint32_t OverCurrentWarning; //in mA
 extern uint32_t OverCurrentLimit; //in mA
 
+extern uint8_t canDLC;
+
 //externs
 extern uint8_t driverState;
 extern uint8_t driverError;
@@ -95,6 +97,8 @@ extern uint8_t driverError;
 #define I_WARN							(*(uint32_t*)(FLASH_PAGE_63+0x4*I_WARN_POS))
 #define I_ERROR_POS						(I_WARN_POS+1)
 #define I_ERROR							(*(uint32_t*)(FLASH_PAGE_63+0x4*I_ERROR_POS))
+#define CANDLC_POS						(I_ERROR_POS+1)
+#define CANDLC							(*(uint32_t*)(FLASH_PAGE_63+0x4*CANDLC_POS))
 
 
 //flash page definitions
