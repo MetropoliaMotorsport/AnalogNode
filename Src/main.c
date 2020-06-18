@@ -88,6 +88,8 @@ int main(void)
     if (HAL_ADC_Start_DMA(&hadc1, ADC1Data, hadc1.Init.NbrOfConversion) != HAL_OK) { Error_Handler(); }
     if (HAL_ADC_Start_DMA(&hadc2, ADC2Data, hadc2.Init.NbrOfConversion) != HAL_OK) { Error_Handler(); }
 
+    Can_Send_Analog();
+
 	while (1)
 	{
 		if (canSendFlag)
