@@ -1,7 +1,7 @@
 transfer_functions.c:15:10:TF_Select	24	static
-transfer_functions.c:66:10:TF_Raw	24	static
-transfer_functions.c:84:10:TF_Voltage	24	static
-transfer_functions.c:217:10:TF_NTC	24	static
-transfer_functions.c:238:10:TF_I_Transducer	24	static
-transfer_functions.c:287:10:TF_ZTP_115M	24	static
-transfer_functions.c:306:10:LUT	40	static
+transfer_functions.c:69:10:TF_Raw	24	static
+transfer_functions.c:87:10:TF_Voltage	24	static
+transfer_functions.c:220:10:TF_NTC	24	static
+transfer_functions.c:241:10:TF_I_Transducer	24	static
+transfer_functions.c:290:10:TF_ZTP_115M	24	static
+transfer_functions.c:309:10:LUT	40	static

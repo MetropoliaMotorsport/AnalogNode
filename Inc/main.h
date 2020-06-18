@@ -15,9 +15,9 @@ extern "C" {
 
 //definitions
 #define CANID_SYNC		0x80
-#define CANID_CONFIG	0x601
+#define CANID_CONFIG	0x602
 #define CANID_ERROR		0x600
-#define CANID_ACK	0x602
+#define CANID_ACK	0x601
 
 //temperature sensor definitions
 #define T110cal (*(uint16_t*)(0x1FFF75CA))

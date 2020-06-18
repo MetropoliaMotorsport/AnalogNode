@@ -196,9 +196,9 @@ void Config_11(void)
 	TransferFunctions[3] = RAW; //AI6 //apps 1
 
 	CanId_Analog = 0x694;
-	AnalogSensorBytes[0] = 2; //TODO
-	AnalogSensorBytes[1] = 1; //TODO
-	AnalogSensorBytes[2] = 1; //TODO
+	AnalogSensorBytes[0] = 2;
+	AnalogSensorBytes[1] = 1;
+	AnalogSensorBytes[2] = 1;
 	AnalogSensorBytes[3] = 1;
 	CanId_Diagnostics = 0x695;
 
@@ -256,8 +256,8 @@ void Config_13(void)
 	CanId_Analog = 0x698;
 	AnalogSensorBytes[0] = 0;
 	AnalogSensorBytes[1] = 0;
-	AnalogSensorBytes[2] = 2; //todo needs to be calibrated
-	AnalogSensorBytes[3] = 2; //todo needs to be calibrated
+	AnalogSensorBytes[2] = 2;
+	AnalogSensorBytes[3] = 2;
 	CanId_Diagnostics = 0x699;
 
 	SendAnalogPeriod = 0; //in 100us resolution
@@ -283,8 +283,8 @@ void Config_14(void)
 	TransferFunctions[3] = NTC_NTC1_360; //AI6 //oil temperature
 
 	CanId_Analog = 0x69A;
-	AnalogSensorBytes[0] = 2; //TODO
-	AnalogSensorBytes[1] = 2; //TODO
+	AnalogSensorBytes[0] = 2;
+	AnalogSensorBytes[1] = 2;
 	AnalogSensorBytes[2] = 1;
 	AnalogSensorBytes[3] = 1;
 	CanId_Diagnostics = 0x69B;

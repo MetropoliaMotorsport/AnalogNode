@@ -54,6 +54,9 @@ uint32_t TF_Select(uint8_t bytes, uint8_t sensor, uint16_t raw)
 	case DHABS106_500A:
 		transmit = TF_I_Transducer(bytes, sensor, raw);
 		break;
+	case ZTP_115M:
+		transmit = TF_ZTP_115M(bytes, raw);
+		break;
 	default:
 		Set_Error(ERR_INCORRECT_TF);
 		break;
