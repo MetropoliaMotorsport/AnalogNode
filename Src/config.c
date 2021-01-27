@@ -132,7 +132,7 @@ void Config_9(void)
 	SensorRollingAverages[1] = 32; //AI3
 	SensorRollingAverages[2] = 32; //AI5
 	SensorRollingAverages[3] = 1; //AI6
-	TransferFunctions[0] = VOLTAGE_3V3_UNCAL; //AI2 //brake temperature
+	TransferFunctions[0] = INFKL800; //AI2 //brake temperature
 	TransferFunctions[1] = NTC_NTC1_360; //AI3 //oil temperature
 	TransferFunctions[2] = NTC_NTC1_680; //AI5 //water temperature
 	TransferFunctions[3] = VOLTAGE_3V3_UNCAL; //AI6 //NC
@@ -190,7 +190,7 @@ void Config_11(void)
 	SensorRollingAverages[1] = 32; //AI3
 	SensorRollingAverages[2] = 32; //AI5
 	SensorRollingAverages[3] = 32; //AI6
-	TransferFunctions[0] = VOLTAGE_3V3_UNCAL; //AI2 //brake temperature
+	TransferFunctions[0] = INFKL800; //AI2 //brake temperature
 	TransferFunctions[1] = SOE_BRK_PRES; //AI3 //brake pressure
 	TransferFunctions[2] = SOE_BRK_PRES; //AI5 //brake pressure
 	TransferFunctions[3] = RAW; //AI6 //apps 1
@@ -277,8 +277,8 @@ void Config_14(void)
 	SensorRollingAverages[1] = 32; //AI3
 	SensorRollingAverages[2] = 32; //AI5
 	SensorRollingAverages[3] = 32; //AI6
-	TransferFunctions[0] = VOLTAGE_3V3_UNCAL; //AI2 //brake temperature
-	TransferFunctions[1] = VOLTAGE_3V3_UNCAL; //AI3 //brake temperature
+	TransferFunctions[0] = INFKL800; //AI2 //brake temperature
+	TransferFunctions[1] = INFKL800; //AI3 //brake temperature
 	TransferFunctions[2] = NTC_NTC1_360; //AI5 //oil temperature
 	TransferFunctions[3] = NTC_NTC1_360; //AI6 //oil temperature
 

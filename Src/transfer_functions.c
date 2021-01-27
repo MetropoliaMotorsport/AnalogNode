@@ -324,19 +324,20 @@ uint32_t TF_SOE_BRK_PRES(uint8_t bytes, uint16_t raw)
 	return pressure;
 }
 
-uint32_t TF_INFKL-800(uint8_t bytes, uint16_t raw)
+uint32_t TF_INFKL800(uint8_t bytes, uint16_t raw)
 {
 	int32_t temperature = 0;
 
-
+	temperature = (raw*310)/125 - 1000;
 
 	switch(bytes)
 	{
 	case 1:
-
+		temperature += 50;
+		temperature /= 100; //10's of °C
 		break;
 	case 2:
-		pressure = (raw*1648)/25 - 500; //in .1's of bars
+		//do nothing, .1's of °C
 		break;
 	default:
 		Set_Error(ERR_WRONG_BYTES);
