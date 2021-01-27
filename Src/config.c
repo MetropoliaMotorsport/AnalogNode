@@ -191,14 +191,14 @@ void Config_11(void)
 	SensorRollingAverages[2] = 32; //AI5
 	SensorRollingAverages[3] = 32; //AI6
 	TransferFunctions[0] = VOLTAGE_3V3_UNCAL; //AI2 //brake temperature
-	TransferFunctions[1] = VOLTAGE_3V3_UNCAL; //AI3 //brake pressure
-	TransferFunctions[2] = VOLTAGE_3V3_UNCAL; //AI5 //brake pressure
+	TransferFunctions[1] = SOE_BRK_PRES; //AI3 //brake pressure
+	TransferFunctions[2] = SOE_BRK_PRES; //AI5 //brake pressure
 	TransferFunctions[3] = RAW; //AI6 //apps 1
 
 	CanId_Analog = 0x694;
 	AnalogSensorBytes[0] = 2;
-	AnalogSensorBytes[1] = 1;
-	AnalogSensorBytes[2] = 1;
+	AnalogSensorBytes[1] = 2;
+	AnalogSensorBytes[2] = 2;
 	AnalogSensorBytes[3] = 1;
 	CanId_Diagnostics = 0x695;
 

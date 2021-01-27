@@ -57,6 +57,9 @@ uint32_t TF_Select(uint8_t bytes, uint8_t sensor, uint16_t raw)
 	case ZTP_115M:
 		transmit = TF_ZTP_115M(bytes, raw);
 		break;
+	case SOE_BRK_PRES:
+		transmit = TF_SOE_BRK_PRES(bytes, raw);
+		break;
 	default:
 		Set_Error(ERR_INCORRECT_TF);
 		break;
@@ -304,6 +307,22 @@ uint32_t TF_ZTP_115M(uint8_t bytes, uint16_t raw)
 	return temperature; //cast int as uint; this works fine for sending ints as long as expecting ints on other side
 }
 
+uint32_t TF_SOE_BRK_PRES(uint8_t bytes, uint8_t divider, uint16_t raw)
+{
+	int32_t pressure = 0;
+
+	switch(bytes)
+	{
+	case 2:
+		pressure = (raw*1648)/25 - 500; //in .1's of bars
+		break;
+	default:
+		Set_Error(ERR_WRONG_BYTES);
+		break;
+	}
+
+	return pressure;
+}
 
 
 uint32_t LUT(uint16_t input, uint32_t* LUT, uint8_t LUT_length_LN2)
