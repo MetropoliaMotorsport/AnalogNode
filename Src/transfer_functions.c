@@ -60,6 +60,9 @@ uint32_t TF_Select(uint8_t bytes, uint8_t sensor, uint16_t raw)
 	case SOE_BRK_PRES:
 		transmit = TF_SOE_BRK_PRES(bytes, raw);
 		break;
+	case INFKL800:
+		transmit = TF_INFKL800(bytes, raw);
+		break;
 	default:
 		Set_Error(ERR_INCORRECT_TF);
 		break;

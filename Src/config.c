@@ -208,7 +208,7 @@ void Config_11(void)
 	OverCurrentWarning = 1000;
 	OverCurrentLimit = 2000;
 
-	canDLC = 5;
+	canDLC = 7;
 }
 
 void Config_12(void)
