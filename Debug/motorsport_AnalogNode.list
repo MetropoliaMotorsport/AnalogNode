@@ -37,13 +37,13 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   CONTENTS, READONLY, DEBUGGING
  16 .debug_macro  0002086a  00000000  00000000  0003bfc0  2**0
                   CONTENTS, READONLY, DEBUGGING
- 17 .debug_line   0000fb63  00000000  00000000  0005c82a  2**0
+ 17 .debug_line   0000fb5f  00000000  00000000  0005c82a  2**0
                   CONTENTS, READONLY, DEBUGGING
- 18 .debug_str    000d8bc5  00000000  00000000  0006c38d  2**0
+ 18 .debug_str    000d8bc5  00000000  00000000  0006c389  2**0
                   CONTENTS, READONLY, DEBUGGING
- 19 .comment      0000007b  00000000  00000000  00144f52  2**0
+ 19 .comment      0000007b  00000000  00000000  00144f4e  2**0
                   CONTENTS, READONLY
- 20 .debug_frame  0000600c  00000000  00000000  00144fd0  2**2
+ 20 .debug_frame  0000600c  00000000  00000000  00144fcc  2**2
                   CONTENTS, READONLY, DEBUGGING
 
 Disassembly of section .text:
@@ -13146,7 +13146,7 @@ void Acknowledge(uint8_t cmd)
 
 	CANTxData[0]=ID;
  8004a42:	4b33      	ldr	r3, [pc, #204]	; (8004b10 <Acknowledge+0xe4>)
- 8004a44:	220f      	movs	r2, #15
+ 8004a44:	2212      	movs	r2, #18
  8004a46:	701a      	strb	r2, [r3, #0]
 	CANTxData[1]=cmd;
  8004a48:	4a31      	ldr	r2, [pc, #196]	; (8004b10 <Acknowledge+0xe4>)
@@ -13864,12 +13864,12 @@ void Config_Setup(void)
  8004e7c:	f1b3 3fff 	cmp.w	r3, #4294967295
  8004e80:	d104      	bne.n	8004e8c <Config_Setup+0x1c>
 
-		Config_14();
+		Config_17();
 
-#elif ID == 15
+#elif ID == 18
 
-		Config_15();
- 8004e82:	f000 f809 	bl	8004e98 <Config_15>
+		Config_18();
+ 8004e82:	f000 f809 	bl	8004e98 <Config_18>
 
 		Config_0();
 
@@ -13891,101 +13891,101 @@ void Config_Setup(void)
  8004e92:	bd80      	pop	{r7, pc}
  8004e94:	0801f800 	.word	0x0801f800
 
-08004e98 <Config_15>:
+08004e98 <Config_18>:
 
-	canDLC = 6;
+	canDLC = 3;
 }
 
-void Config_15(void)
+void Config_18(void)
 {
  8004e98:	b480      	push	{r7}
  8004e9a:	af00      	add	r7, sp, #0
 	MeasureDriverCurrent = 0;
- 8004e9c:	4b23      	ldr	r3, [pc, #140]	; (8004f2c <Config_15+0x94>)
+ 8004e9c:	4b23      	ldr	r3, [pc, #140]	; (8004f2c <Config_18+0x94>)
  8004e9e:	2200      	movs	r2, #0
  8004ea0:	701a      	strb	r2, [r3, #0]
 	MeasureTemperature = 1;
- 8004ea2:	4b23      	ldr	r3, [pc, #140]	; (8004f30 <Config_15+0x98>)
+ 8004ea2:	4b23      	ldr	r3, [pc, #140]	; (8004f30 <Config_18+0x98>)
  8004ea4:	2201      	movs	r2, #1
  8004ea6:	701a      	strb	r2, [r3, #0]
 	SensorRollingAverages[0] = 1; //AI2
- 8004ea8:	4b22      	ldr	r3, [pc, #136]	; (8004f34 <Config_15+0x9c>)
+ 8004ea8:	4b22      	ldr	r3, [pc, #136]	; (8004f34 <Config_18+0x9c>)
  8004eaa:	2201      	movs	r2, #1
  8004eac:	801a      	strh	r2, [r3, #0]
 	SensorRollingAverages[1] = 32; //AI3
- 8004eae:	4b21      	ldr	r3, [pc, #132]	; (8004f34 <Config_15+0x9c>)
+ 8004eae:	4b21      	ldr	r3, [pc, #132]	; (8004f34 <Config_18+0x9c>)
  8004eb0:	2220      	movs	r2, #32
  8004eb2:	805a      	strh	r2, [r3, #2]
 	SensorRollingAverages[2] = 32; //AI5
- 8004eb4:	4b1f      	ldr	r3, [pc, #124]	; (8004f34 <Config_15+0x9c>)
+ 8004eb4:	4b1f      	ldr	r3, [pc, #124]	; (8004f34 <Config_18+0x9c>)
  8004eb6:	2220      	movs	r2, #32
  8004eb8:	809a      	strh	r2, [r3, #4]
 	SensorRollingAverages[3] = 32; //AI6
- 8004eba:	4b1e      	ldr	r3, [pc, #120]	; (8004f34 <Config_15+0x9c>)
+ 8004eba:	4b1e      	ldr	r3, [pc, #120]	; (8004f34 <Config_18+0x9c>)
  8004ebc:	2220      	movs	r2, #32
  8004ebe:	80da      	strh	r2, [r3, #6]
 	TransferFunctions[0] = VOLTAGE_3V3_UNCAL; //AI2 //NC
- 8004ec0:	4b1d      	ldr	r3, [pc, #116]	; (8004f38 <Config_15+0xa0>)
+ 8004ec0:	4b1d      	ldr	r3, [pc, #116]	; (8004f38 <Config_18+0xa0>)
  8004ec2:	2201      	movs	r2, #1
  8004ec4:	701a      	strb	r2, [r3, #0]
 	TransferFunctions[1] = ZTP_115M; //AI3 //tire temperature
- 8004ec6:	4b1c      	ldr	r3, [pc, #112]	; (8004f38 <Config_15+0xa0>)
+ 8004ec6:	4b1c      	ldr	r3, [pc, #112]	; (8004f38 <Config_18+0xa0>)
  8004ec8:	220c      	movs	r2, #12
  8004eca:	705a      	strb	r2, [r3, #1]
 	TransferFunctions[2] = ZTP_115M; //AI5 //tire temperature
- 8004ecc:	4b1a      	ldr	r3, [pc, #104]	; (8004f38 <Config_15+0xa0>)
+ 8004ecc:	4b1a      	ldr	r3, [pc, #104]	; (8004f38 <Config_18+0xa0>)
  8004ece:	220c      	movs	r2, #12
  8004ed0:	709a      	strb	r2, [r3, #2]
 	TransferFunctions[3] = ZTP_115M; //AI6 //tire temperature
- 8004ed2:	4b19      	ldr	r3, [pc, #100]	; (8004f38 <Config_15+0xa0>)
+ 8004ed2:	4b19      	ldr	r3, [pc, #100]	; (8004f38 <Config_18+0xa0>)
  8004ed4:	220c      	movs	r2, #12
  8004ed6:	70da      	strb	r2, [r3, #3]
 
-	CanId_Analog = 0x69C;
- 8004ed8:	4b18      	ldr	r3, [pc, #96]	; (8004f3c <Config_15+0xa4>)
- 8004eda:	f240 629c 	movw	r2, #1692	; 0x69c
+	CanId_Analog = 0x6A2;
+ 8004ed8:	4b18      	ldr	r3, [pc, #96]	; (8004f3c <Config_18+0xa4>)
+ 8004eda:	f240 62a2 	movw	r2, #1698	; 0x6a2
  8004ede:	801a      	strh	r2, [r3, #0]
 	AnalogSensorBytes[0] = 0;
- 8004ee0:	4b17      	ldr	r3, [pc, #92]	; (8004f40 <Config_15+0xa8>)
+ 8004ee0:	4b17      	ldr	r3, [pc, #92]	; (8004f40 <Config_18+0xa8>)
  8004ee2:	2200      	movs	r2, #0
  8004ee4:	701a      	strb	r2, [r3, #0]
 	AnalogSensorBytes[1] = 1;
- 8004ee6:	4b16      	ldr	r3, [pc, #88]	; (8004f40 <Config_15+0xa8>)
+ 8004ee6:	4b16      	ldr	r3, [pc, #88]	; (8004f40 <Config_18+0xa8>)
  8004ee8:	2201      	movs	r2, #1
  8004eea:	705a      	strb	r2, [r3, #1]
 	AnalogSensorBytes[2] = 1;
- 8004eec:	4b14      	ldr	r3, [pc, #80]	; (8004f40 <Config_15+0xa8>)
+ 8004eec:	4b14      	ldr	r3, [pc, #80]	; (8004f40 <Config_18+0xa8>)
  8004eee:	2201      	movs	r2, #1
  8004ef0:	709a      	strb	r2, [r3, #2]
 	AnalogSensorBytes[3] = 1;
- 8004ef2:	4b13      	ldr	r3, [pc, #76]	; (8004f40 <Config_15+0xa8>)
+ 8004ef2:	4b13      	ldr	r3, [pc, #76]	; (8004f40 <Config_18+0xa8>)
  8004ef4:	2201      	movs	r2, #1
  8004ef6:	70da      	strb	r2, [r3, #3]
-	CanId_Diagnostics = 0x69D;
- 8004ef8:	4b12      	ldr	r3, [pc, #72]	; (8004f44 <Config_15+0xac>)
- 8004efa:	f240 629d 	movw	r2, #1693	; 0x69d
+	CanId_Diagnostics = 0x6A3;
+ 8004ef8:	4b12      	ldr	r3, [pc, #72]	; (8004f44 <Config_18+0xac>)
+ 8004efa:	f240 62a3 	movw	r2, #1699	; 0x6a3
  8004efe:	801a      	strh	r2, [r3, #0]
 
 	SendAnalogPeriod = 0; //in 100us resolution
- 8004f00:	4b11      	ldr	r3, [pc, #68]	; (8004f48 <Config_15+0xb0>)
+ 8004f00:	4b11      	ldr	r3, [pc, #68]	; (8004f48 <Config_18+0xb0>)
  8004f02:	2200      	movs	r2, #0
  8004f04:	801a      	strh	r2, [r3, #0]
 	CanSyncDelay = 0; //in 10us resolution
- 8004f06:	4b11      	ldr	r3, [pc, #68]	; (8004f4c <Config_15+0xb4>)
+ 8004f06:	4b11      	ldr	r3, [pc, #68]	; (8004f4c <Config_18+0xb4>)
  8004f08:	2200      	movs	r2, #0
  8004f0a:	801a      	strh	r2, [r3, #0]
 
 	OverCurrentWarning = 1000;
- 8004f0c:	4b10      	ldr	r3, [pc, #64]	; (8004f50 <Config_15+0xb8>)
+ 8004f0c:	4b10      	ldr	r3, [pc, #64]	; (8004f50 <Config_18+0xb8>)
  8004f0e:	f44f 727a 	mov.w	r2, #1000	; 0x3e8
  8004f12:	601a      	str	r2, [r3, #0]
 	OverCurrentLimit = 2000;
- 8004f14:	4b0f      	ldr	r3, [pc, #60]	; (8004f54 <Config_15+0xbc>)
+ 8004f14:	4b0f      	ldr	r3, [pc, #60]	; (8004f54 <Config_18+0xbc>)
  8004f16:	f44f 62fa 	mov.w	r2, #2000	; 0x7d0
  8004f1a:	601a      	str	r2, [r3, #0]
 
 	canDLC = 3;
- 8004f1c:	4b0e      	ldr	r3, [pc, #56]	; (8004f58 <Config_15+0xc0>)
+ 8004f1c:	4b0e      	ldr	r3, [pc, #56]	; (8004f58 <Config_18+0xc0>)
  8004f1e:	2203      	movs	r2, #3
  8004f20:	701a      	strb	r2, [r3, #0]
 }
@@ -14007,8 +14007,6 @@ void Config_15(void)
  8004f58:	20000fe4 	.word	0x20000fe4
 
 08004f5c <Config_Write_Flash>:
-	canDLC = 3;
-}
 
 
 void Config_Write_Flash(void)
@@ -14759,7 +14757,7 @@ void HAL_FDCAN_RxFifo0Callback(FDCAN_HandleTypeDef *hfdcan, uint32_t RxFifo0ITs)
  800547a:	f040 81e4 	bne.w	8005846 <HAL_FDCAN_RxFifo0Callback+0x466>
 			if (CANRxData[0] == ID)
  800547e:	7b3b      	ldrb	r3, [r7, #12]
- 8005480:	2b0f      	cmp	r3, #15
+ 8005480:	2b12      	cmp	r3, #18
  8005482:	f040 81e4 	bne.w	800584e <HAL_FDCAN_RxFifo0Callback+0x46e>
 				switch(CANRxData[1])
  8005486:	7b7b      	ldrb	r3, [r7, #13]
@@ -16299,7 +16297,7 @@ void Send_Error(void)
 
 				CANTxData[0]=ID;
  8006050:	4b30      	ldr	r3, [pc, #192]	; (8006114 <Send_Error+0xfc>)
- 8006052:	220f      	movs	r2, #15
+ 8006052:	2212      	movs	r2, #18
  8006054:	701a      	strb	r2, [r3, #0]
 				CANTxData[1]=i;
  8006056:	6a7b      	ldr	r3, [r7, #36]	; 0x24

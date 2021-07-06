@@ -6,4 +6,4 @@ transfer_functions.c:244:10:TF_I_Transducer	24	static
 transfer_functions.c:293:10:TF_ZTP_115M	24	static
 transfer_functions.c:310:10:TF_SOE_BRK_PRES	24	static
 transfer_functions.c:327:10:TF_INFKL800	24	static
-transfer_functions.c:350:10:LUT	40	static
+transfer_functions.c:351:10:LUT	40	static

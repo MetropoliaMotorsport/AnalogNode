@@ -2715,11 +2715,11 @@ Discarded input sections
                 0x0000000000000000       0xc4 Src/config.o
  .text.Config_14
                 0x0000000000000000       0xc4 Src/config.o
+ .text.Config_15
+                0x0000000000000000       0xc4 Src/config.o
  .text.Config_16
                 0x0000000000000000       0xc4 Src/config.o
  .text.Config_17
-                0x0000000000000000       0xc4 Src/config.o
- .text.Config_18
                 0x0000000000000000       0xc4 Src/config.o
  .debug_macro   0x0000000000000000      0xa5a Src/config.o
  .debug_macro   0x0000000000000000      0x154 Src/config.o
@@ -3393,7 +3393,7 @@ Discarded input sections
  .data          0x0000000000000000        0x0 Src/transfer_functions.o
  .bss           0x0000000000000000        0x0 Src/transfer_functions.o
  .text.TF_INFKL800
-                0x0000000000000000       0x58 Src/transfer_functions.o
+                0x0000000000000000       0x70 Src/transfer_functions.o
  .debug_macro   0x0000000000000000      0xa5a Src/transfer_functions.o
  .debug_macro   0x0000000000000000      0x154 Src/transfer_functions.o
  .debug_macro   0x0000000000000000       0x2e Src/transfer_functions.o
@@ -3932,9 +3932,9 @@ LOAD c:/st/stm32cubeide_1.0.2/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.exte
  .text.Config_Setup
                 0x0000000008004e70       0x28 Src/config.o
                 0x0000000008004e70                Config_Setup
- .text.Config_15
+ .text.Config_18
                 0x0000000008004e98       0xc4 Src/config.o
-                0x0000000008004e98                Config_15
+                0x0000000008004e98                Config_18
  .text.Config_Write_Flash
                 0x0000000008004f5c      0x130 Src/config.o
                 0x0000000008004f5c                Config_Write_Flash
@@ -4587,7 +4587,7 @@ OUTPUT(motorsport_AnalogNode.elf elf32-littlearm)
  .debug_macro   0x0000000000020463      0x1eb Src/system_stm32g4xx.o
  .debug_macro   0x000000000002064e      0x21c Src/transfer_functions.o
 
-.debug_line     0x0000000000000000     0xfb63
+.debug_line     0x0000000000000000     0xfb5f
  .debug_line    0x0000000000000000      0x9a2 Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal.o
  .debug_line    0x00000000000009a2     0x14e6 Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_adc.o
  .debug_line    0x0000000000001e88     0x1202 Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_adc_ex.o
@@ -4603,13 +4603,13 @@ OUTPUT(motorsport_AnalogNode.elf elf32-littlearm)
  .debug_line    0x0000000000008ed8     0x1c6a Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_tim.o
  .debug_line    0x000000000000ab42     0x10db Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_tim_ex.o
  .debug_line    0x000000000000bc1d      0x8b2 Src/commands.o
- .debug_line    0x000000000000c4cf      0x9f1 Src/config.o
- .debug_line    0x000000000000cec0      0xba9 Src/main.o
- .debug_line    0x000000000000da69      0x83e Src/stm32g4xx_hal_msp.o
- .debug_line    0x000000000000e2a7      0x84e Src/stm32g4xx_it.o
- .debug_line    0x000000000000eaf5      0x719 Src/system_stm32g4xx.o
- .debug_line    0x000000000000f20e      0x8d1 Src/transfer_functions.o
- .debug_line    0x000000000000fadf       0x84 Startup/startup_stm32g441kbtx.o
+ .debug_line    0x000000000000c4cf      0x9ef Src/config.o
+ .debug_line    0x000000000000cebe      0xba9 Src/main.o
+ .debug_line    0x000000000000da67      0x83e Src/stm32g4xx_hal_msp.o
+ .debug_line    0x000000000000e2a5      0x84e Src/stm32g4xx_it.o
+ .debug_line    0x000000000000eaf3      0x719 Src/system_stm32g4xx.o
+ .debug_line    0x000000000000f20c      0x8cf Src/transfer_functions.o
+ .debug_line    0x000000000000fadb       0x84 Startup/startup_stm32g441kbtx.o
 
 .debug_str      0x0000000000000000    0xd8bc5
  .debug_str     0x0000000000000000    0xd023a Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal.o

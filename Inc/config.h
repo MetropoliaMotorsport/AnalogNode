@@ -2,7 +2,7 @@
 #define CONFIG_H_
 
 //ID definition
-#define ID 15
+#define ID 18
 
 //definitions
 #define ROLLING_AVERAGE_MAX 128
