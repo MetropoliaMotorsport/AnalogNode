@@ -192,14 +192,14 @@ void Config_11(void)
 	SensorRollingAverages[3] = 32; //AI6
 	TransferFunctions[0] = INFKL800; //AI2 //brake temperature
 	TransferFunctions[1] = SOE_BRK_PRES; //AI3 //brake pressure
-	TransferFunctions[2] = SOE_BRK_PRES; //AI5 //brake pressure
-	TransferFunctions[3] = RAW; //AI6 //apps 1
+	TransferFunctions[2] = RAW; //AI5 //brake pressure
+	TransferFunctions[3] = SOE_BRK_PRES; //AI6 //apps 1
 
 	CanId_Analog = 0x694;
 	AnalogSensorBytes[0] = 2;
 	AnalogSensorBytes[1] = 2;
 	AnalogSensorBytes[2] = 2;
-	AnalogSensorBytes[3] = 1;
+	AnalogSensorBytes[3] = 2;
 	CanId_Diagnostics = 0x695;
 
 	SendAnalogPeriod = 0; //in 100us resolution
@@ -208,7 +208,7 @@ void Config_11(void)
 	OverCurrentWarning = 1000;
 	OverCurrentLimit = 2000;
 
-	canDLC = 7;
+	canDLC = 8;
 }
 
 void Config_12(void)
