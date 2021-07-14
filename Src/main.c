@@ -67,6 +67,36 @@ uint8_t canSendFlag;
 uint8_t driverState;
 uint8_t driverError;
 
+uint8_t CheckCanError( void )
+{
+	FDCAN_ProtocolStatusTypeDef CAN1Status;
+
+	static uint8_t offcan1 = 0;
+
+	HAL_FDCAN_GetProtocolStatus(&hfdcan, &CAN1Status);
+
+	static uint8_t offcan = 0;
+
+	if ( !offcan1 && CAN1Status.BusOff) // detect passive error instead and try to stay off bus till clears?
+	{
+		  HAL_FDCAN_Stop(&hfdcan);
+		  Set_Error(ERR_CANOFFLINE);
+		  // set LED.
+		  offcan = 1;
+		  return 0;
+	}
+
+	// use the senderrorflag to only try once a second to get back onbus.
+	if ( CAN1Status.BusOff && canSendErrorFlag )
+	{
+		if (HAL_FDCAN_Start(&hfdcan) == HAL_OK)
+		{
+			offcan = 0;
+		}
+	}
+
+	return offcan;
+}
 
 int main(void)
 {
@@ -92,18 +122,21 @@ int main(void)
 
 	while (1)
 	{
-		if (canSendFlag)
+		if ( ! CheckCanError() ) // don't try to do anything canbus related if it's offline.
 		{
-			Can_Send_Analog();
-			canSendFlag=0;
-		}
-
-		if (canErrorToTransmit && canSendErrorFlag)
-		{
-			Send_Error();
-			if(!canErrorToTransmit)
+			if (canSendFlag)
 			{
-				canSendErrorFlag=0;
+				Can_Send_Analog();
+				canSendFlag=0;
+			}
+
+			if (canErrorToTransmit && canSendErrorFlag)
+			{
+				Send_Error();
+				if(!canErrorToTransmit)
+				{
+					canSendErrorFlag=0;
+				}
 			}
 		}
 	}
