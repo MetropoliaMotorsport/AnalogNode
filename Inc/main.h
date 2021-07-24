@@ -41,6 +41,8 @@ void Send_Error(void);
 #define ERR_INVALID_COMMAND			5
 #define ERR_COMMAND_SHORT			6
 
+#define ERR_CANOFFLINE				11
+
 #define ERR_WRONG_BYTES				33
 #define ERR_INCORRECT_TF			34
 #define ERR_INCORRECT_TF_VOLTAGE	35
