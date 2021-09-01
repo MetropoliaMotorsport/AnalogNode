@@ -240,6 +240,20 @@ uint32_t TF_NTC(uint8_t bytes, uint8_t resistor, uint16_t raw)
 		break;
 	}
 
+	switch(bytes)
+	{
+	case 1:
+		temperature = temperature / 10;
+		break;
+	case 2:
+		break;
+	default:
+		Set_Error(ERR_WRONG_BYTES);
+		break;
+	}
+
+
+
 	return temperature;
 }
 
