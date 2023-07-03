@@ -351,7 +351,7 @@ uint32_t TF_SOE_BRK_PRES23(uint8_t bytes, uint16_t raw)
 	switch(bytes)
 	{
 	case 2:
-		pressure = (raw-780)*(200-0)/(4095-780); //in .1's of bars
+		pressure = (raw-333)*(200-0)/(4095-333)*10; //in .1's of bars
 		break;
 	default:
 		Set_Error(ERR_WRONG_BYTES);
