@@ -18,6 +18,7 @@
 #define ZTP_115M				12
 #define SOE_BRK_PRES			13
 #define INFKL800				14
+#define SOE_BRK_PRES23			15
 
 //prototypes
 uint32_t TF_Select(uint8_t, uint8_t, uint16_t);
@@ -29,6 +30,7 @@ uint32_t TF_I_Transducer(uint8_t, uint8_t, uint16_t);
 uint32_t TF_ZTP_115M(uint8_t, uint16_t);
 uint32_t TF_SOE_BRK_PRES(uint8_t, uint16_t);
 uint32_t TF_INFKL800(uint8_t, uint16_t);
+uint32_t TF_SOE_BRK_PRES23(uint8_t bytes, uint16_t raw);
 
 uint32_t LUT(uint16_t, uint32_t*, uint8_t);
 

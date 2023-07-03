@@ -63,6 +63,9 @@ uint32_t TF_Select(uint8_t bytes, uint8_t sensor, uint16_t raw)
 	case INFKL800:
 		transmit = TF_INFKL800(bytes, raw);
 		break;
+	case SOE_BRK_PRES23:
+		transmit = TF_SOE_BRK_PRES23(bytes, raw);
+		break;
 	default:
 		Set_Error(ERR_INCORRECT_TF);
 		break;
@@ -340,6 +343,24 @@ uint32_t TF_SOE_BRK_PRES(uint8_t bytes, uint16_t raw)
 
 	return pressure;
 }
+
+uint32_t TF_SOE_BRK_PRES23(uint8_t bytes, uint16_t raw)
+{
+	int32_t pressure = 0;
+
+	switch(bytes)
+	{
+	case 2:
+		pressure = (raw-780)*(200-0)/(4095-780); //in .1's of bars
+		break;
+	default:
+		Set_Error(ERR_WRONG_BYTES);
+		break;
+	}//40
+
+	return pressure;
+}
+
 
 uint32_t TF_INFKL800(uint8_t bytes, uint16_t raw)
 {
