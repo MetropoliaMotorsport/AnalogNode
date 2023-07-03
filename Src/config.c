@@ -197,7 +197,7 @@ void Config_11(void)
 	TransferFunctions[3] = RAW; //AI6 //apps 1
 
 	CanId_Analog = 0x694;
-	AnalogSensorBytes[0] = 2;
+	AnalogSensorBytes[0] = 0;
 	AnalogSensorBytes[1] = 2;
 	AnalogSensorBytes[2] = 2;
 	AnalogSensorBytes[3] = 2;
@@ -209,7 +209,7 @@ void Config_11(void)
 	OverCurrentWarning = 1000;
 	OverCurrentLimit = 2000;
 
-	canDLC = 8;
+	canDLC = 6;
 }
 #else
 void Config_11(void)
