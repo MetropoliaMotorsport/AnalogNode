@@ -1,8 +1,10 @@
 #ifndef CONFIG_H_
 #define CONFIG_H_
 
+#define HPF2023
+
 //ID definition
-#define ID 18
+#define ID 11
 
 //definitions
 #define ROLLING_AVERAGE_MAX 128
